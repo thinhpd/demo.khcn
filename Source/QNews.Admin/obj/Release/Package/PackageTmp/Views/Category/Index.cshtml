@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Quản lý chuyên mục nội dung";
+}
+<script type="text/javascript">
+
+    urlLists = '@Url.Action("ListItems", "Category")';
+    urlForm = '@Url.Action("AjaxForm", "Category")';
+    urlSort = '@Url.Action("AjaxSort", "Category")';
+    urlPostAction = '@Url.Action("Actions", "Category")';
+    urlView = '@Url.Action("AjaxView", "Category")';
+    formWidth = 900;
+    formHeight = 450;
+    viewWidth = 900;
+    viewHeight = 'auto';
+
+    $(document).ready(function () {
+        initAjaxLoad(urlLists, "#CategoryGriditems");
+
+        $("#gridSearch").submit(function () {
+            var form = $("#gridSearch");
+            window.location.href = '#' + getValueFormMutilSelect(form);
+            return false;
+        });
+
+        $("#btn_add").click(function () {
+            $("#dialog-form").dialog(
+				{
+				    title: "Thêm mới category",
+				    width: formWidth,
+				    height: formHeight
+				}
+			).load(encodeURI(urlForm + "?do=Add")).dialog("open");
+            return false;
+        });
+    });
+</script>
+@Html.AntiForgeryToken()
+<div class="zone zone-content">
+    <h1>Quản lý chuyên mục sản phẩm</h1>
+    <div class="headear">
+        <div class="searchbox">
+            @Html.ActionLink("Thêm mới", "Create", new {}, new { @class = "add button primaryAction", @id= "btn_add"})
+        </div>
+    </div>
+    <div id="treecontrol" class="treeTool">
+		<a title="Đóng tất cả các nhánh" href="#" class="collapse">Đóng tất cả</a>
+		<a title="Mở tất cả các nhánh" href="#" class="expand">Mở tất cả</a>
+	</div>
+    <div id="CategoryGriditems">
+        
+    </div>
+</div>

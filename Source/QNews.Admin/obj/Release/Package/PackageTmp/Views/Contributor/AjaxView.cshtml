@@ -1,0 +1,26 @@
+﻿@model QNews.Base.Contributor
+
+@{
+    ViewBag.Title = "Xem chi tiết";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+
+<fieldset class="forms">
+    <table class="tableforms tabledetails" cellspacing="1" width="100%">
+        <tr>
+            <td style="width:160px;" class="label"><label>Tên biên tập viên</label></td>
+            <td>
+                @Html.DisplayFor(model => model.Title)
+            </td>
+        </tr>
+        
+
+        <tr>
+            <td class="label"><label>Mô tả</label></td>
+            <td>
+                @Html.Raw(Model.Description)
+            </td>
+        </tr>
+
+    </table>
+</fieldset>

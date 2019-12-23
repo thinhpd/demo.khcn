@@ -1,0 +1,114 @@
+﻿@model QNews.Base.Clone_Replace
+@{
+    ViewBag.Title = ViewBag.ActionText + " dữ liệu thay thế";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#CloneReplaceForm").validate({
+            rules: {
+                Title:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                DomainID:
+                {
+                    required: true
+                },
+                ReplaceIn:
+                {
+                    required: true
+                },
+                StringSource:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                }
+            },
+            submitHandler: function () { //onSubmit
+                $.post(urlPostAction, $("#CloneReplaceForm").serialize({ checkboxesAsBools: true }), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+    });
+</script>
+
+
+<form id="CloneReplaceForm">
+    @Html.AntiForgeryToken()<input type="hidden" name="do" id="do" value="@ViewBag.Action" />
+    <input type="hidden" name="ItemID" id="ItemID" value="@Model.ID" />
+    <fieldset class="forms">
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:140px;"><label>Tiêu đề, mô tả</label></td>
+                <td>
+                    <input type="text" name="Title" id="Title" value="@Model.Title" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Thay thế trong tên miền</label></td>
+                <td>
+                    <select name="DomainID" id="DomainID">
+                        <option value="">...</option>
+                        @foreach (var item in ViewBag.AllDomain)
+                        {
+                            <option value="@item.ID" @((item.ID == Model.DomainID) ? " selected" : "")>@item.Title</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Thay thế trong trong vùng</label></td>
+                <td>
+                    <select name="ReplaceIn" id="ReplaceIn">
+                        <option value="">...</option>
+                        @foreach (var item in ViewBag.AllType)
+                        {
+                            <option value="@item.ID" @((item.ID == Model.ReplaceIn) ? " selected" : "")>@item.Title</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Từ cần tìm</label></td>
+                <td>
+                    <input type="text" name="StringSource" id="StringSource" value="@Model.StringSource" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Từ thay thế</label></td>
+                <td>
+                    <input type="text" name="StringDest" id="StringDest" value="@Model.StringDest" />
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <button id="submit" type="submit" class="primaryAction">@ViewBag.ActionText</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

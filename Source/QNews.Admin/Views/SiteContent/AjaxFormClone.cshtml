@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = ViewBag.ActionText + " bài viết";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+        $("#NewsContentCloneForm").validate({
+            rules: {
+                SourceUrl:
+                {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 500
+                }
+            },
+            submitHandler: function () { //onSubmit
+                $.post('@Url.Action("Actions", "SiteContent")', $("#NewsContentCloneForm").serialize({ checkboxesAsBools: true }), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        //Load dữ liệu model
+                        var urlLoadModel = '@Url.Action("AjaxForm", "SiteContent")?do=Add&SourceUrl=' + data.Message;
+                        $("#dialog-form").dialog(
+                           {
+                               title: "Thêm mới bài viết thông qua nguồn thu thập dữ liệu",
+                               width: formWidth,
+                               height: formHeight
+                           }
+                       ).load(urlLoadModel).dialog("open");
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+    });
+</script>
+
+<form id="NewsContentCloneForm">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="do" id="do" value="meta" />
+    <fieldset class="forms">
+        <legend>Thông tin về nguồn thu thập bài viết</legend>
+        <table class="tableforms" cellspacing="1" width="100%">
+            
+            <tr>
+                <td style="width:120px;"><label>Đường link bài viết</label></td>
+                <td>
+                    <textarea rows="5" id="SourceUrl" name="SourceUrl" spellcheck="false"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="submit" colspan="2">
+                    <button id="submit" type="submit" class="primaryAction">Bóc tách dữ liệu</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h3>Danh sách các tên miền hỗ trợ bóc tách</h3>
+                    <hr />
+                    <ul>
+                        @foreach (var item in new QNews.Base.QNewsDBContext().Clone_Domain.ToList())
+                        {
+                            <li><strong>@item.Title</strong>: @item.DomainUrl</li>
+                        }
+                    </ul>
+                </td>
+
+            </tr>
+        </table>
+    </fieldset>
+</form>

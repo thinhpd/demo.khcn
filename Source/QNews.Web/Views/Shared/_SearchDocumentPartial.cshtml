@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+}
+@{
+    int type = 0;
+    int scopeID = 0;
+    int issue = 0;
+    
+    if (!string.IsNullOrEmpty(Request["type"]))
+    {
+        type = Convert.ToInt32(Request["type"]);
+    }
+    if (!string.IsNullOrEmpty(Request["scopeID"]))
+    {
+        scopeID = Convert.ToInt32(Request["scopeID"]);
+    }
+    if (!string.IsNullOrEmpty(Request["issue"]))
+    {
+        issue = Convert.ToInt32(Request["issue"]);
+    }
+    
+    var kwdRequest = Request["kwd"];
+
+    var ltsItems = new List<QNews.Base.DocumentType>();
+    var ltsScope = new List<QNews.Base.DocumentScope>();
+    var ltsIssue = new List<QNews.Base.DocumentIssue>();
+    
+    using (QNews.Base.QNewsDBContext db = new QNews.Base.QNewsDBContext())
+    {
+        ltsItems = db.DocumentTypes.Where(o => !o.IsRemoved).OrderBy(o => o.Order).ToList();
+        ltsScope = db.DocumentScopes.Where(o => !o.IsRemoved).OrderBy(o => o.Order).ToList();
+        ltsIssue = db.DocumentIssues.Where(o => !o.IsRemoved).OrderBy(o => o.Order).ToList();
+    }
+ 
+}
+<div class="search-box search-forms">
+    <form method="get" action="/van-ban">
+        <div class="row">
+            <div class="label">
+                <span>Từ khóa tìm kiếm</span>
+            </div>
+
+            <div class="controls">
+                <input type="text" value="@kwdRequest" name="kwd" id="kwd" placeholder="Nhập từ khóa tìm kiếm" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label">
+                <span>Loại văn bản</span>
+            </div>
+
+            <div class="controls">
+                <select name="type">
+                    <option value="0">Toàn bộ văn bản</option>
+                    @foreach (var item in ltsItems)
+                    {
+                        <option value="@item.ID" @((type == item.ID) ? "selected" : "")>@item.Title</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label">
+                <span>Chương trình liên quan</span>
+            </div>
+
+            <div class="controls">
+                <select name="scopeID">
+                    <option value="0">Toàn bộ văn bản</option>
+                    @foreach (var item in ltsScope)
+                    {
+                        <option value="@item.ID" @((scopeID == item.ID) ? "selected" : "")>@item.Title</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label">
+                <span>Cơ quan ban hành</span>
+            </div>
+
+            <div class="controls">
+                <select name="issue">
+                    <option value="0">Toàn bộ văn bản</option>
+                    @foreach (var item in ltsIssue)
+                    {
+                        <option value="@item.ID" @((issue == item.ID) ? "selected" : "")>@item.Title</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label">
+                <span></span>
+            </div>
+            <div class="controls">
+                <button type="submit">Tìm kiếm</button>
+            </div>
+        </div>
+    </form>
+
+</div>

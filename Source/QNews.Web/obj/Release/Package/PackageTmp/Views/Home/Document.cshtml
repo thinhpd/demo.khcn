@@ -1,0 +1,94 @@
+﻿@model QNews.Models.DocumentViewModel
+@{
+    ViewBag.Title = "Văn bản điều hành";
+
+}
+
+
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+    <li>/</li>
+    <li class="active"><h2><a href="/van-ban">Văn bản quản lý</a></h2></li>
+    @if (Model.LoaiVanBanID > 0)
+    {
+        <li>/</li>
+        <li class="active"><h2><a href="/van-ban?type=@Model.LoaiVanBanID">@Model.DocumentType</a></h2></li>
+    }
+</ol>
+
+
+<div class="box-content">
+    @Html.Partial("_SearchDocumentPartial")
+</div>
+
+
+<div class="box-content">
+    <div class="content">
+        <div class="doc-items">
+            <table width="100%" class="table-doc">
+                <tr>
+                    <td class="label">Số kí hiệu văn bản</td>
+                    <td>@Model.SoKyHieu</td>
+                </tr>
+                <tr>
+                    <td class="label">Ngày ban hành</td>
+                    <td>@(Model.NgayBanHanh.HasValue ? Model.NgayBanHanh.Value.ToString("dd/MM/yyyy") : "...")</td>
+                </tr>
+                <tr>
+                    <td class="label">Ngày hiệu lực</td>
+                    <td>@(Model.NgayHieuLuc.HasValue ? Model.NgayHieuLuc.Value.ToString("dd/MM/yyyy") : "...")</td>
+                </tr>
+                <tr>
+                    <td class="label">Trích yếu nội dung</td>
+                    <td>@Model.TrichYeu</td>
+                </tr>
+                <tr>
+                    <td class="label">Loại văn bản</td>
+                    <td>@Model.DocumentType</td>
+                </tr>
+                <tr>
+                    <td class="label">Cơ quan ban hành</td>
+                    <td>@string.Join(", ", Model.CoQuanBanHanh)</td>
+                </tr>
+                <tr>
+                    <td class="label">Chương trình liên quan</td>
+                    <td>@string.Join(", ", Model.LinhVuc)</td>
+                </tr>
+                <tr>
+                    <td class="label">Người ký duyệt</td>
+                    <td>@Model.NguoiKy</td>
+                </tr>
+                <tr>
+                    <td class="label">Tài liệu đính kèm</td>
+                    <td>
+                        @foreach (var file in QNews.Utils.StaticClass.ConvertFileAttach(Model.FileAttach))
+                        {
+                            <a target="_blank" href="@file.FileUrl"><img src="~/Content/img/@(file.FileIcon).png" title="@file.FileName" /></a>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    @if (Model.LtsOtherDocument.Count() > 0)
+    {
+        <div class="other-news">
+            <div class="title">Các văn bản khác</div>
+            <ul>
+                @foreach (var item in Model.LtsOtherDocument)
+                {
+                    <li><a href="@item.Url">@item.SoKyHieu - @item.TrichYeu</a> <span>(@(item.NgayBanHanh.HasValue ? item.NgayBanHanh.Value.ToString("dd/MM/yyyy") : "..."))</span></li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("nav ul li a[href$='van-ban']").addClass("actived");
+        });
+    </script>
+}

@@ -1,0 +1,123 @@
+﻿@model QNews.Base.Content
+@{
+    ViewBag.Title = "Kiểm duyệt bài viết";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+
+        $("#PublishDate").datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true
+        });
+
+        $("#ApproveForm").validate({
+            rules: {
+                StatusID:
+                {
+                    required: true
+                },
+                Description:
+                {
+                    maxlength: 1000
+                }
+            },
+            submitHandler: function () { //onSubmit
+                updateEditor();
+
+                $.post(urlPostAction, $("#ApproveForm").mySerialize(), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+    });
+</script>
+
+<form id="ApproveForm">
+    @Html.AntiForgeryToken()<input type="hidden" name="do" id="do" value="approve" />
+    <input type="hidden" name="ItemID" id="ItemID" value="@Model.ID" />
+    <fieldset class="forms">
+        <legend>Kiểm duyệt bài viết</legend>
+        <table class="tableforms" cellspacing="1" width="100%">
+
+            <tr>
+                <td colspan="2"><strong>Kiểm duyệt nội dung: @Model.Title</strong></td>
+            </tr>
+            <tr>
+                <td style="width:80px;"><label>Trạng thái</label></td>
+                <td>
+                    <ul>
+                        @foreach (var item in ViewBag.AllStatus)
+                        {
+                            if (Model.StatusID == item.ID)
+                            {
+                                <li style="float:left; margin-right:15px;"><input type="radio" name="StatusID" value="@item.ID" disabled /><span style="color:#AAA;">@item.Name</span></li>
+                            }
+                            else
+                            {
+                                <li style="float:left; margin-right:15px;"><input type="radio" name="StatusID" value="@item.ID" /><span>@item.Name</span></li>
+                            }
+
+                        }
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Ghi chú</label></td>
+                <td>
+                    <textarea rows="3" id="Description" name="Description" spellcheck="false" style="height:50px !important;"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <hr />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="submit" colspan="2">
+                    <button id="submit" type="submit" class="primaryAction">Thực hiện</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset class="forms">
+        <legend>Lịch sử kiểm duyệt bài viết</legend>
+
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <th>Người thực hiện</th>
+                <th>Thời gian thực hiện</th>
+                <th>Trạng thái</th>
+                <th>Ghi chú</th>
+            </tr>
+            @foreach (var item in Model.ApproveLogs)
+            {
+                <tr>
+                    <td>@item.AspNetUser.UserName</td>
+                    <td>@item.CreatedDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                    <td>@item.Status.Name</td>
+                    <td>@item.Description</td>
+                </tr>
+            }
+        </table>
+
+    </fieldset>
+</form>

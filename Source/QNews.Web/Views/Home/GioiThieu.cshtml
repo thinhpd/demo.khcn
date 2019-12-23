@@ -1,0 +1,143 @@
+﻿@model QNews.Models.AboutViewModel
+@{
+    /**/
+
+    Layout = "~/Views/Shared/_Layout_New.cshtml";
+    ViewBag.Title = "Về Chúng tôi";
+}
+
+@{
+
+
+}
+
+@if (Model.Gioithieuchung != null)
+{
+    <!--Các công trình khcn-->
+    <div class="box-container">
+        <div class="gtc_container">
+            <div class="gtc_under"></div>
+             @(new HtmlString(Model.Gioithieuchung.Description))
+
+        </div>
+        <div class="gtc_ld">
+
+            <h3>LÃNH ĐẠO ĐƠN VỊ</h3>
+            <div class="gtc_under"></div>
+            @(new HtmlString(Model.Gioithieuchung.Details))
+        </div>
+
+    </div>
+    <!--Các công trình khcn-->
+}
+
+<!--BG Video-->
+@if (Model.quickLink != null)
+{
+    <div class="box-container">
+
+        <div class="video_tuuyendung">
+
+            <div class="video_tt">
+                <h3>@(new HtmlString(Model.quickLink.Title))</h3>
+
+                <a class="xt_td" href="@Model.quickLink.Link">Xem thêm ></a>
+            </div>
+
+            <div class="bg_video">
+                <video autoplay="" loop="" muted="" style="">
+                    <source src="Content/video/video-3.mp4" type="video/mp4">
+                    <source src="Content/video/video_bg.ogv" type="video/ogg">
+                </video>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+<!--Đăng ký nhận tin-->
+<div class="box-container">
+    <div class="khcn-head">
+        <h1>Đăng ký nhận tin mới nhất</h1>
+        <div class="underline"></div>
+        <p>@Model.jmessage</p>
+    </div>
+    <div id="frm_dknt" class="form_kynt">
+        @using (Html.BeginForm())
+        {
+            <table>
+                <tr>
+                    <td>Họ Tên*</td>
+                    <td>@Html.TextBoxFor(model => model.dkName)</td>
+                </tr>
+                <tr>
+                    <td>Email*</td>
+                    <td>@Html.TextBoxFor(model => model.dkEMail)</td>
+                </tr>
+                <tr>
+                    <td>Số điện thoại*</td>
+                    <td>@Html.TextBoxFor(model => model.dkphone)</td>
+                </tr>
+                <tr>
+                    <td>Quan tâm đến*</td>
+                    <td>
+                        @Html.DropDownListFor(model => model.ct_id, new List<SelectListItem>
+                   { new SelectListItem{Text="Chương trình hợp tác nghiên cứu song phương và đa phương về khoa học và công nghệ đến năm 2020	", Value="1"},
+                     new SelectListItem{Text="Chương trình tìm kiếm và chuyển giao công nghệ nước ngoài đến năm 2020", Value="2"}}, "Please select")
+
+                    </td>
+                </tr>
+            </table>
+            <div class="bt_submiti"><button type="submit">Đăng ký</button></div>
+        }
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script type="text/javascript" src="~/Content/js/jquery.validate.js"></script>
+    <script type="text/javascript">
+
+        function changeContent(ctId) {
+            var html = $('#' + ctId).html();
+            $('#ct_home').html(html).hide().fadeIn(500);
+        }
+
+        var hotNewsIdx = 0;
+
+        $(document).ready(function () {
+
+
+            $("nav ul li:eq(0) a").addClass("actived");
+            activeNews();
+        });
+
+        function activeNews() {
+            var idx = hotNewsIdx;
+            var max = $(".hot-news .otherNews ul li").size();
+            if (hotNewsIdx == max - 1)
+                hotNewsIdx = 0;
+            else
+                hotNewsIdx++;
+
+            $(".hot-news .otherNews ul li.active").removeClass("active");
+            var ct = $(".hot-news .otherNews ul li").eq(idx);
+            ct.addClass("active");
+            var data = ct.find(".data").html();
+            $(".hot-news .left .firstNews").html(data).hide().fadeIn(500);
+            setTimeout(function () {
+                activeNews();
+            }, 8000);
+        }
+
+
+    </script>
+}

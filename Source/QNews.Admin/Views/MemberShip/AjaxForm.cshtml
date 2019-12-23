@@ -1,0 +1,127 @@
+﻿@model QNews.Base.AspNetUser
+@{
+    ViewBag.Title = ViewBag.ActionText + " hướng dẫn";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+        $("#GuideContentForm").validate({
+            rules: {
+                UserFullName:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 100
+                },
+                UserName:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 100
+                },
+                PasswordHash:
+                {
+                    minlength: 2,
+                    maxlength: 100
+                },
+                PasswordHash2:
+                {
+                    minlength: 2,
+                    maxlength: 100,
+                    equalTo: "#PasswordHash"
+                },
+                Email:
+                {
+                    email: true,
+                    required: true,
+                    minlength: 2,
+                    maxlength: 100
+                }
+            },
+            submitHandler: function () { //onSubmit
+
+                $.post(urlPostAction, $("#GuideContentForm").serialize({ checkboxesAsBools: true }), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+    });
+</script>
+
+<form id="GuideContentForm">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="do" id="do" value="@ViewBag.Action"/>
+    <input type="hidden" name="guidID" id="guidID" value="@Model.Id" />
+    <input type="hidden" id="listValueFileAttach" name="listValueFileAttach" />
+    <input type="hidden" id="listValueFileAttachRemove" name="listValueFileAttachRemove" />
+    <input type="hidden" name="TagValues" id="TagValues"/>
+    <input type="hidden" name="ProductValues" id="ProductValues"/>
+    <fieldset class="forms">
+        <legend>Thông tin về hướng dẫn</legend>
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:140px;"><label>Họ tên</label></td>
+                <td>
+                    <input type="text" name="UserFullName" id="UserFullName" value="@Model.UserFullName" />
+                </td>
+            </tr>
+            
+            <tr>
+                <td><label>Tài khoản</label></td>
+                <td>
+                    <input type="text" name="UserName" id="UserName" value="@Model.UserName" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><label>Mật khẩu</label></td>
+                <td>
+                    <input type="text" name="PasswordHash" id="PasswordHash" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><label>Nhập lại mật khẩu</label></td>
+                <td>
+                    <input type="text" name="PasswordHash2" id="PasswordHash2" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><label>Địa chỉ email</label></td>
+                <td>
+                    <input type="text" name="Email" id="Email" value="@Model.Email" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Điện thoại</label></td>
+                <td>
+                    <input type="text" name="PhoneNumber" id="PhoneNumber" value="@Model.PhoneNumber" />
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="submit" colspan="2">
+                    <button id="submit" type="submit" class="primaryAction">@ViewBag.ActionText</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

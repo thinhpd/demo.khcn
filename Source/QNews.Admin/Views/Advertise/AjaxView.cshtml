@@ -1,0 +1,83 @@
+﻿@model QNews.Base.Advertise
+
+@{
+    ViewBag.Title = "Xem chi tiết";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#idTabs").idTabs();
+    });
+</script>
+<fieldset class="forms">
+    <table class="tableforms tabledetails" cellspacing="1" width="100%">
+        <tr>
+            <td style="width:160px;" class="label"><label>Tên quảng cáo</label></td>
+            <td>
+                @Html.DisplayFor(model => model.Title)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Mô tả</label></td>
+            <td>
+                @Html.Raw(Model.Description)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Liên kết đích</label></td>
+            <td>
+                @Model.Link
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Ảnh đại diện</label></td>
+            <td>
+                <img src="@(string.IsNullOrEmpty(Model.Image) ? "/Advertise/Admin/images/no_image.gif?width=120" : Model.Image)" style="width:120px" />
+            </td>
+        </tr>
+
+
+        <tr>
+            <td class="label"><label>Ngày bắt đầu</label></td>
+            <td>@((Model.NgayBatDau.HasValue) ? Model.NgayBatDau.Value.ToString("dd/MM/yyyy") : "")</td>
+        </tr>
+
+
+
+        <tr>
+            <td class="label"><label>Ngày kết thúc</label></td>
+            <td>@((Model.NgayKetThuc.HasValue) ? Model.NgayKetThuc.Value.ToString("dd/MM/yyyy") : "")</td>
+        </tr>
+
+
+        <tr>
+            <td class="label"><label>Thứ tự hiển thị</label></td>
+            <td>
+                @Model.Order
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Người tạo</label></td>
+            <td>@Model.AspNetUser_CreateBy.UserName</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Ngày tạo</label></td>
+            <td>@Model.CreateDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Người sửa cuối</label></td>
+            <td>@Model.AspNetUser_ModifyBy.UserName</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Ngày sửa</label></td>
+            <td>@Model.ModifyDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+        </tr>
+    </table>
+</fieldset>

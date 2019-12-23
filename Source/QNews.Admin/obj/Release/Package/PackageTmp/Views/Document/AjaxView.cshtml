@@ -1,0 +1,107 @@
+﻿@model QNews.Base.Document
+
+@{
+    ViewBag.SoKyHieu = "Xem chi tiết";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<fieldset class="forms">
+    <table class="tableforms tabledetails" cellspacing="1" width="100%">
+        <tr>
+            <td style="width:160px;" class="label"><label>Tên văn bản</label></td>
+            <td>
+                @Html.DisplayFor(model => model.SoKyHieu)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Url văn bản</label></td>
+            <td>@Model.Urls.Select(o => o.UrlID).FirstOrDefault()</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Trích yếu</label></td>
+            <td>
+                @Html.Raw(Model.TrichYeu)
+            </td>
+        </tr>
+
+
+        <tr>
+            <td class="label"><label>Ngày ban hành</label></td>
+            <td>@((Model.NgayBanHanh.HasValue) ? Model.NgayBanHanh.Value.ToString("dd/MM/yyyy") : "")</td>
+        </tr>
+
+
+        <tr>
+            <td class="label"><label>Ngày hiệu lực</label></td>
+            <td>@((Model.NgayHieuLuc.HasValue) ? Model.NgayHieuLuc.Value.ToString("dd/MM/yyyy") : "")</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Người ký</label></td>
+            <td>@Model.NguoiKy</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Loại văn bản</label></td>
+            <td>@Model.DocumentType.Title</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Lĩnh vực</label></td>
+            <td>
+                <ul style="list-style: inside none disc;">
+                    <li>@Html.Raw(string.Join("</li><li>", Model.DocumentScopes.Select(o => o.Title)))</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Nội dung chi tiết</label></td>
+            <td>
+                @Html.Raw(Model.Details)
+            </td>
+        </tr>
+        <tr>
+            <td class="label"><label>File đính kèm</label></td>
+            <td>
+                <ul style="list-style:inside;">
+                    @foreach (var item in QNews.Utils.StaticClass.ConvertFileAttach(Model.FileAttach))
+                    {
+                        <li><a href="@item.FileUrl">@item.FileName</a></li>
+                    }
+                </ul>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Cho phép gửi bình luận</label></td>
+            <td>
+                @Grid.DisplayShow(Model.SoKyHieu, Model.AllowComment)
+            </td>
+        </tr>
+
+
+        <tr>
+            <td class="label"><label>Người tạo</label></td>
+            <td>@Model.AspNetUser_CreateBy.UserName</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Ngày tạo</label></td>
+            <td>@Model.CreateDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Người sửa cuối</label></td>
+            <td>@Model.AspNetUser_ModifyBy.UserName</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Ngày sửa</label></td>
+            <td>@Model.ModifyDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+        </tr>
+    </table>
+</fieldset>
+

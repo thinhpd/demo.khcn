@@ -1,0 +1,158 @@
+﻿@{
+    ViewBag.Title = "Quản lý liên kết website";
+    bool hasAdd = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Add");
+    bool hasEdit = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Edit");
+    bool hasDelete = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Delete");
+    bool hasApprove = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Approve");
+}
+<script type="text/javascript">
+
+    urlLists = '@Url.Action("ListItems", "SiteLink")';
+    urlForm = '@Url.Action("AjaxForm", "SiteLink")';
+    urlFormApprove = '@Url.Action("AjaxApprove", "SiteLink")';
+    urlPostAction = '@Url.Action("Actions", "SiteLink")';
+    urlView = '@Url.Action("AjaxView", "SiteLink")';
+    formWidth = 1100;
+    formHeight = 650;
+    viewWidth = 1100;
+    viewHeight = 650;
+
+    $(document).ready(function () {
+        initAjaxLoad(urlLists, "#JobGriditems");
+
+        $("#gridSearch").submit(function () {
+            var form = $("#gridSearch");
+            window.location.href = '#' + getValueFormMutilSelect(form);
+            return false;
+        });
+
+        $("#btn_add").click(function () {
+            $("#dialog-form").dialog(
+				{
+				    title: "Thêm mới liên kết website",
+				    width: formWidth,
+				    height: formHeight
+				}
+			).load(encodeURI(urlForm + "?do=Add")).dialog("open");
+            return false;
+        });
+
+        $.datepicker.setDefaults($.datepicker.regional['vi']);
+        $("#TuNgay").datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            onSelect: function (dateStr) {
+                var min = $(this).datepicker('getDate') || new Date(); // Selected date or today if none
+                $('#DenNgay').datepicker('option', { minDate: min });
+            }
+        });
+
+        $("#DenNgay").datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            minDate: $("#TuNgay").val()
+        });
+
+        $("select.fullwidth").select2({ width: 605 });
+    });
+
+    function getVersion(versionId) {
+        var tokenValid = $("input[name='__RequestVerificationToken']").val();
+        $.post(urlPostAction, { "do": "reset", "ItemID": versionId, "__RequestVerificationToken": "" + tokenValid + "" }, function (data) {
+            if (data.Erros)
+                createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+            else {
+                $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+            }
+        });
+    }
+
+</script>
+<div class="zone zone-content">
+    <h1>Quản lý liên kết website</h1>
+    
+    <div class="headear">
+        <div style="width: 700px; padding: 10px;" class="searchbox advance leftright">
+            <form id="gridSearch">
+                <fieldset class="bulk-actions">
+                    <div class="row">
+                        <div class="left">
+                            <label for="Keyword">Từ khóa:</label>
+                            <input type="text" name="Keyword" id="Keyword" value="Từ khóa tìm kiếm" onfocus="if(this.value=='Từ khóa tìm kiếm') this.value='';" onblur="if(this.value=='') this.value='Từ khóa tìm kiếm';" />
+                        </div>
+                        <div class="right">
+                            <label for="SearchIn">Tìm trong:</label>
+                            <select name="SearchIn" id="SearchIn" class="mutil" multiple="multiple">
+                                <option value="Title" selected>Tên liên kết website</option>
+                                <option value="Description">Mô tả</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="left">
+                            <label>Hiệu lực:</label>
+                            <span><i>Từ</i></span>
+                            <input type="text" name="TuNgay" id="TuNgay" style="width:92px" />
+                            <span><i>Đến</i></span>
+                            <input type="text" name="DenNgay" id="DenNgay" style="width:91px" />
+                        </div>
+
+                        <div class="right">
+                            <label>Trạng thái:</label>
+                            <select name="StatusID">
+                                <option value="">Tất cả</option>
+                                @foreach (var item in ViewBag.AllStatus)
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="left">
+                            <label>Người tạo:</label>
+                            <select name="CreateBy">
+                                <option value="">Tất cả</option>
+                                @foreach (var item in ViewBag.AllUser)
+                                {
+                                    <option value="@item.ID">@item.UserName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="right">
+                            <label>Sửa cuối:</label>
+                            <select name="ModifyBy">
+                                <option value="">Tất cả</option>
+                                @foreach (var item in ViewBag.AllUser)
+                                {
+                                    <option value="@item.ID">@item.UserName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="submit">
+                            <button name="submit.Search" type="submit">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="manage">
+            @if (hasAdd)
+            {
+                @Html.ActionLink("Thêm mới", "Create", new { }, new { @class = "add button primaryAction", @id = "btn_add" })
+            }
+        </div>
+    </div>
+    
+    <div id="JobGriditems">
+    
+    </div>
+</div>

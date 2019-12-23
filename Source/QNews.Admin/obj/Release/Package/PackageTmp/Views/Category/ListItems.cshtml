@@ -1,0 +1,47 @@
+﻿@model System.String
+@{
+    ViewBag.Title = "Danh sách thành phố";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+@Html.AntiForgeryToken()
+<script type="text/javascript">
+    $(document).ready(function () {
+        registerGridView('#gridItems');
+    });
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#TreeCategory").treeview({
+            collapsed: false,
+            animated: "medium",
+            control: "#treecontrol",
+            persist: "location"
+        });
+
+        $("a.tool").click(function () {
+            if ($(this).parent().parent().hasClass("unselect")) {
+                $(".filetree li").addClass("unselect").removeClass("select");
+                $(this).parent().parent().addClass("select").removeClass("unselect");
+            }
+            else {
+                $(this).parent().parent().addClass("unselect").removeClass("select");
+            }
+            return false;
+        });
+
+    });
+</script>
+<div class="grid-container" id="gridItems">
+    <ul id="TreeCategory" class="filetree gridView" style="border:0px;">
+        <li title="" class="unselect" id="0">
+            <span class="folder">
+                <a class="tool" href="javascript:;">Danh mục gốc</a>
+            </span>
+            <ul>
+                @Html.Raw(Model)
+            </ul>
+        </li>
+    </ul>
+</div>

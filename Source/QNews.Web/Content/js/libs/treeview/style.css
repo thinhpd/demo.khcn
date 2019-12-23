@@ -1,0 +1,62 @@
+ul.sitemap {
+    padding: 0em;
+}
+
+ul.sitemap li, ul.sitemap li ul.sitemap li {
+    position:relative;
+    top:0;
+    bottom:0;
+    padding-bottom: 7px;
+
+}
+
+ul.sitemap li ul.sitemap {
+    margin-left: 4em;
+}
+
+li {
+    list-style-type: none;
+}
+
+ul.sitemap li a {
+    padding:0 0 0 10px;
+    position: relative;
+    top:1em;
+}
+
+ul.sitemap li a:hover {
+    text-decoration: none;
+}
+
+ul.sitemap a.addBorderBefore:before {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 28px;
+    position: absolute;
+    left: -47px;
+    top:-16px;
+    border-left: 1px solid gray;
+}
+
+ul.sitemap li:before {
+    content: "";
+    display: inline-block;
+    width: 25px;
+    height: 0;
+    position: relative;
+    left: 0em;
+    top:1em;
+    border-top: 1px solid gray;
+}
+
+ul.sitemap li ul.sitemap li:last-child:after, ul.sitemap li:last-child:after {
+    content: '';
+    display: block;
+    width: 1em;
+    height: 1em;
+    position: relative;
+    background: #fff;
+    top: 9px;
+    left: -1px;
+}

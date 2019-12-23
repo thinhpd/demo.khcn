@@ -1,0 +1,132 @@
+﻿@model QNews.Base.SiteLink
+@{
+    ViewBag.Title = ViewBag.ActionText + " liên kết website";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+        $.datepicker.setDefaults($.datepicker.regional['vi']);
+
+        $("#NgayBatDau, #NgayKetThuc").datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true
+        });
+
+        $("#SiteLinkForm").validate({
+            rules: {
+                NgayBatDau:
+                {
+                    date: true
+                },
+                NgayKetThuc:
+                {
+                    date: true
+                },
+                Title:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                Url:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                Description:
+                {
+                    minlength: 15,
+                    maxlength: 1000
+                }
+            },
+            submitHandler: function () { //onSubmit
+                updateEditor();
+
+                $.post(urlPostAction, $("#SiteLinkForm").mySerialize(), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+
+        $("select.fullwidthForm").select2({ width: '100%' });
+    });
+</script>
+
+<form id="SiteLinkForm">
+    @Html.AntiForgeryToken()<input type="hidden" name="do" id="do" value="@ViewBag.Action" />
+    <input type="hidden" name="ItemID" id="ItemID" value="@Model.ID" />
+    <input type="hidden" id="listValueFileAttach" name="listValueFileAttach" />
+    <input type="hidden" id="listValueFileAttachRemove" name="listValueFileAttachRemove" />
+    <input type="hidden" name="TagValues" id="TagValues" />
+    <fieldset class="forms">
+        <legend>Thông tin về liên kết website</legend>
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:160px;"><label>Tên liên kết website</label></td>
+                <td>
+                    <input type="text" name="Title" id="Title" value="@Model.Title" />
+                </td>
+            </tr>
+            <tr>
+                <td><label>Mô tả</label></td>
+                <td>
+                    <textarea rows="5" id="Description" name="Description" spellcheck="false">@Model.Description</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Trang liên kết</label></td>
+                <td>
+                    <input type="text" value="@Model.Link" name="Link" id="Link" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Ngày bắt đầu</label></td>
+                <td>
+                    <input type="text" name="NgayBatDau" id="NgayBatDau" value="@((Model.NgayBatDau.HasValue) ? Model.NgayBatDau.Value.ToString("dd/MM/yyyy") : "")" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Ngày kết thúc</label></td>
+                <td>
+                    <input type="text" name="NgayKetThuc" id="NgayKetThuc" value="@((Model.NgayKetThuc.HasValue) ? Model.NgayKetThuc.Value.ToString("dd/MM/yyyy") : "")" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Thứ tự hiển thị</label></td>
+                <td>
+                    <input type="text" value="@Model.Order" name="Order" id="Order" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td colspan="2">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td class="submit" colspan="2">
+                    <button id="submit" type="submit" class="primaryAction">@ViewBag.ActionText</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

@@ -1,0 +1,99 @@
+﻿@model IEnumerable<QNews.Models.RssItem>
+@{
+    ViewBag.Title = "ListBank";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+    bool hasAdd = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Add");
+    bool hasEdit = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Edit");
+    bool hasDelete = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Delete");
+    bool hasApprove = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Approve");
+}
+@Html.AntiForgeryToken()
+<script type="text/javascript">
+    $(document).ready(function () {
+        registerGridView('#gridItems');
+    });
+
+    function cloneContent(sourceUrl, sourceID) {
+        var urlLoadModel = '@Url.Action("AjaxForm", "SiteContent")?do=Add&SourceUrl=' + sourceUrl + '&sourceID=' + sourceID;
+        $("#dialog-form").dialog(
+            {
+                title: "Thêm mới bài viết thông qua nguồn thu thập dữ liệu",
+                width: formWidth,
+                height: formHeight
+            }
+        ).load(urlLoadModel).dialog("open");
+    }
+</script>
+<div class="grid-container" id="gridItems">
+    <table class="gridView" cellspacing="1">
+        <tr>
+            <th><a href="#Field=RssID">ID<span /></a></th>
+            <th><a href="#Field=RssImage">Ảnh<span /></a></th>
+            <th><a href="#Field=RssTitle">Tên bài viết từ rss<span /></a></th>
+            <th><a href="#Field=RssDescription">Mô tả<span /></a></th>
+            <th></th>
+            @*<th><a href="#Field=DomainName">Tên miền<span /></a></th>*@
+            @if (hasEdit)
+            {
+                <th class="act_edit"></th>
+                <th class="act_show">
+                    <a href="#showAll" class="showAll" title="Hiển thị danh sách đã chọn">
+                        <img src="/Content/Admin/images/gridview/show.gif" style="border: none" alt="Hiển thị danh sách đã chọn" />
+                    </a>
+                </th>
+                <th class="act_hide">
+                    <a href="#hideAll" class="hideAll" title="Ẩn danh sách đã chọn">
+                        <img src="/Content/Admin/images/gridview/hide.gif" style="border: none" alt="Ẩn danh sách đã chọn" />
+                    </a>
+                </th>
+            }
+            @if (hasDelete)
+            {
+                <th class="act_delete">
+                    <a href="#deleteAll" class="deleteAll" title="Xóa danh sách đã chọn">
+                        <img src="/Content/Admin/images/gridview/delete.gif" style="border: none" alt="Xóa danh sách đã chọn" />
+                    </a>
+                </th>
+                <th class="act_roles">
+                    <input value="" type="checkbox" class="checkAll" />
+                </th>
+            }
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr title="@item.RssTitle">
+                <td>@item.RssID</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.RssImage))
+                    {
+                        <img src="@item.RssImage" style="width:120px;" />
+                    }
+                </td>
+
+                <td>@Grid.DisplayShowStrike(item.RssTitle, item.RssActive)</td>
+                <td>@item.RssDescription</td>
+                @*<td>@item.RssDomainName</td>*@
+                <td class="act_view">
+                    <a href="@item.RssSource" target="_blank"><img src="~/Content/Admin/images/gridview/view.gif" title="Xem bài viết gốc" /></a>
+                </td>
+                @if (hasEdit)
+                {
+                    @*<td class="act_view">
+                        <a href="javascript:cloneContent('@item.RssSource',@item.RssID);"><img src="~/Content/Admin/images/gridview/add.gif" title="Thêm bài viết" /></a>
+                    </td>*@
+                    <td class="act_edit">
+                        @Grid.ActionEdit(item.RssID, item.RssTitle)
+                    </td>
+                    <td class="act_edit">@Grid.ActionShow(item.RssID, item.RssTitle)</td>
+                    <td class="act_edit">@Grid.ActionHide(item.RssID, item.RssTitle)</td>
+                }
+                @if (hasDelete)
+                {
+                    <td class="act_delete">@Grid.ActionDelete(item.RssID, item.RssTitle)</td>
+                    <td class="act_roles"><input type="checkbox" value="@item.RssID" class="check" /></td>
+                }
+            </tr>
+        }
+    </table>
+    @Html.Raw(ViewBag.PageHtml)
+</div>

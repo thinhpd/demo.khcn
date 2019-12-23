@@ -1,0 +1,206 @@
+﻿@model QNews.Base.Guide_Guide
+@{
+    ViewBag.Title = ViewBag.ActionText + " hướng dẫn";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        createUploader();
+
+        var urlSelectDefaultImage = "/Admin/GalleryPictureSelect/?MutilFile=false&Container=DefaultImages";
+        $("#Button_DefaultImages").click(function () {
+            selectPicture(urlSelectDefaultImage + "&ValuesSelected=" + $("#Value_DefaultImages").val());
+        });
+
+        var urlSelectCategory = '@Url.Action("AjaxTreeSelect", "GuideCategory", new { @Container = "CategoryValues", @SelectMutil = "True" })';
+
+        //LoadCKEDITOR('GuideDescription', false);
+        LoadCKEDITOR('GuideContent', true);
+        //createCKFider('GuideImages', 162);
+        createAutoTag('GuideTag', '@Url.Action("AutoComplete", "SystemTag")');
+        createAutoTag('GuideProduct', '@Url.Action("AutoComplete", "Product")');
+        
+        $("#selectCategory").click(function () {
+            var valuesSelected = $("#Value_CategoryValues").val();
+            $("#dialog-form-2").dialog(
+				{
+				    title: "Chọn chuyên mục hướng dẫn",
+				    width: 600,
+				    height: 500
+				}
+			).load(encodeURI(urlSelectCategory + "&ValuesSelected=" + valuesSelected)).dialog("open");
+            return false;
+        });
+
+        $("#GuideContentForm").validate({
+            rules: {
+                GuideName:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 100
+                },
+                GuideDescription:
+                {
+                    minlength: 15,
+                    maxlength: 2000
+                }
+            },
+            submitHandler: function () { //onSubmit
+                updateEditor();
+                getValueFromAutoTag('listProductValues', 'ProductValues');
+                getValueFromAutoTag('listTagValues', 'TagValues');
+
+                $.post(urlPostAction, $("#GuideContentForm").serialize({ checkboxesAsBools: true }), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+    });
+</script>
+
+<form id="GuideContentForm">
+    <input type="hidden" name="do" id="do" value="@ViewBag.Action"/>
+    <input type="hidden" name="ItemID" id="ItemID" value="@Model.GuideID"/>
+    <input type="hidden" id="listValueFileAttach" name="listValueFileAttach" />
+    <input type="hidden" id="listValueFileAttachRemove" name="listValueFileAttachRemove" />
+    <input type="hidden" name="TagValues" id="TagValues"/>
+    <input type="hidden" name="ProductValues" id="ProductValues"/>
+    <fieldset class="forms">
+        <legend>Thông tin về hướng dẫn</legend>
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:140px;"><label>Tên hướng dẫn</label></td>
+                <td>
+                    <input type="text" name="GuideName" id="GuideName" value="@Model.GuideName"/>
+                </td>
+            </tr>
+            
+            <tr>
+                <td><label>Mô tả</label></td>
+                <td>
+                    <textarea rows="5" id="GuideDescription" name="GuideDescription" spellcheck="false">@Model.GuideDescription</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Hình ảnh đại diện</label></td>
+                <td>
+                    <button type="button" id="Button_DefaultImages">Chọn hỉnh ảnh đại diện</button>
+                    <input type="hidden" name="Value_DefaultImages" id="Value_DefaultImages" value="@((Model.GuidePictureID.HasValue) ? Model.GuidePictureID.Value.ToString() : "")" />
+                    <div id="Text_DefaultImages">
+                        <table class="gridView" cellspacing="1">
+                        @if (Model.GuidePictureID.HasValue)
+                        {
+                            <tr title="@Model.Gallery_Picture.PictureName" id="@Model.Gallery_Picture.PictureID">
+                                <td>@Model.Gallery_Picture.PictureID</td>
+                                <td>
+                                    @Gallery.DisplayImage(Model.Gallery_Picture.PictureUrl, 120)
+                                </td>
+                                <td>
+                                    <p>Tên ảnh: <b>@Model.Gallery_Picture.PictureName</b></p>
+                                    <p>Ngày tạo: <i>@Model.Gallery_Picture.PictureCreated.ToString("dd/MM/yyyy hh:mm:ss tt")</i></p>
+                                    <p>Album: <b>@((Model.Gallery_Picture.PictureAlbumID.HasValue) ? Model.Gallery_Picture.Gallery_Album.AlbumName : "")</b></p>
+                                    <p>Chuyên mục: <b>@((Model.Gallery_Picture.PictureCategoryID.HasValue) ? Model.Gallery_Picture.Gallery_Category.CategoryName : "")</b></p>
+                                </td>
+                                <td>
+                                    <button type="button" onclick="$(this).parent().parent().remove(); getValuePicture('DefaultImages'); return false;">Xóa</button>
+                                </td>
+                            </tr>
+                        }
+                        </table>                    
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Chuyên mục hướng dẫn</label></td>
+                <td>
+                    <input type="hidden" name="Value_CategoryValues" id="Value_CategoryValues" value="@string.Join(", ", Model.Guide_Category.Select(c => c.CategoryID))" />
+                    <button id="selectCategory" type="button" class="primaryAction">Chọn chuyên mục tin tức</button>
+                    <div id="Text_CategoryValues" class="checkBoxValues">@string.Join(", ", Model.Guide_Category.Select(c => c.CategoryName))</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Hiển thị</label></td>
+                <td>
+                    <input type="checkbox" name="GuideShow" id="GuideShow" value="True" @((Model.GuideShow) ? " checked" : string.Empty)/>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Nội dung chi tiết</label></td>
+                <td>
+                    <textarea rows="10" id="GuideContent" name="GuideContent">@Model.GuideContent</textarea>
+                </td>
+            </tr>
+
+        </table>
+    </fieldset>
+
+    <fieldset class="forms">
+        <legend>Thông tin mở rộng</legend>
+        <table class="tableforms" cellspacing="1" width="100%">
+            
+            <tr>
+                <td style="width:140px;"><label>Sản phẩm liên quan</label></td>
+                <td>
+                    <input type="text" name="GuideProduct" id="GuideProduct" />
+                    <ul id="GuideProduct_Value" class="listValues listProductValues">
+                        @foreach (var data in Model.Shop_Product)
+                        {
+                            <li id="GuideProduct_Value@(data.ProductID)" name="@data.ProductID" key=""><span>@data.ProductName</span><a href="javascript:deletevalues('GuideProduct_Value@(data.ProductID)');"><img border="0" src="/Content/Admin/Images/gridview/act_filedelete.png" /></a></li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+            
+            <tr>
+                <td><label>Từ khóa</label></td>
+                <td>
+                    <input type="text" name="GuideTag" id="GuideTag" />
+                    <ul id="GuideTag_Value" class="listValues listTagValues">
+                        @foreach (var data in Model.System_Tag)
+                        {
+                            <li id="GuideTag_Value@(data.TagID)" name="@data.TagID" key=""><span>@data.TagName</span><a href="javascript:deletevalues('GuideTag_Value@(data.TagID)');"><img border="0" src="/Content/Admin/Images/gridview/act_filedelete.png" /></a></li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+            
+
+            <tr>
+                <td><label>File đính kèm</label></td>
+                <td class="data">
+                    <div id="btnChosse" class="primaryAction">Chọn file đính kèm</div>
+                    <ul id="listFileAttach"></ul>
+                    <ul id="listFileAttachRemove">
+                        @foreach (var file in Model.System_File)
+                        {
+                        <li><span title="@file.FileName" id="@file.FileID">@file.FileName</span><a  title="Xóa file đính kèm @file.FileName" href="javascript:DeleteFileUpdate('@file.FileID');"><img border="0" src="/Content/Admin/Images/gridview/act_filedelete.png"></a></li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="submit" colspan="2">
+                    <button id="submit" type="submit" class="primaryAction">@ViewBag.ActionText</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

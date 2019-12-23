@@ -1,0 +1,37 @@
+﻿@model QNews.Base.Clone_Remove
+
+@{
+    ViewBag.Title = "Xem chi tiết";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+
+<fieldset class="forms">
+    <table class="tableforms tabledetails" cellspacing="1" width="100%">
+        <tr>
+            <td style="width:90px;" class="label"><label>Tên node xóa bỏ</label></td>
+            <td>
+                @Html.DisplayFor(model => model.Title)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="width:90px;" class="label"><label>Xóa theo tên miền</label></td>
+            <td>
+                @Html.DisplayFor(model => model.Clone_Domain.Title)
+            </td>
+        </tr>
+        <tr>
+            <td class="label"><label>Xóa trong</label></td>
+            <td>
+                @Model.Clone_Type.Title
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Xpath xóa bỏ</label></td>
+            <td>@Model.XpathValue</td>
+        </tr>
+        
+
+    </table>
+</fieldset>

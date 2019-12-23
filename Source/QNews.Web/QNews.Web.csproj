@@ -1,0 +1,1080 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A3A7946C-28DC-4693-8424-0C3D748ABF7F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QNews.Web</RootNamespace>
+    <AssemblyName>QNews.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="CKFinder, Version=2.4.1.2663, Culture=neutral, PublicKeyToken=579e7adc719a1423, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\QPortal.3.0\QPortal.Web\bin\CKFinder.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageResizer">
+      <HintPath>..\packages\ImageResizer.3.4.3\lib\ImageResizer.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageResizer.Mvc">
+      <HintPath>..\packages\ImageResizer.Mvc.3.4.3\lib\ImageResizer.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageResizer.Plugins.PrettyGifs">
+      <HintPath>..\packages\ImageResizer.Plugins.PrettyGifs.3.4.3\lib\ImageResizer.Plugins.PrettyGifs.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageResizer.Plugins.SimpleFilters">
+      <HintPath>..\packages\ImageResizer.Plugins.SimpleFilters.3.4.3\lib\ImageResizer.Plugins.SimpleFilters.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.0\lib\net451\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="SolrNet, Version=0.4.0.4001, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SolrNet.0.4.0.4001\lib\SolrNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Entity.Design" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AjaxController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="changelog.txt" />
+    <Content Include="Content\css\font-awesome-4.6.1\css\font-awesome.css" />
+    <Content Include="Content\css\font-awesome-4.6.1\css\font-awesome.min.css" />
+    <Content Include="Content\css\font-awesome-4.6.1\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\css\font-awesome-4.6.1\HELP-US-OUT.txt" />
+    <Content Include="Content\css\reset.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\fonts\helvetica\example.html" />
+    <Content Include="Content\fonts\helvetica\style.css" />
+    <Content Include="Content\img\a03.png" />
+    <Content Include="Content\img\a11.png" />
+    <Content Include="Content\img\a17.png" />
+    <Content Include="Content\img\arr-01.png" />
+    <Content Include="Content\img\bg_footer.png" />
+    <Content Include="Content\img\bg_header.png" />
+    <Content Include="Content\img\box_header.png" />
+    <Content Include="Content\img\default.png" />
+    <Content Include="Content\img\doc.png" />
+    <Content Include="Content\img\docx.png" />
+    <Content Include="Content\img\icon-bullet-green-s.png" />
+    <Content Include="Content\img\icon-bullet-green.png" />
+    <Content Include="Content\img\icon_english.png" />
+    <Content Include="Content\img\icon_vietnam.png" />
+    <Content Include="Content\img\iucon-bullet.png" />
+    <Content Include="Content\img\loading.gif" />
+    <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\logo\logo_1_ttcddh.png" />
+    <Content Include="Content\img\logo\logo_bo.png" />
+    <Content Include="Content\img\logo\logo_dauthau.png" />
+    <Content Include="Content\img\logo\logo_phobiengdpl.png" />
+    <Content Include="Content\img\logo\logo_tapchi.png" />
+    <Content Include="Content\img\logo\logo_vanban.png" />
+    <Content Include="Content\img\logo\logo_website.png" />
+    <Content Include="Content\img\logo_footer.png" />
+    <Content Include="Content\img\logo_khcn.png" />
+    <Content Include="Content\img\logo_w.png" />
+    <Content Include="Content\img\menu_split.png" />
+    <Content Include="Content\img\new.gif" />
+    <Content Include="Content\img\news-img.png" />
+    <Content Include="Content\img\pdf.png" />
+    <Content Include="Content\img\rar.png" />
+    <Content Include="Content\img\rtf.png" />
+    <Content Include="Content\img\slider\010.jpg" />
+    <Content Include="Content\img\slider\011.jpg" />
+    <Content Include="Content\img\slider\012.jpg" />
+    <Content Include="Content\img\slider\013.jpg" />
+    <Content Include="Content\img\v-boder.png" />
+    <Content Include="Content\img\vp_map.png" />
+    <Content Include="Content\img\xls.png" />
+    <Content Include="Content\js\functions.js" />
+    <Content Include="Content\js\jquery.validate.js" />
+    <Content Include="Content\js\libs\fancyBox\demo\1_b.jpg" />
+    <Content Include="Content\js\libs\fancyBox\demo\1_s.jpg" />
+    <Content Include="Content\js\libs\fancyBox\demo\2_b.jpg" />
+    <Content Include="Content\js\libs\fancyBox\demo\2_s.jpg" />
+    <Content Include="Content\js\libs\fancyBox\demo\3_b.jpg" />
+    <Content Include="Content\js\libs\fancyBox\demo\3_s.jpg" />
+    <Content Include="Content\js\libs\fancyBox\demo\4_b.jpg" />
+    <Content Include="Content\js\libs\fancyBox\demo\4_s.jpg" />
+    <Content Include="Content\js\libs\fancyBox\demo\5_b.jpg" />
+    <Content Include="Content\js\libs\fancyBox\demo\5_s.jpg" />
+    <Content Include="Content\js\libs\fancyBox\demo\ajax.txt" />
+    <Content Include="Content\js\libs\fancyBox\demo\iframe.html" />
+    <Content Include="Content\js\libs\fancyBox\demo\index.html" />
+    <Content Include="Content\js\libs\fancyBox\lib\jquery-1.10.1.min.js" />
+    <Content Include="Content\js\libs\fancyBox\lib\jquery-1.9.0.min.js" />
+    <Content Include="Content\js\libs\fancyBox\lib\jquery.mousewheel-3.0.6.pack.js" />
+    <Content Include="Content\js\libs\fancyBox\lib\jquery.mousewheel-3.0.6.pack.min.js" />
+    <Content Include="Content\js\libs\fancyBox\source\blank.gif" />
+    <Content Include="Content\js\libs\fancyBox\source\fancybox_loading%402x.gif" />
+    <Content Include="Content\js\libs\fancyBox\source\fancybox_loading.gif" />
+    <Content Include="Content\js\libs\fancyBox\source\fancybox_overlay.png" />
+    <Content Include="Content\js\libs\fancyBox\source\fancybox_sprite%402x.png" />
+    <Content Include="Content\js\libs\fancyBox\source\fancybox_sprite.png" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\fancybox_buttons.png" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-buttons.css" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-buttons.js" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-buttons.min.css" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-buttons.min.js" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-media.js" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-media.min.js" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-thumbs.css" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-thumbs.js" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-thumbs.min.css" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-thumbs.min.js" />
+    <Content Include="Content\js\libs\fancyBox\source\jquery.fancybox.css" />
+    <Content Include="Content\js\libs\fancyBox\source\jquery.fancybox.js" />
+    <Content Include="Content\js\libs\fancyBox\source\jquery.fancybox.min.css" />
+    <Content Include="Content\js\libs\fancyBox\source\jquery.fancybox.min.js" />
+    <Content Include="Content\js\libs\fancyBox\source\jquery.fancybox.pack.js" />
+    <Content Include="Content\js\libs\fancyBox\source\jquery.fancybox.pack.min.js" />
+    <Content Include="Content\js\libs\jquery-1.11.3.min.js" />
+    <Content Include="Content\js\libs\jquery-newsticker\css\clearfix.css" />
+    <Content Include="Content\js\libs\jquery-newsticker\css\jquery.newsticker.css" />
+    <Content Include="Content\js\libs\jquery-newsticker\css\reset-font-min.css" />
+    <Content Include="Content\js\libs\jquery-newsticker\index.html" />
+    <Content Include="Content\js\libs\jquery-newsticker\js\jquery.min.js" />
+    <Content Include="Content\js\libs\jquery-newsticker\js\jquery.newsticker.js" />
+    <Content Include="Content\js\libs\jquery.marquee.js" />
+    <Content Include="Content\js\libs\jquery.newsTicker.js" />
+    <Content Include="Content\js\libs\jssor.slider.mini.js" />
+    <Content Include="Content\js\libs\modernizr-3.2.0.base.js" />
+    <Content Include="Content\js\libs\prefixfree.min.js" />
+    <Content Include="Content\js\libs\treeview\MultiNestedList.js" />
+    <Content Include="Content\js\libs\treeview\style.css" />
+    <Content Include="Content\Publishing\css\awesome\css\font-awesome.css" />
+    <Content Include="Content\Publishing\css\awesome\css\font-awesome.min.css" />
+    <Content Include="Content\Publishing\css\awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Publishing\css\reset.css" />
+    <Content Include="Content\Publishing\css\styles.css" />
+    <Content Include="Content\Publishing\img\arr-01.jpg" />
+    <Content Include="Content\Publishing\img\arr-02.jpg" />
+    <Content Include="Content\Publishing\img\arr-03.jpg" />
+    <Content Include="Content\Publishing\img\arr04.jpg" />
+    <Content Include="Content\Publishing\img\box-blue.jpg" />
+    <Content Include="Content\Publishing\img\box-red.jpg" />
+    <Content Include="Content\Publishing\img\box-title-thoitiet.jpg" />
+    <Content Include="Content\Publishing\img\footer-bg.png" />
+    <Content Include="Content\Publishing\img\gallery-left-hover.jpg" />
+    <Content Include="Content\Publishing\img\gallery-left.jpg" />
+    <Content Include="Content\Publishing\img\gallery-right-hover.jpg" />
+    <Content Include="Content\Publishing\img\gallery-right.jpg" />
+    <Content Include="Content\Publishing\img\gallery-title-box.jpg" />
+    <Content Include="Content\Publishing\img\header.png" />
+    <Content Include="Content\Publishing\img\hot-news-icon.jpg" />
+    <Content Include="Content\Publishing\img\hot-news.jpg" />
+    <Content Include="Content\Publishing\img\icon-audio.jpg" />
+    <Content Include="Content\Publishing\img\icon-camera.jpg" />
+    <Content Include="Content\Publishing\img\icon-en.jpg" />
+    <Content Include="Content\Publishing\img\icon-facebook.jpg" />
+    <Content Include="Content\Publishing\img\icon-hot-news-item-hover.jpg" />
+    <Content Include="Content\Publishing\img\icon-hot-news-item.jpg" />
+    <Content Include="Content\Publishing\img\icon-hotnews.jpg" />
+    <Content Include="Content\Publishing\img\icon-mail.jpg" />
+    <Content Include="Content\Publishing\img\icon-rss.jpg" />
+    <Content Include="Content\Publishing\img\icon-search.jpg" />
+    <Content Include="Content\Publishing\img\icon-top.png" />
+    <Content Include="Content\Publishing\img\icon-twitter.jpg" />
+    <Content Include="Content\Publishing\img\link-icon01.jpg" />
+    <Content Include="Content\Publishing\img\link-icon02.jpg" />
+    <Content Include="Content\Publishing\img\logo-1000nam.jpg" />
+    <Content Include="Content\Publishing\img\logo.png" />
+    <Content Include="Content\Publishing\img\media-title.jpg" />
+    <Content Include="Content\Publishing\img\menu-hover.gif" />
+    <Content Include="Content\Publishing\img\news-01.jpg" />
+    <Content Include="Content\Publishing\img\news-02.jpg" />
+    <Content Include="Content\Publishing\index.html" />
+    <Content Include="Content\Publishing\js\app.js" />
+    <Content Include="Content\Publishing\js\jquery-1.9.1.js" />
+    <Content Include="Content\Publishing\js\jquery-ui-1.9.2-min.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\content\ajax.html" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\content\daisy%402x.jpg" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\content\daisy.jpg" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\content\homer.jpg" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\content\marylou.jpg" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\content\ohoopee1.jpg" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\content\ohoopee2.jpg" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\content\ohoopee3.jpg" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example1\colorbox.css" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example1\images\border.png" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example1\images\controls.png" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example1\images\loading.gif" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example1\images\loading_background.png" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example1\images\overlay.png" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example1\index.html" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example2\colorbox.css" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example2\images\controls.png" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example2\images\loading.gif" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example2\index.html" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example3\colorbox.css" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example3\images\controls.png" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example3\images\loading.gif" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example3\index.html" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example4\colorbox.css" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example4\images\border1.png" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example4\images\border2.png" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example4\images\loading.gif" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example4\index.html" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example5\colorbox.css" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example5\images\border.png" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example5\images\controls.png" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example5\images\loading.gif" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example5\images\loading_background.png" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\example5\index.html" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-ar.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-bg.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-ca.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-cs.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-da.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-de.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-es.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-et.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-fa.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-fi.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-fr.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-gl.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-gr.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-he.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-hr.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-hu.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-id.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-it.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-ja.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-kr.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-lv.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-nl.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-no.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-pl.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-pt-br.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-ro.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-ru.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-si.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-sk.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-sr.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-sv.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-tr.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-uk.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-zh-CN.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\i18n\jquery.colorbox-zh-TW.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\jquery.colorbox-min.js" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\jquery.colorbox.js" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\demo\demo.html" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\demo\p1.jpg" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\demo\p2.jpg" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\demo\p3.jpg" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\images\close.png" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\images\down.png" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\images\icon-date.png" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\images\lt.png" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\images\lt_hover.png" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\images\pause.png" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\images\play.png" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\images\rt.png" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\images\rt_hover.png" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\images\up.png" />
+    <Content Include="Content\Publishing\js\plugins\infiniteCarousel\jquery.infinitecarousel.js" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\changelog.txt" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\basic-carousel.html" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\carousel-min-max.html" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\css\demo.css" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\dynamic-carousel-min-max.html" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-medium\svg\1110FC_0.svg" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-medium\svg\svg_test.html" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-regular\svg\11014B_0.svg" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-regular\svg\svg_test.html" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-semibold\svg\index.html" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-semibold\svg\style_169898.svg" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\images\kitchen_adventurer_caramel.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\images\kitchen_adventurer_cheesecake_brownie.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\images\kitchen_adventurer_donut.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\images\kitchen_adventurer_lemon.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\images\logo.png" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\index.html" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\js\demo.js" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\js\froogaloop.js" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\js\jquery.easing.js" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\js\jquery.fitvid.js" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\js\jquery.mousewheel.js" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\js\modernizr.js" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\js\shBrushCss.js" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\js\shBrushJScript.js" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\js\shBrushXml.js" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\js\shCore.js" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\thumbnail-controlnav.html" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\thumbnail-slider.html" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\video-wistia.html" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\video.html" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\flexslider.css" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\fonts\flexslider-icon.svg" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\images\bg_play_pause.png" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\jquery.flexslider-min.js" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\jquery.flexslider.js" />
+    <Content Include="Content\Publishing\js\plugins\jssor\css\styles.css" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\1920\blue.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\1920\purple.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\1920\red.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a01.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a02.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a03.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a04.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a06.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a07.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a08.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a09.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a10.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a11.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a12.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a13.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a14.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a15.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a16.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a17.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a18.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a19.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a20.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a21.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\a22.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\01.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\02.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\03.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\04.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\05.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\06.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\07.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\08.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\09.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\10.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\11.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\12.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\13.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\14.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\15.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\16.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\17.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\18.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\19.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\20.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\21.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\22.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\23.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\24.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\25.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\26.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\27.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\28.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\29.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\30.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-01.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-02.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-03.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-04.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-05.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-06.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-07.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-08.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-09.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-10.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-11.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-12.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-13.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-14.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-15.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-16.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-17.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-18.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-19.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-20.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-21.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-22.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-23.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-24.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-25.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-26.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-27.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-28.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-29.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\alila\thumb-30.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\005.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\006.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\011.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\013.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\014.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\019.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\020.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\021.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\022.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\024.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\025.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\027.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\029.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\030.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\031.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\032.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\034.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\038.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\039.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\043.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\044.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\047.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\ancient-lady\050.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\appicon\01.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\appicon\02.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\appicon\03.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b02.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b03.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b05.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b06.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b07.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b10.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b11.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b12.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b13.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b14.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b16.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b17.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b18.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b20.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\b21.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\back.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\browser-icons.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\close.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\home\01.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\home\02.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\home\03.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\home\04.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\home\back-dice-02.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\home\back-dice.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\home\moc-ipad.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\home\moc-iphone.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\Icon-Slider-12-jQuery.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\Icon-Slider-12-No-jQuery.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\01.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\02.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\03.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\04.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\05.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\06.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\07.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\08.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\09.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\10.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\11.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\12.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\thumb-01.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\thumb-02.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\thumb-03.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\thumb-04.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\thumb-05.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\thumb-06.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\thumb-07.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\thumb-08.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\thumb-09.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\thumb-10.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\thumb-11.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\landscape\thumb-12.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\loading.gif" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\loading2.gif" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\amazon.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\android.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\bitly.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\blogger.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\dnn.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\drupal.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\ebay.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\facebook.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\google.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\ibm.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\ios.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\joomla.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\jssor.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\linkedin.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\mac.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\magento.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\pinterest.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\samsung.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\twitter.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\windows.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\wordpress.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\logo\youtube.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\find-out-more-bt.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\main_bg.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\main_bg.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s1.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s1t.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s2.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s2t.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s3.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s3t.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s4.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s4t.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s5.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s5t.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s6.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s6t.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s7.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s7t.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s8.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\major\s8t.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\001.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\002.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\003.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\004.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\005.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\006.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\007.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\008.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\thumb-001.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\thumb-002.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\thumb-003.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\thumb-004.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\thumb-005.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\thumb-006.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\thumb-007.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\motor\thumb-008.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\nested-thumb\landscape.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\nested-thumb\motor.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\nested-thumb\photography.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\new-site\c-finger-pointing.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\new-site\c-fruit.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\new-site\c-jssor-slider.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\new-site\c-navigator-horizontal.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\new-site\c-navigator.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\new-site\c-phone-horizontal.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\new-site\c-phone.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\new-site\c-slide-1.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\new-site\c-slide-2.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\new-site\c-slide-3.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\new-site\c-text.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\new-site\cool-guy.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\paint\01.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\paint\02.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\paint\03.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\paint\04.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\paint\05.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\paint\06.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\paint\07.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\paint\08.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\paint\09.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\paint\10.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\paint\11.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\001.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\002.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\003.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\004.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\005.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\006.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\007.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\008.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\009.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\010.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\011.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\012.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\013.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\014.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\015.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-001.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-002.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-003.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-004.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-005.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-006.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-007.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-008.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-009.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-010.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-011.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-012.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-013.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-014.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\photography\thumb-015.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\play.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\qr\full-width-slider.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\qr\jssor.com.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\share\share-icons.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\t01.png" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\01.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\02.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\03.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\04.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\05.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\06.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\07.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\08.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\09.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\10.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\11.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\12.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\13.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\14.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\15.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\16.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\17.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\18.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\19.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-01.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-02.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-03.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-04.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-05.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-06.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-07.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-08.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-09.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-10.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-11.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-12.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-13.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-14.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-15.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-16.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-17.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-18.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\img\travel\thumb-19.jpg" />
+    <Content Include="Content\Publishing\js\plugins\jssor\js\jssor.js" />
+    <Content Include="Content\Publishing\js\plugins\jssor\js\jssor.player.ytiframe.js" />
+    <Content Include="Content\Publishing\js\plugins\jssor\js\jssor.slider.js" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\demo\demo.html" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\demo\images\dev7logo.png" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\demo\images\nemo.jpg" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\demo\images\toystory.jpg" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\demo\images\up.jpg" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\demo\images\walle.jpg" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\demo\scripts\jquery-1.9.0.min.js" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\demo\style.css" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\jquery.nivo.slider.js" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\jquery.nivo.slider.pack.js" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\license.txt" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\nivo-slider.css" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\bar\arrows.png" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\bar\bar.css" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\bar\bullets.png" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\bar\loading.gif" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\dark\arrows.png" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\dark\bullets.png" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\dark\dark.css" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\dark\loading.gif" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\default\arrows.png" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\default\bullets.png" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\default\default.css" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\default\loading.gif" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\light\arrows.png" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\light\bullets.png" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\light\light.css" />
+    <Content Include="Content\Publishing\js\plugins\nivo-slider\themes\light\loading.gif" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\jquery-scrolltofixed-min.js" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\jquery-scrolltofixed.js" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\license.txt" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\test-min.html" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\test.html" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\tests\basic.html" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\tests\bounding_box.html" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\tests\box_sizing_border_box.html" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\tests\fake_centering.html" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\tests\horizontal_scroll.html" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\tests\position_absolute.html" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\tests\position_absolute_in_relative.html" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\tests\position_absolute_margin.html" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\tests\position_top_arg.html" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\tests\position_with_floats.html" />
+    <Content Include="Content\Publishing\khai-mac-100-nam.mp4" />
+    <Content Include="Content\Publishing\rss\add-to-rojo.gif" />
+    <Content Include="Content\Publishing\rss\addtomyyahoo4.gif" />
+    <Content Include="Content\Publishing\rss\bloglines.gif" />
+    <Content Include="Content\Publishing\rss\ePiRSS.xsl" />
+    <Content Include="Content\Publishing\rss\newsgator.gif" />
+    <Content Include="Content\Publishing\rss\pluckit.png" />
+    <Content Include="Content\Publishing\rss\rss.css" />
+    <Content Include="Content\Publishing\rss\rss_button.gif" />
+    <Content Include="Content\Publishing\vtv.mp4" />
+    <Content Include="Content\video\video-3.mp4" />
+    <Content Include="Content\video\video-7.mp4" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Uploads\images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\CONTRIBUTING.md" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-medium\eot\1110FC_0.eot" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-medium\ttf\1110FC_0.ttf" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-medium\woff\1110FC_0.woff" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-regular\eot\11014B_0.eot" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-regular\ttf\11014B_0.ttf" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-regular\woff\11014B_0.woff" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-semibold\eot\style_169898.eot" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-semibold\ttf\style_169898.ttf" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\demo\fonts\webfonts\geo-semibold\woff\style_169898.woff" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\flexslider.less" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\fonts\flexslider-icon.eot" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\fonts\flexslider-icon.ttf" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\fonts\flexslider-icon.woff" />
+    <Content Include="Content\Publishing\js\plugins\jquery.FlexSlider\README.mdown" />
+    <Content Include="Content\Publishing\js\plugins\scrolltofixed\README.md" />
+    <Content Include="Content\Publishing\css\awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\Publishing\css\awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\Publishing\css\awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\Publishing\css\awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\Publishing\css\awesome\less\bordered-pulled.less" />
+    <Content Include="Content\Publishing\css\awesome\less\core.less" />
+    <Content Include="Content\Publishing\css\awesome\less\fixed-width.less" />
+    <Content Include="Content\Publishing\css\awesome\less\font-awesome.less" />
+    <Content Include="Content\Publishing\css\awesome\less\icons.less" />
+    <Content Include="Content\Publishing\css\awesome\less\larger.less" />
+    <Content Include="Content\Publishing\css\awesome\less\list.less" />
+    <Content Include="Content\Publishing\css\awesome\less\mixins.less" />
+    <Content Include="Content\Publishing\css\awesome\less\path.less" />
+    <Content Include="Content\Publishing\css\awesome\less\rotated-flipped.less" />
+    <Content Include="Content\Publishing\css\awesome\less\spinning.less" />
+    <Content Include="Content\Publishing\css\awesome\less\stacked.less" />
+    <Content Include="Content\Publishing\css\awesome\less\variables.less" />
+    <Content Include="Content\Publishing\css\awesome\scss\font-awesome.scss" />
+    <Content Include="Content\Publishing\css\awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\Publishing\css\awesome\scss\_core.scss" />
+    <Content Include="Content\Publishing\css\awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\Publishing\css\awesome\scss\_icons.scss" />
+    <Content Include="Content\Publishing\css\awesome\scss\_larger.scss" />
+    <Content Include="Content\Publishing\css\awesome\scss\_list.scss" />
+    <Content Include="Content\Publishing\css\awesome\scss\_mixins.scss" />
+    <Content Include="Content\Publishing\css\awesome\scss\_path.scss" />
+    <Content Include="Content\Publishing\css\awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\Publishing\css\awesome\scss\_spinning.scss" />
+    <Content Include="Content\Publishing\css\awesome\scss\_stacked.scss" />
+    <Content Include="Content\Publishing\css\awesome\scss\_variables.scss" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\bower.json" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\colorbox.ai" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\colorbox.jquery.json" />
+    <Content Include="Content\Publishing\js\plugins\colorbox-master\README.md" />
+    <Content Include="Content\css\font-awesome-4.6.1\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\css\font-awesome-4.6.1\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\css\font-awesome-4.6.1\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\css\font-awesome-4.6.1\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\css\font-awesome-4.6.1\fonts\FontAwesome.otf" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\animated.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\bordered-pulled.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\core.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\fixed-width.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\font-awesome.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\icons.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\larger.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\list.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\mixins.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\path.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\rotated-flipped.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\screen-reader.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\stacked.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\variables.less" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\font-awesome.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_animated.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_bordered-pulled.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_core.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_fixed-width.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_icons.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_larger.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_list.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_mixins.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_path.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_rotated-flipped.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_screen-reader.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_stacked.scss" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\_variables.scss" />
+    <Content Include="Content\js\libs\jquery-newsticker\css\jquery.newsticker.scss" />
+    <Content Include="Content\js\libs\jquery-newsticker\LICENSE" />
+    <Content Include="Content\js\libs\jquery-newsticker\README.md" />
+    <Content Include="Content\js\libs\fancyBox\.gitattributes" />
+    <Content Include="Content\js\libs\fancyBox\CHANGELOG.md" />
+    <Content Include="Content\js\libs\fancyBox\lib\jquery.mousewheel-3.0.6.pack.min.js.map" />
+    <Content Include="Content\js\libs\fancyBox\README.md" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-buttons.min.js.map" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-media.min.js.map" />
+    <Content Include="Content\js\libs\fancyBox\source\helpers\jquery.fancybox-thumbs.min.js.map" />
+    <Content Include="Content\js\libs\fancyBox\source\jquery.fancybox.min.js.map" />
+    <Content Include="Content\js\libs\fancyBox\source\jquery.fancybox.pack.min.js.map" />
+    <Content Include="Content\js\libs\fancyBox\sprite.psd" />
+    <Content Include="libman.json" />
+    <Content Include="Content\css\desktop.ini" />
+    <Content Include="Content\css\font-awesome-4.6.1\css\desktop.ini" />
+    <Content Include="Content\css\font-awesome-4.6.1\desktop.ini" />
+    <Content Include="Content\css\font-awesome-4.6.1\fonts\desktop.ini" />
+    <Content Include="Content\css\font-awesome-4.6.1\less\desktop.ini" />
+    <Content Include="Content\css\font-awesome-4.6.1\scss\desktop.ini" />
+    <Content Include="Content\desktop.ini" />
+    <Content Include="Content\img\desktop.ini" />
+    <Content Include="Content\img\logo\desktop.ini" />
+    <Content Include="Content\img\slider\desktop.ini" />
+    <Content Include="Content\js\desktop.ini" />
+    <Content Include="Content\js\libs\desktop.ini" />
+    <Content Include="Content\js\libs\jquery-newsticker\css\desktop.ini" />
+    <Content Include="Content\js\libs\jquery-newsticker\desktop.ini" />
+    <Content Include="Content\js\libs\jquery-newsticker\js\desktop.ini" />
+    <Content Include="Content\video\desktop.ini" />
+    <Content Include="Content\video\video-7.ogv" />
+    <Content Include="Content\video\video_bg.ogv" />
+    <Content Include="Content\fonts\desktop.ini" />
+    <Content Include="Content\fonts\helvetica\desktop.ini" />
+    <Content Include="Content\fonts\helvetica\Helvetica 76 Bold Italic.woff" />
+    <Content Include="Content\fonts\helvetica\Helvetica.ttf" />
+    <Content Include="Content\fonts\helvetica\Helvetica25UltraLight_22433.woff" />
+    <Content Include="Content\fonts\helvetica\Helvetica26UltraLightItalic_22434.woff" />
+    <Content Include="Content\fonts\helvetica\Helvetica35Thin_22435.woff" />
+    <Content Include="Content\fonts\helvetica\Helvetica36ThinItalic_22436.woff" />
+    <Content Include="Content\fonts\helvetica\Helvetica45Light_22437.woff" />
+    <Content Include="Content\fonts\helvetica\Helvetica46LightItalic_22438.woff" />
+    <Content Include="Content\fonts\helvetica\Helvetica55Roman_22439.woff" />
+    <Content Include="Content\fonts\helvetica\Helvetica56Italic_22440.woff" />
+    <Content Include="Content\fonts\helvetica\Helvetica65Medium_22443.woff" />
+    <Content Include="Content\fonts\helvetica\Helvetica85Heavy_22449.woff" />
+    <Content Include="Content\fonts\helvetica\Helvetica86HeavyItalic_22450.woff" />
+    <Content Include="Content\fonts\helvetica\Helvetica95Black.woff" />
+    <Content Include="Content\fonts\helvetica\HelveticaNeueBlackItalic 1.woff" />
+    <Content Include="Content\fonts\helvetica\HelveticaNeueBold.woff" />
+    <Content Include="Content\fonts\helvetica\HelveticaNeueMediumItalic.woff" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Views\Home\Router.cshtml" />
+    <Content Include="Views\Home\Category.cshtml" />
+    <Content Include="Views\Home\Content.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
+    <Content Include="Views\Home\Album.cshtml" />
+    <Content Include="Views\Shared\_FacebookCommentPatial.cshtml" />
+    <Content Include="Views\Home\Document.cshtml" />
+    <Content Include="Views\Home\IndexDocument.cshtml" />
+    <Content Include="Views\Home\IndexRss.cshtml" />
+    <Content Include="Views\Shared\_RightMenuDocumentPatial.cshtml" />
+    <Content Include="Views\Shared\_SearchDocumentPartial.cshtml" />
+    <Content Include="Views\Ajax\Weather.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\pub.pubxml" />
+    <Content Include="Views\Shared\newsRight.cshtml" />
+    <Content Include="Views\Home\Sitemap.cshtml" />
+    <Content Include="Views\Home\IndexChuongTrinh.cshtml" />
+    <Content Include="Views\Home\DetailChuongTrinh.cshtml" />
+    <Content Include="Views\Home\DetailNhiemVu.cshtml" />
+    <Content Include="Views\Home\ListNhiemVu.cshtml" />
+    <Content Include="SolrNet.chm" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shared\_Layout_New.cshtml" />
+    <Content Include="Views\Shared\_Layout_Detail.cshtml" />
+    <Content Include="Views\Home\GioiThieu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QNews.Base\QNews.Base.csproj">
+      <Project>{374cce2e-43fd-42d9-9e7a-1e7f2e8bc168}</Project>
+      <Name>QNews.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QNews.Data\QNews.Data.csproj">
+      <Project>{b24a2c72-9bd4-4145-909f-1872f1958a67}</Project>
+      <Name>QNews.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QNews.Models\QNews.Models.csproj">
+      <Project>{8ca3fab2-e017-47f1-a461-ce96d66ab06e}</Project>
+      <Name>QNews.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QNews.Utils\QNews.Utils.csproj">
+      <Project>{5c509874-28e7-4f31-bc4a-9fb701277b6d}</Project>
+      <Name>QNews.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1823</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:1823/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

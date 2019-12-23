@@ -1,0 +1,33 @@
+﻿@model QNews.Models.HomeViewModel
+@{
+    Layout = "~/Views/Shared/_Layout_New.cshtml";
+    ViewBag.Title = "Văn phòng các chương trình Khoa học và Công nghệ Quốc gia";
+    string modulePath = "/chuong-trinh-khcn";
+}
+@if (Model.ChuongTrinhIndexNew != null)
+{
+    <div class="box-container">
+        <div class="khcn-head">
+            <h1>CÁC CHƯƠNG TRÌNH <br /> KHOA HỌC VÀ CÔNG NGHỆ QUỐC GIA</h1>
+            <div class="underline"></div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.ChuongTrinhIndexNew)
+            {
+                var urlstr = "chuong-trinh-khcn-" + item.ID;
+                <div class="khcn-col col-md d-flex flex-column flex-equal-items no-gutters">
+
+                    <div class="khcn-item">
+
+                        <a href="@urlstr"><img src="@item.Image" alt="@item.Title" /></a>
+                        <p>@item.Title</p>
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+    </div>
+
+}

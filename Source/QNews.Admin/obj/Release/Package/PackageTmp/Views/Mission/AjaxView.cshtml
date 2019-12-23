@@ -1,0 +1,79 @@
+﻿@model QNews.Base.Mission
+
+@{
+    ViewBag.MaNhiemVu = "Xem chi tiết";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<fieldset class="forms">
+    <table class="tableforms tabledetails" cellspacing="1" width="100%">
+        <tr>
+            <td style="width:160px;" class="label"><label>Mã nhiệm vụ</label></td>
+            <td>
+                @Html.DisplayFor(model => model.MaNhiemVu)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Tên nhiệm vụ</label></td>
+            <td>
+                @Html.Raw(Model.TenNhiemVu)
+            </td>
+        </tr>
+
+
+        <tr>
+            <td class="label"><label>Ngày bắt đầu</label></td>
+            <td>@((Model.BatDau.HasValue) ? Model.BatDau.Value.ToString("dd/MM/yyyy") : "")</td>
+        </tr>
+
+
+        <tr>
+            <td class="label"><label>Ngày kết thúc</label></td>
+            <td>@((Model.KetThuc.HasValue) ? Model.KetThuc.Value.ToString("dd/MM/yyyy") : "")</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Tổ chức chủ trì</label></td>
+            <td>@Model.ToChucChuTri</td>
+        </tr>
+
+
+        <tr>
+            <td class="label"><label>Chương trình</label></td>
+            <td>
+                <ul style="list-style: inside none disc;">
+                    <li>@Html.Raw(string.Join("</li><li>", Model.DocumentScopes.Select(o => o.Title)))</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Nội dung chi tiết</label></td>
+            <td>
+                @Html.Raw(Model.Details)
+            </td>
+        </tr>
+        
+
+        <tr>
+            <td class="label"><label>Người tạo</label></td>
+            <td>@Model.AspNetUser_CreateBy.UserName</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Ngày tạo</label></td>
+            <td>@Model.CreateDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Người sửa cuối</label></td>
+            <td>@Model.AspNetUser_ModifyBy.UserName</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Ngày sửa</label></td>
+            <td>@Model.ModifyDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+        </tr>
+    </table>
+</fieldset>
+

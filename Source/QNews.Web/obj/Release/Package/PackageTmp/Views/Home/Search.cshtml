@@ -1,0 +1,49 @@
+﻿@model QNews.Models.SearchResult
+@{
+    ViewBag.Title = "Tìm kiếm";
+
+    string contentType = Request["contentType"];
+    string kwd = Request["kwd"];
+    string path = Request.Path.ToLower();
+}
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+    <li>/</li>
+    <li class="active"><h2><a href="/tim-kiem">@ViewBag.Title</a></h2></li>
+</ol>
+
+
+<div class="box-content">
+    <div class="content">
+        @foreach (var item in Model.Items)
+        {
+            <div class="news-items">
+               
+                <p class="title">
+                    <a href="@item.UrlID">@item.Title</a>
+                </p>
+             
+                @if (string.IsNullOrEmpty(item.Description))
+                {
+                    item.Description = QNews.Utils.StaticClass.getDesFromContent(item.Details);
+                }
+                <div class="des">
+                    @Html.Raw(item.Description)
+                </div>
+                <p class="more"><a href="@item.UrlID">Xem thêm <i class="fa fa-angle-double-right"></i></a></p>
+            </div>
+        }
+    </div>
+    <div class="page">
+        @Html.Raw(Model.HtmlPage)
+    </div>
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$("nav ul li a[href$='lien-he']").addClass("actived");
+        });
+    </script>
+}

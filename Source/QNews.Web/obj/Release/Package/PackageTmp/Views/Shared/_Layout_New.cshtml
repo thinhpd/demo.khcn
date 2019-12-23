@@ -1,0 +1,250 @@
+﻿<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie ie6 ie-lt10 ie-lt9 ie-lt8 ie-lt7 no-js" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7 ie-lt10 ie-lt9 ie-lt8 no-js" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8 ie-lt10 ie-lt9 no-js" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9 ie-lt10 no-js" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+    <meta name="google-site-verification" content="" />
+    <meta name="Copyright" content="" />
+
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">*@
+    <link rel="shortcut icon" href="favicon.ico" />
+
+
+    <link rel="stylesheet" href="~/Content/css/reset.css" />
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+    <link rel="stylesheet" href="~/Content/css/font-awesome-4.6.1/css/font-awesome.min.css" />
+    <link href="~/Content/js/libs/fancyBox/source/jquery.fancybox.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Content/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/Content/css/simpleLightbox.min.css">
+    <script src="~/Content/js/libs/jquery-1.11.3.min.js"></script>
+    <script src="~/Content/js/libs/prefixfree.min.js"></script>
+    <script src="~/Content/js/libs/modernizr-3.2.0.base.js"></script>
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/owl.carousel.min.js"></script>
+    <script src="~/Content/js/simpleLightbox.min.js"></script>
+    @RenderSection("meta", required: false)
+
+</head>
+
+<body>
+    @{
+        QNews.Models.LayoutViewModels model = new QNews.Data.Publishing.ContentDA().getLayoutModels();
+    }
+    <div class="wrapper">
+
+        <!-- header -->
+        <header>
+            <div class="top">
+                <div class="container">
+                    <div class="logo">
+                        <a href="/"><img src="~/Content/img/logo_w.png" alt="Văn phòng các chương trình Khoa học và Công nghệ Quốc gia" /></a>
+                    </div>
+                    <div class="right">
+                        <div class="search">
+                            <form method="get" action="/tim-kiem">
+                                <div class="input">
+                                    <input type="text" id="ipsearch" name="kwd" value="@Request["kwd"]" placeholder="Tìm kiếm" />
+                                    <a id="btsearch" href="javascript:searchip('ipsearch');"><i class="fa fa-search"></i></a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="links">
+                            <ul>
+                                @*
+                                    <li><span><a href="#"><i class="fa fa-users"></i> Gửi ý kiến</a></span></li>
+                                    <li><span><a href="#"><i class="fa fa-envelope-o"></i> Email</a></span></li>
+                                    <li><a href="#"><img src="~/Content/img/icon_vietnam.png" /></a></li>
+                                    <li><a href="#"><img src="~/Content/img/icon_english.png" /></a></li>
+                                *@
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <nav>
+                    <div class="container">
+                        <ul>
+                            <li class="first"><a href="/"><i class="fa fa-home"></i></a></li>
+                            @foreach (var item in model.LtsAllCategory.Where(o => o.ShowInTopMenu && o.ParentID == 0).OrderBy(o => o.Order))
+                            {
+                                <li class="menu_item_main" data-id="@item.ID">
+                                    <a data-id="@item.ID" href="@(string.IsNullOrEmpty(item.CurrentUrl) ? "/" + item.Url : item.CurrentUrl)"><span>@item.Name</span></a>
+                                    <div class="sub">
+                                        @{
+                                            var childs = model.LtsAllCategory.Where(o => o.Show && o.ParentID == item.ID && o.ShowInTopMenu).OrderBy(o => o.Order);
+                                        }
+                                        @if (childs.Count() > 0)
+                                        {
+                                            <ul>
+                                                @foreach (var child in childs)
+                                                {
+                                                    <li><a data-id="@child.ID" href="@(string.IsNullOrEmpty(child.CurrentUrl) ? "/" + child.Url : child.CurrentUrl)"><span>@child.Name</span></a></li>
+                                                }
+                                            </ul>
+                                        }
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+        </header>
+        <!-- header -->
+
+
+        <div class="body">
+            <!--Big Banner-->
+            <div class="box-container">
+                <div class="video_tuuyendung big_banner">
+                    <div class="video_tt">
+                        <img src="~/Content/img/logo/logo_ab.png" alt="">
+                        <h2>Văn phòng</h2>
+                        <h1>CÁC CHƯƠNG TRÌNH</h1><h1> KHOA HỌC VÀ CÔNG NGHỆ QUỐC GIA</h1>
+                        <a id="lk_frm_dknt" href="#frm_dknt">Đăng ký nhận tin</a>
+                    </div>
+                    <div class="bg_video">
+                        <video autoplay="" loop="" muted="" style="">
+                            <source src="~/Content/video/video-7.mp4" type="video/mp4">
+                            <source src="~/Content/video/video-7.ogv" type="video/ogg">
+                        </video>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- top, breaking news -->
+            <div class="container">
+                <div class="top-content">
+                    <div class="content">
+                        <strong class="head">Tin mới</strong>
+                        <div class="lastest-news">
+                            <ul class="newsticker">
+                                @foreach (var item in model.TopNews.Where(o => o.Title.Length < 150))
+                                {
+                                    <li><a href="/@item.Url">@item.Title</a></li>
+                                }
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="date">
+                        <i class="fa fa-calendar-o"></i> @QNews.Utils.StaticClass.GetDateText()
+                    </div>
+                </div>
+            </div>
+            <!-- top, breaking news -->
+            <!-- layouts -->
+            @RenderBody()
+           
+            <!-- layouts -->
+
+        </div>
+
+        <footer>
+            <div class="top">
+                <div class="container">
+                    <div class="left">
+                        <ul class="social">
+                            <li style="height:55px;"></li>
+                            @*<li><a href="#"><span><i class="fa fa-facebook"></i></span></a></li>
+                                <li><a href="#"><span><i class="fa fa-twitter"></i></span></a></li>
+                                <li><a href="#"><span><i class="fa fa-google-plus"></i></span></a></li>
+                                <li><a href="#"><span><i class="fa fa-youtube"></i></span></a></li>
+                                <li><a href="#"><span><i class="fa fa-instagram"></i></span></a></li>
+                                <li><a href="#"><span><i class="fa fa-linkedin"></i></span></a></li>*@
+                        </ul>
+                    </div>
+
+                    <div class="right">
+                        <ul class="links">
+                            <li><a href="/">Trang chủ</a></li>
+                            <li><span>|</span></li>
+                            <li><a href="/lien-he">Liên hệ</a></li>
+                            <li><span>|</span></li>
+                            <li><a href="/so-do-website">Sơ đồ site</a></li>
+                            <li><span>|</span></li>
+                            <li><a href="/rss">RSS</a></li>
+                            @{
+                                string userAgent = System.Web.HttpContext.Current.Request.UserAgent.ToLower();
+                            }
+                            @if (userAgent.Contains("google") || userAgent.Contains("bing") || userAgent.Contains("yahoo"))
+                            {
+                                <li><span>|</span></li>
+                                <li><a href="https://vanbanphapluat.co" title="Download văn bản pháp luật, công văn, TCVN">Văn bản pháp luật</a></li>
+                                <li><span>|</span></li>
+                                <li><a href="https://www.danhba.org" title="Tra cứu danh bạ điện thoại cố định">Danh bạ điện thoại</a></li>
+                                <li><span>|</span></li>
+                                <li><a href="https://thongtindoanhnghiep.co" title="Tra cứu mã số thuế công ty">Mã số thuế công ty</a></li>
+                                <li><span>|</span></li>
+                                <li><a href="https://www.downloadwallpapers.us" title="Download Desktop Wallpaper">Wallpaper</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom">
+                <div class="container">
+                    <div class="left">
+                        <img src="Content/img/logo_footer.png" />
+                        @(new HtmlString(model.footer.Value))
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+
+    
+    <script>window.jQuery || document.write("<script src='/Content/js/libs/jquery-1.11.3.min.js'>\x3C/script>")</script>
+    <script type="text/javascript" src="~/Content/js/libs/jquery.newsTicker.js"></script>
+   
+    <script src="~/Content/js/libs/fancyBox/source/jquery.fancybox.pack.min.js"></script>
+    <script src="~/Content/js/libs/fancyBox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+    <script src="~/Content/js/functions.js"></script>
+    <script>$(document).ready(initPage);</script>
+    <script>
+
+
+        function searchip(a) {
+            var a = document.getElementById(a).value;
+            var strs = a.replace(" ", "+");
+            console.log(a);
+            console.log(strs);
+            window.location.href = "/tim-kiem?kwd=" + strs;
+        }
+        $(document).ready(function () {
+            $("a.fancy").fancybox();
+
+        });
+
+    </script>
+    @RenderSection("scripts", required: false)
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1415779-41', 'auto');
+  ga('send', 'pageview');
+
+    </script>
+</body>
+
+</html>

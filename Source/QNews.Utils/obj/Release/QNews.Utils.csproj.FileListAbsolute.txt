@@ -1,0 +1,17 @@
+D:\Dropbox\QNews\QNews\QNews.Utils\bin\Release\QNews.Utils.dll
+D:\Dropbox\QNews\QNews\QNews.Utils\bin\Release\QNews.Utils.pdb
+D:\Dropbox\QNews\QNews\QNews.Utils\obj\Release\QNews.Utils.csprojResolveAssemblyReference.cache
+D:\Dropbox\QNews\QNews\QNews.Utils\obj\Release\QNews.Utils.dll
+D:\Dropbox\QNews\QNews\QNews.Utils\obj\Release\QNews.Utils.pdb
+D:\Dropbox\QNews\QNews.KHCN\Source\QNews.Utils\bin\Release\QNews.Utils.dll
+D:\Dropbox\QNews\QNews.KHCN\Source\QNews.Utils\bin\Release\QNews.Utils.pdb
+D:\Dropbox\QNews\QNews.KHCN\Source\QNews.Utils\obj\Release\QNews.Utils.csprojResolveAssemblyReference.cache
+D:\Dropbox\QNews\QNews.KHCN\Source\QNews.Utils\obj\Release\QNews.Utils.dll
+D:\Dropbox\QNews\QNews.KHCN\Source\QNews.Utils\obj\Release\QNews.Utils.pdb
+D:\Dropbox\QNews\QNews.KHCN\Source\QNews.Utils\obj\Release\QNews.Utils.csproj.CoreCompileInputs.cache
+D:\Source\KHCN\QNews.KHCN\QNews.KHCN\Source\QNews.Utils\bin\Release\QNews.Utils.dll
+D:\Source\KHCN\QNews.KHCN\QNews.KHCN\Source\QNews.Utils\bin\Release\QNews.Utils.pdb
+D:\Source\KHCN\QNews.KHCN\QNews.KHCN\Source\QNews.Utils\obj\Release\QNews.Utils.csprojAssemblyReference.cache
+D:\Source\KHCN\QNews.KHCN\QNews.KHCN\Source\QNews.Utils\obj\Release\QNews.Utils.csproj.CoreCompileInputs.cache
+D:\Source\KHCN\QNews.KHCN\QNews.KHCN\Source\QNews.Utils\obj\Release\QNews.Utils.dll
+D:\Source\KHCN\QNews.KHCN\QNews.KHCN\Source\QNews.Utils\obj\Release\QNews.Utils.pdb

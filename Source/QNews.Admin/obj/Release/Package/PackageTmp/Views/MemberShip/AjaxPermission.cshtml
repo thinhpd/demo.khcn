@@ -1,0 +1,132 @@
+﻿@model QNews.Base.AspNetUser
+@{
+    ViewBag.Title = ViewBag.ActionText + " Người dùng";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+
+        $("#PermissionForm").validate({
+            rules: {
+                Password:
+                {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 32
+                },
+                Password_2:
+                {
+                    required: true,
+                    equalTo: $("#Password")
+                }
+            },
+            submitHandler: function () { //onSubmit
+                getValueFromAutoTag('listRoleValues', 'RoleValues');
+
+                $.post(urlPostAction, $("#PermissionForm").serialize({ checkboxesAsBools: true }), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+
+        createAutoTag('Role', '@Url.Action("AutoCompleteRole", "MemberShip")');
+    });
+
+</script>
+
+<form id="PermissionForm">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="do" id="do" value="@ViewBag.Action" />
+    <input type="hidden" name="GuidID" id="GuidID" value="@Model.Id" />
+    <fieldset class="forms">
+        <legend>Phân quyền người dùng</legend>
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:140px;"><label>Phân quyền người dùng</label></td>
+                <td>
+                    <input type="hidden" name="RoleValues" id="RoleValues" />
+                    <input type="text" name="Role" id="Role" />
+                    <ul id="Role_Value" class="listRoleValues listValues">
+                        @foreach (var data in Model.AspNetRoles)
+                        {
+                            <li id="ProductTag_Value@(data.Id)" name="@data.Id" key=""><span>@data.Name</span><a href="javascript:deletevalues('ProductTag_Value@(data.Id)');"><img border="0" src="/Content/Admin/Images/gridview/act_filedelete.png" /></a></li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="label"><label>Danh sách quyền</label></td>
+                <td>
+                    <table class="tableforms tabledetails" cellspacing="1" width="100%">
+                        @foreach (QNews.Base.AspNetRole role in ViewBag.ListAllRoles)
+                        {
+                            <tr>
+                                <td>@role.Name</td>
+                                <td>@role.Description</td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="submit" colspan="2">
+                    <button id="submit" type="submit" class="primaryAction">Cập nhật</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset class="forms">
+        <legend>Thông tin thành viên</legend>
+        <table class="tableforms tabledetails" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:140px;" class="label"><label>Tài khoản</label></td>
+                <td>
+                    @Html.DisplayFor(model => model.UserName)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label"><label>Họ tên</label></td>
+                <td>
+                    @Html.DisplayFor(model => model.UserFullName)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label"><label>Email</label></td>
+                <td>
+                    @Html.DisplayFor(model => model.Email)
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="label"><label>Điện thoại</label></td>
+                <td>
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="label"><label>Vai trò trên hệ thống</label></td>
+                <td>
+                    @string.Join(", ", @Model.AspNetRoles.Select(o => o.Name))
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

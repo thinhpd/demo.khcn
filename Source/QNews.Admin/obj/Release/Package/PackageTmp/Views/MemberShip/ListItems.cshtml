@@ -1,0 +1,61 @@
+﻿@model IEnumerable<QNews.Models.UserItem>
+
+@{
+    ViewBag.Title = "ListGuide";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+    bool hasAdmin = HttpContext.Current.User.IsInRole("Admin");
+}
+@Html.AntiForgeryToken()
+<script type="text/javascript">
+    $(document).ready(function () {
+        registerGridView('#gridItems');
+    });
+</script>
+
+<div class="grid-container" id="gridItems">
+    <table class="gridView" cellspacing="1">
+        <tr>
+            @*<th><a href="#Field=Id">ID<span /></a></th>*@
+            <th><a href="#Field=UserName">Tài khoản<span /></a></th>
+            <th><a href="#Field=UserFullName">Họ tên<span /></a></th>
+            <th><a href="#Field=Email">Email<span /></a></th>
+            <th>Vai trò</th>
+            <th class="act_view"></th>
+            @if (hasAdmin)
+            {
+                <th class="act_edit"></th>
+                <th class="act_edit"></th>
+                <th class="act_edit"></th>
+                <th class="act_delete">
+                    <a href="#deleteAll" class="deleteAll" title="Xóa danh sách đã chọn">
+                        <img src="/Content/Admin/images/gridview/delete.gif" style="border: none" alt="Xóa danh sách đã chọn" />
+                    </a>
+                </th>
+                <th class="act_roles">
+                    <input value="" type="checkbox" class="checkAll" />
+                </th>
+            }
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr title="@item.UserName">
+                @*<td>@item.Id</td>*@
+                <td>@item.UserName</td>
+                <td>@item.UserFullName</td>
+                <td>@item.Email</td>
+                <td>@item.Roles</td>
+                <td class="act_view">@Grid.ActionView(item.ID, item.UserName)</td>
+                @if (hasAdmin)
+                {
+                    <td class="act_view">@Grid.ActionResetPass(item.ID, item.UserName)</td>
+                    <td class="act_view">@Grid.ActionPermission(item.ID, item.UserName)</td>
+                    <td class="act_edit">@Grid.ActionEdit(item.ID, item.UserName)</td>
+                    <td class="act_delete">@Grid.ActionDelete(item.ID, item.UserName)</td>
+                    <td class="act_roles"><input type="checkbox" value="@item.ID" class="check" /></td>
+                }
+            </tr>
+        }
+    </table>
+    @Html.Raw(ViewBag.PageHtml)
+</div>

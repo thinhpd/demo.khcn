@@ -1,0 +1,47 @@
+﻿@model List<QNews.Models.CategoryViewModel>
+@{
+    ViewBag.Title = "Sơ đồ website";
+}
+
+
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+    <li>/</li>
+    <li class="active"><h2><a href="/so-do-website">Sơ đồ website</a></h2></li>
+</ol>
+
+
+<div class="new-content">
+    <h1>Sơ đồ website</h1>
+    <ul class="sitemap">
+        <li><a href="/">Trang chủ</a></li>
+        @{
+            var allItem = Model.Where(o => o.ID > 0);
+        }
+        @foreach (var item in allItem.Where(o => o.ParentID == 0 && o.Show).OrderBy(o => o.Order))
+        {
+            <li>
+                <a href="@item.Url">@item.Name</a>
+                @{
+                    var childs = allItem.Where(o => o.ParentID == item.ID && o.Show).OrderBy(o => o.Order);
+                }
+                @if (childs.Count() > 0)
+                {
+                    <ul>
+                        @foreach (var item_child in childs)
+                        {
+                            <li><a href="@item_child.Url">@item_child.Name</a></li>
+                        }
+                    </ul>
+                }
+            </li>
+        }
+    </ul>
+
+</div>
+<br />
+
+@section scripts {
+<script src="~/Content/js/libs/treeview/MultiNestedList.js"></script>
+<link href="~/Content/js/libs/treeview/style.css" rel="stylesheet" />
+}

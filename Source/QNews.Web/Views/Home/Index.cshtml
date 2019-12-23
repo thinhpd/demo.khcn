@@ -1,0 +1,365 @@
+﻿@model QNews.Models.HomeViewModel
+@{
+    /**/
+
+    Layout = "~/Views/Shared/_Layout_New.cshtml";
+    ViewBag.Title = "Văn phòng các chương trình Khoa học và Công nghệ Quốc gia";
+}
+
+@{
+    var firstHotNews = Model.LtsHotNews.FirstOrDefault();
+    var secondHotNews = Model.LtsHotNews.Skip(1).FirstOrDefault();
+    var otherNews = Model.LtsHotNews.ToList().Take(7);
+    var lstAlbume = Model.LtsAlbumHome;
+
+}
+
+
+@if (Model.ChuongTrinhIndexNew != null)
+{
+    <div class="box-container">
+        <div class="khcn-head">
+            <h1>CÁC CHƯƠNG TRÌNH <br /> KHOA HỌC VÀ CÔNG NGHỆ QUỐC GIA</h1>
+            <div class="underline"></div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.ChuongTrinhIndexNew)
+            {
+                var urlstr = "chuong-trinh-khcn-" + item.ID;
+                <div class="khcn-col col-md d-flex flex-column flex-equal-items no-gutters">
+
+                    <div class="khcn-item">
+
+                        <a href="@urlstr"><img src="@item.Image" alt="@item.Title" /></a>
+                        <p>@item.Title</p>
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+    </div>
+
+}
+<!--BG Video-->
+@if (Model.quickLink != null)
+{
+    <div class="box-container">
+
+        <div class="video_tuuyendung">
+
+            <div class="video_tt">
+                <h3>@(new HtmlString(Model.quickLink.Title))</h3>
+
+                <a class="xt_td" href="@Model.quickLink.Link">Xem thêm ></a>
+            </div>
+
+            <div class="bg_video">
+                <video autoplay="" loop="" muted="" style="">
+                    <source src="Content/video/video-3.mp4" type="video/mp4">
+                    <source src="Content/video/video_bg.ogv" type="video/ogg">
+                </video>
+            </div>
+
+        </div>
+    </div>
+}
+
+<!--BG Video-->
+<!-- layouts -->
+<div class="layouts">
+    <!--Mục tiêu -->
+    @if (Model.lstTagetItems != null && Model.lstTagetItems.Count > 0)
+    {
+        <div class="box-container">
+            <div class="khcn-head">
+                <h1>mục tiêu CÁC CHƯƠNG TRÌNH <br /> KHOA HỌC VÀ CÔNG NGHỆ QUỐC GIA</h1>
+                <div class="underline"></div>
+                <span>Chiến lược phát triển khoa học và công nghệ 2011 - 2020</span>
+            </div>
+            <div class="muctieu_khcn">
+                @{int counti = 0;}
+                @foreach (var item in Model.lstTagetItems)
+                {
+                    var strclass = "muctieu muctieu" + (++counti);
+                    <div class="@strclass">
+                        <div class="mt_img1"><img src="@item.Image" alt="@item.Title"></div>
+                        <div class="mt_tt"><p>@item.Title</p></div>
+                        <div class="mt_mt"><p>@item.Descriptions</p></div>
+                    </div>
+
+                }
+
+
+            </div>
+        </div>
+    }
+    <!--Slider ảnh-->
+    @if (lstAlbume != null && lstAlbume.Count > 0)
+    {
+        <div class="box-container">
+            <div class="owl-carousel owl-theme slideranh">
+                @{int counti = 0;}
+                @foreach (var albumeitem in lstAlbume)
+                {
+                    var strclass = "slider_item imageGallery" + (++counti);
+
+                    <div class="item">
+                        <div class="@strclass">
+                            <img src="@albumeitem.Image" alt="@albumeitem.Title">
+                        </div>
+                    </div>
+
+
+                }
+
+            </div>
+            @{int countj = 0;}
+            @foreach (var albumeitem in lstAlbume)
+            {
+                var picList = new List<string>();
+                var capList = new List<string>();
+
+                foreach (var itempicture in albumeitem.LtsPicture)
+                {
+
+                    picList.Add("" + itempicture.Image);
+                    capList.Add(itempicture.Title);
+
+
+                }
+                var strclassjs = "imageGallery" + (++countj);
+                <script type="text/javascript">
+                            $(".@strclassjs").click(function () {
+                                SimpleLightbox.open({
+                                    items: JSON.parse('@Html.Raw(Json.Encode(@picList))'),
+                                    captions: JSON.parse('@Html.Raw(Json.Encode(@capList))')
+                                });
+                            });
+                </script>
+            }
+
+        </div>
+    }
+    <!--Slider ảnh-->
+    <!--Hướng dẫn tham gia-->
+
+    <div class="box-container">
+        <div class="khcn-head">
+            <h1>Hướng dẫn tham gia</h1>
+            <div class="underline"></div>
+        </div>
+        <div class="hdtg-container">
+            <div class="row hdtgrow">
+                <div class="hdtg-item">
+                    <a href="/doi-tuong-tham-gia">Đối tượng tham gia</a>
+                </div>
+                <div class="hdtg-item">
+                    <a href="/dieu-kien-tham-gia">Điều kiện tham gia</a>
+                </div>
+                <div class="hdtg-item">
+                    <a href="/cac-noi-dung-duoc-ho-tro-tu-ngan-sach-nha-nuoc">Các nội dung được hỗ trợ từ ngân sách Nhà nước</a>
+                </div>
+                <div class="hdtg-item">
+                    <a href="/quy-trinh-xem-xet-phe-duyet">Quy trình xét duyệt</a>
+                </div>
+            </div>
+        </div>
+        <div class="hdtg_more"><a href="/quy-trinh-tham-gia">Xem thêm</a></div>
+    </div>
+    <!--Hướng dẫn tham gia-->
+</div>
+
+<!-- hot news -->
+<div class="box-container">
+    <div class="hot-news">
+        <div class="left">
+            <div class="firstNews">
+                @if (firstHotNews != null)
+                {
+                    if (!string.IsNullOrEmpty(firstHotNews.Image))
+                    {
+                        <div class="img">
+                            <a href="/@firstHotNews.Url"><img src="@firstHotNews.Image" /></a>
+                        </div>
+                    }
+                    <div class="info">
+                        <h2><a href="/@firstHotNews.Url">@firstHotNews.Title</a></h2>
+                        @if (firstHotNews.PublishDate.HasValue)
+                        {
+                            <p class="date">@QNews.Utils.StaticClass.FormatLongDate(firstHotNews.PublishDate.Value)</p>
+                        }
+                        <div class="des">
+                            @Html.Raw(firstHotNews.Description)
+                            <p class="more"><a href="/@firstHotNews.Url">Xem thêm <i class="fa fa-angle-double-right"></i></a></p>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="right">
+            <div class="otherNews">
+                @*<div class="first">
+                        @if (secondHotNews != null)
+                        {
+                            if (!string.IsNullOrEmpty(secondHotNews.Image))
+                            {
+                                <div class="img">
+                                    <a href="/@secondHotNews.Url"><img src="@secondHotNews.Image" /></a>
+                                </div>
+                            }
+                            <h2><a href="/@secondHotNews.Url">@secondHotNews.Title</a></h2>
+                        }
+                    </div>*@
+                <div class="other">
+                    <ul>
+                        @foreach (var item in otherNews)
+                        {
+                            <li>
+
+                                <div class="data">
+                                    @if (!string.IsNullOrEmpty(item.Image))
+                                    {
+                                        <div class="img">
+                                            <a href="/@item.Url"><img src="@item.Image" /></a>
+                                        </div>
+                                    }
+                                    <div class="info">
+                                        <h2><a href="/@item.Url">@item.Title</a></h2>
+                                        @if (item.PublishDate.HasValue)
+                                        {
+                                            <p class="date">@QNews.Utils.StaticClass.FormatLongDate(item.PublishDate.Value)</p>
+                                        }
+                                        <div class="des">
+                                            @Html.Raw(item.Description)
+                                            <p class="more"><a href="/@item.Url">Xem thêm <i class="fa fa-angle-double-right"></i></a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Các đơn vị tiêu biểu-->
+@if (Model.LtsPartner != null && Model.LtsPartner.Count > 0)
+{
+<div class="box-container">
+    <div class="dvcttb-container">
+        <div class="dvtg_containerbg">
+            <div class="dvtg_container">
+                <span>Tổ chức chủ trì tiêu biểu</span>
+                <div class="owl-carousel owl-theme sliderdvtg sliderdvcttb">
+                    @foreach (var item in Model.LtsPartner)
+                    {
+                        <div class="item">
+                            <div class="slider_item  dvcttb">
+                                <img src="@item.Image" alt="">
+                                <a href="#">@item.Title</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="bg_video bg_dvtb_video">
+            <video autoplay="" loop="" muted="" style="">
+                <source src="Content/video/video-7.mp4" type="video/mp4">
+                <source src="Content/video/video-7.ogv" type="video/ogg">
+            </video>
+        </div>
+    </div>
+</div>
+}
+
+<!--Đăng ký nhận tin-->
+<div class="box-container">
+    <div class="khcn-head">
+        <h1>Đăng ký nhận tin mới nhất</h1>
+        <div class="underline"></div>
+        <p>@Model.jmessage</p>
+    </div>
+    <div id="frm_dknt" class="form_kynt">
+        @using (Html.BeginForm())
+        {
+            <table>
+                <tr>
+                    <td>Họ Tên*</td>
+                    <td>@Html.TextBoxFor(model => model.dkName)</td>
+                </tr>
+                <tr>
+                    <td>Email*</td>
+                    <td>@Html.TextBoxFor(model => model.dkEMail)</td>
+                </tr>
+                <tr>
+                    <td>Số điện thoại*</td>
+                    <td>@Html.TextBoxFor(model => model.dkphone)</td>
+                </tr>
+                <tr>
+                    <td>Quan tâm đến*</td>
+                    <td>
+                        @Html.DropDownListFor(model => model.ct_id, new List<SelectListItem>
+                   { new SelectListItem{Text="Chương trình hợp tác nghiên cứu song phương và đa phương về khoa học và công nghệ đến năm 2020	", Value="1"},
+                     new SelectListItem{Text="Chương trình tìm kiếm và chuyển giao công nghệ nước ngoài đến năm 2020", Value="2"}}, "Please select")
+                       
+                    </td>
+                </tr>
+            </table>
+            <div class="bt_submiti"><button type="submit">Đăng ký</button></div>
+        }
+        </div>
+</div>
+
+
+
+
+
+
+
+
+
+@section scripts{
+    <script type="text/javascript" src="~/Content/js/jquery.validate.js"></script>
+    <script type="text/javascript">
+
+        function changeContent(ctId) {
+            var html = $('#' + ctId).html();
+            $('#ct_home').html(html).hide().fadeIn(500);
+        }
+
+        var hotNewsIdx = 0;
+
+        $(document).ready(function () {
+
+
+            $("nav ul li:eq(0) a").addClass("actived");
+            activeNews();
+        });
+
+        function activeNews() {
+            var idx = hotNewsIdx;
+            var max = $(".hot-news .otherNews ul li").size();
+            if (hotNewsIdx == max - 1)
+                hotNewsIdx = 0;
+            else
+                hotNewsIdx++;
+
+            $(".hot-news .otherNews ul li.active").removeClass("active");
+            var ct = $(".hot-news .otherNews ul li").eq(idx);
+            ct.addClass("active");
+            var data = ct.find(".data").html();
+            $(".hot-news .left .firstNews").html(data).hide().fadeIn(500);
+            setTimeout(function () {
+                activeNews();
+            }, 8000);
+        }
+
+        
+    </script>
+}

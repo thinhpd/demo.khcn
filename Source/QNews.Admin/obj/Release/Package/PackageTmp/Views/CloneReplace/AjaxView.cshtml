@@ -1,0 +1,37 @@
+﻿@model QNews.Base.Clone_Replace
+
+@{
+    ViewBag.Title = "Xem chi tiết";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+
+<fieldset class="forms">
+    <table class="tableforms tabledetails" cellspacing="1" width="100%">
+        <tr>
+            <td style="width:90px;" class="label"><label>Tiêu đề, mô tả</label></td>
+            <td>
+                @Html.DisplayFor(model => model.Title)
+            </td>
+        </tr>
+
+        <tr>
+            <td style="width:90px;" class="label"><label>Thay thế trong tên miền</label></td>
+            <td>
+                @Html.DisplayFor(model => model.Clone_Domain.Title)
+            </td>
+        </tr>
+        <tr>
+            <td class="label"><label>Thay thế trong</label></td>
+            <td>
+                @Model.Clone_Type.Title
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Từ cần tìm</label></td>
+            <td>@Model.StringSource</td>
+        </tr>
+        
+
+    </table>
+</fieldset>

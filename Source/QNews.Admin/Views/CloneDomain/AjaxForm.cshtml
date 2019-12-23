@@ -1,0 +1,141 @@
+﻿@model QNews.Base.Clone_Domain
+@{
+    ViewBag.Title = ViewBag.ActionText + " tên miền";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#CloneDomainForm").validate({
+            rules: {
+                Title:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                DomainUrl:
+                {
+                    required: true,
+                    minlength: 7,
+                    maxlength: 50
+                },
+                XpathTitle:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 50
+                }
+            },
+            submitHandler: function () { //onSubmit
+                $.post(urlPostAction, $("#CloneDomainForm").serialize({ checkboxesAsBools: true }), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+    });
+</script>
+
+
+<form id="CloneDomainForm">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="do" id="do" value="@ViewBag.Action"/>
+    <input type="hidden" name="ItemID" id="ItemID" value="@Model.ID"/>
+    <fieldset class="forms">
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:100px;"><label>Tên domain</label></td>
+                <td>
+                    <input type="text" name="Title" id="Title" value="@Model.Title" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Địa chỉ domain</label></td>
+                <td>
+                    <input type="text" name="DomainUrl" id="DomainUrl" value="@Model.DomainUrl" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Xpath Tiêu đề</label></td>
+                <td>
+                    <input type="text" name="XpathTitle" id="XpathTitle" value="@Model.XpathTitle" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Xpath mô tả</label></td>
+                <td>
+                    <input type="text" name="XpathDescription" id="XpathDescription" value="@Model.XpathDescription" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><label>Xpath nội dung</label></td>
+                <td>
+                    <input type="text" name="XpathContent" id="XpathContent" value="@Model.XpathContent" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><label>Xpath ảnh</label></td>
+                <td>
+                    <input type="text" name="XpathImage" id="XpathImage" value="@Model.XpathImage" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><label>Xpath ảnh trong bài viết?</label></td>
+                <td>
+                    <input type="checkbox" name="XpathImageInContent" id="XpathImageInContent" value="True" @((Model.XpathImageInContent) ? " checked" : string.Empty) />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><label>Xpath ngày tạo</label></td>
+                <td>
+                    <input type="text" name="XpathCreated" id="XpathCreated" value="@Model.XpathCreated" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><label>Định dạng ngày tháng</label></td>
+                <td>
+                    <input type="text" name="DateFormat" id="DateFormat" value="@Model.DateFormat" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Ký tự ngăn cách ngày tháng năm</label></td>
+                <td>
+                    <input type="text" name="DateSplit" id="DateSplit" value="@Model.DateSplit" />
+                </td>
+            </tr>
+           
+            <tr>
+                <td></td>
+                <td>
+                    <button id="submit" type="submit" class="primaryAction">@ViewBag.ActionText</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

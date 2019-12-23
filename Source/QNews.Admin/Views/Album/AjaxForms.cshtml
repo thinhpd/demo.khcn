@@ -1,0 +1,15 @@
+﻿@model QNews.Base.Album
+@{
+    ViewBag.Title = ViewBag.ActionText + " album ảnh";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<div class="jumbotron">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
+           
+        </div>
+        <button type="submit">Upload File</button>
+    }
+</div>
+

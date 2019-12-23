@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Quản lý thành viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasAdmin = HttpContext.Current.User.IsInRole("Admin");
+}
+<script type="text/javascript">
+
+    urlLists = '@Url.Action("ListItems", "MemberShip")';
+    urlForm = '@Url.Action("AjaxForm", "MemberShip")';
+    urlPostAction = '@Url.Action("Actions", "MemberShip")';
+    urlView = '@Url.Action("AjaxView", "MemberShip")';
+    urlFormReset = '@Url.Action("AjaxReset", "MemberShip")';
+    urlFormPermission = '@Url.Action("AjaxPermission", "MemberShip")';
+
+    formWidth = 960;
+    formHeight = 650;
+    viewWidth = 960;
+    viewHeight = 650;
+
+    $(document).ready(function () {
+        initAjaxLoad(urlLists, "#MemberShipGriditems");
+
+        $("#gridSearch").submit(function () {
+            var form = $("#gridSearch");
+            window.location.href = '#' + getValueFormMutilSelect(form);
+            return false;
+        });
+
+        $("#btn_add").click(function () {
+            $("#dialog-form").dialog(
+				{
+				    title: "Thêm mới thành viên",
+				    width: formWidth,
+				    height: formHeight
+				}
+			).load(encodeURI(urlForm + "?do=Add")).dialog("open");
+            return false;
+        });
+    });
+</script>
+<div class="zone zone-content">
+    <h1>Quản lý hướng dẫn</h1>
+    <div class="headear">
+        <div class="searchbox">
+            <form id="gridSearch">
+            <fieldset class="bulk-actions">
+                <label for="Keyword">Từ khóa:</label>
+                <input type="text" name="Keyword" id="Keyword" value="Từ khóa tìm kiếm" onfocus="if(this.value=='Từ khóa tìm kiếm') this.value='';" onblur="if(this.value=='') this.value='Từ khóa tìm kiếm';" />
+                <label for="SearchIn">Tìm trong:</label>
+                <select name="SearchIn" id="SearchIn" class="mutil">
+                    <option value="UserName">Tài khoản</option> 
+                    <option value="UserFullName">Họ tên</option>
+                    <option value="Email">Địa chỉ Email</option> 
+                </select>
+                <button name="submit.Search" type="submit">Tìm kiếm</button>
+            </fieldset>
+            </form>
+        </div>
+        
+        <div class="manage">
+             @if (hasAdmin)
+             {
+                @Html.ActionLink("Thêm mới", "Create", new { }, new { @class = "add button primaryAction", @id = "btn_add" })
+             }
+        </div>
+    </div>
+    <div id="MemberShipGriditems">
+
+    </div>
+</div>

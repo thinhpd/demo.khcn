@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Quản lý chủ đề";
+
+    bool hasAdd = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Add");
+    bool hasEdit = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Edit");
+    bool hasDelete = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Delete");
+    bool hasApprove = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Approve");
+}
+<script type="text/javascript">
+
+    urlLists = '@Url.Action("ListItems", "AudioTopic")';
+    urlForm = '@Url.Action("AjaxForm", "AudioTopic")';
+    urlPostAction = '@Url.Action("Actions", "AudioTopic")';
+    urlView = '@Url.Action("AjaxView", "AudioTopic")';
+    formWidth = 800;
+    formHeight = 500;
+    viewWidth = 800;
+    viewHeight = 400;
+
+    $(document).ready(function () {
+        initAjaxLoad(urlLists, "#JobGriditems");
+
+        $("#gridSearch").submit(function () {
+            var form = $("#gridSearch");
+            window.location.href = '#' + getValueFormMutilSelect(form);
+            return false;
+        });
+
+        $("#btn_add").click(function () {
+            $("#dialog-form").dialog(
+				{
+				    title: "Thêm mới chủ đề",
+				    width: formWidth,
+				    height: formHeight
+				}
+			).load(encodeURI(urlForm + "?do=Add")).dialog("open");
+            return false;
+        });
+
+    });
+</script>
+<div class="zone zone-content">
+    <h1>Quản lý chủ đề</h1>
+    <div class="headear">
+        <div style="width: 700px; padding: 10px;" class="searchbox advance leftright">
+            <form id="gridSearch">
+                <fieldset class="bulk-actions">
+                    <div class="row">
+                        <div class="left">
+                            <label for="Keyword">Từ khóa:</label>
+                            <input type="text" name="Keyword" id="Keyword" value="Từ khóa tìm kiếm" onfocus="if(this.value=='Từ khóa tìm kiếm') this.value='';" onblur="if(this.value=='') this.value='Từ khóa tìm kiếm';" />
+                        </div>
+                        <div class="right">
+                            <label for="SearchIn">Tìm trong:</label>
+                            <select name="SearchIn" id="SearchIn" class="mutil" multiple="multiple">
+                                <option value="Title" selected>Tên chủ đề</option>
+                                <option value="Description" selected>Mô tả</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="submit">
+                            <button name="submit.Search" type="submit">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <div class="manage">
+            @if (hasAdd)
+            {
+                @Html.ActionLink("Thêm mới", "Create", new { }, new { @class = "add button primaryAction", @id = "btn_add" })
+            }
+        </div>
+    </div>
+    <div id="JobGriditems">
+
+    </div>
+</div>

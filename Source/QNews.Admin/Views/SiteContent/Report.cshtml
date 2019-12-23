@@ -1,0 +1,109 @@
+﻿@model IEnumerable<QNews.Models.ContentItem>
+
+@{
+    Layout = null;
+
+}
+<html moznomarginboxes mozdisallowselectionprint>
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <title>In Phôi nhuận bút</title>
+    <link href="~/Content/Admin/print.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navPanel" style="height:90px; position:fixed; width:100%; display:inline-block; clear:both; background:#eeeeee; z-index:99; border-bottom:1px solid #000;">
+        <h2>In danh sách phôi, tin bài - <A HREF="javascript:window.print()">IN DANH SÁCH</A> | <a href="@(Request.Url)&do=Excel">Xuất file excel</a></h2>
+        @Html.Raw(ViewBag.PageHtml)
+    </div>
+    <div class="bodyContainer" style="position:relative; top:95px; z-index:1;">
+        @foreach (var item in Model)
+        {
+            <section class="pageItem">
+                <table class="tableforms tabledetails table tab-content table-bordered">
+                    <tr>
+                        <th colspan="5">Thông tin nhuận bút và tác giả</th>
+                    </tr>
+                    <tr class="gray">
+                        <th>Loại tác giả</th>
+                        <th>Họ tên</th>
+                        <th>Điểm</th>
+                        <th>Mức hệ số nhuận bút</th>
+                        <th>Duyệt xuất bản</th>
+                    </tr>
+                    <tr>
+                        <td>Biên tập viên</td>
+                        <td>@item.EditorBy</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp; @*@((item.PublishDate.HasValue) ? item.PublishDate.Value.ToString("dd/MM/yyyy hh:mm:ss tt") : "...")*@</td>
+                    </tr>
+                    <tr>
+                        <td>Phóng viên bài</td>
+                        <td>@item.AuthorBy</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Phóng viên ảnh</td>
+                        <td>@item.PhotoBy</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+
+                <br />
+                <table class="tableforms tabledetails table tab-content table-bordered">
+                    <tr>
+                        <td width="50%" class="gray">Loại sản phẩm</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td class="gray">Nguồn thông tin</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td class="gray">Chuyên mục</td>
+                        <td>@string.Join(", ", item.Categories)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="gray">Ngày tạo</td>
+                        <td>@item.CreateDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                    </tr>
+
+                    <tr>
+                        <td class="gray">Ngày cập nhật cuối</td>
+                        <td>@item.ModifyDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                    </tr>
+
+                    <tr>
+                        <td class="gray">Nguồn chi</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td class="gray">Ảnh đại diện</td>
+                        <td>@Html.Raw(((string.IsNullOrEmpty(item.Image) ? string.Format("<img src=\"{0}\" />", item.Image) : "")))</td>
+                    </tr>
+                </table>
+                <br />
+
+                <div class="newsContent">
+                    <h2>@item.Title</h2>
+                    <div class="des">
+                        <strong>@Html.Raw(item.Description)</strong>
+                    </div>
+                    @Html.Raw(item.Details)
+                </div>
+
+                <footer>&nbsp;</footer>
+            </section>
+        }
+    </div>
+</body>
+</html>

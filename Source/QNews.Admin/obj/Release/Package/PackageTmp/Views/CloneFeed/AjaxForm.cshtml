@@ -1,0 +1,103 @@
+﻿@model QNews.Base.Clone_Feed
+@{
+    ViewBag.Title = ViewBag.ActionText + " kênh rss";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#CloneFeedForm").validate({
+            rules: {
+                FeedTitle:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                FeedDomainID:
+                {
+                    required: true
+                },
+                FeedSource:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                }
+            },
+            submitHandler: function () { //onSubmit
+                $.post(urlPostAction, $("#CloneFeedForm").serialize({ checkboxesAsBools: true }), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+    });
+</script>
+
+
+<form id="CloneFeedForm">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="do" id="do" value="@ViewBag.Action" />
+    <input type="hidden" name="ItemID" id="ItemID" value="@Model.FeedID" />
+    <fieldset class="forms">
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:140px;"><label>Tiêu đề, mô tả</label></td>
+                <td>
+                    <input type="text" name="FeedTitle" id="FeedTitle" value="@Model.FeedTitle" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Tên miền</label></td>
+                <td>
+                    <select name="FeedDomainID" id="FeedDomainID">
+                        <option value="">...</option>
+                        @foreach (var item in ViewBag.AllDomain)
+                        {
+                            <option value="@item.ID" @((item.ID == Model.FeedDomainID) ? " selected" : "")>@item.Title</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Chuyên mục</label></td>
+                <td>
+                    <select name="FeedCategoryID" id="FeedCategoryID">
+                        @foreach (var item in ViewBag.CategoryParentID)
+                        {
+                            <option value="@item.ID" @((item.ID == Model.FeedCategoryID) ? " selected" : string.Empty)>@item.Name</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Url kênh</label></td>
+                <td>
+                    <input type="text" name="FeedSource" id="FeedSource" value="@Model.FeedSource" />
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <button id="submit" type="submit" class="primaryAction">@ViewBag.ActionText</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

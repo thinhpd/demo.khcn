@@ -1,0 +1,36 @@
+﻿@model QNews.Base.TSHT
+@{
+    ViewBag.Title = "Quản lý Tham số hệ thống";
+    bool hasPermis = HttpContext.Current.User.IsInRole("Admin");
+}
+
+<div class="zone zone-content">
+    <h1>Cập nhật thông tin Chân trang - Footer</h1>
+    @using (Html.BeginForm())
+    {
+    <fieldset>
+        <td><label>Nội dung chi tiết</label></td>
+        <td>
+            @Html.TextBoxFor(model => model.KeyTSHT, new { style = "display: none;" })
+        </td>
+        <td>
+            @Html.TextBoxFor(model => model.ID, new { style = "display: none;" })
+        </td>
+        <td>
+            @Html.TextAreaFor(model => model.Value,new {id="Details" })
+
+        </td>
+        <div class="row" style="text-align:center">
+            <div class="submit">
+                <button name="submit.save" type="submit">Lưu</button>
+                <button name="submit.reset" type="reset">Nhập lại</button>
+            </div>
+        </div>
+    </fieldset>
+    }
+
+
+</div>
+<script>
+    LoadCKEDITOR('Details', true);
+</script>

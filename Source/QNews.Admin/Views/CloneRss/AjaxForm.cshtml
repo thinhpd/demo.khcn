@@ -1,0 +1,99 @@
+﻿@model QNews.Base.Clone_Rss
+@{
+    ViewBag.Title = ViewBag.ActionText + " bài viết từ rss";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#CloneRssForm").validate({
+            rules: {
+                RssTitle:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                RssDomainID:
+                {
+                    required: true
+                },
+                RssSource:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                }
+            },
+            submitHandler: function () { //onSubmit
+                $.post(urlPostAction, $("#CloneRssForm").serialize({ checkboxesAsBools: true }), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+    });
+</script>
+
+
+<form id="CloneRssForm">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="do" id="do" value="@ViewBag.Action" />
+    <input type="hidden" name="ItemID" id="ItemID" value="@Model.RssID" />
+    <fieldset class="forms">
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:140px;"><label>Tiêu đề</label></td>
+                <td>
+                    <input type="text" name="RssTitle" id="RssTitle" value="@Model.RssTitle" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Thứ tự hiển thị</label></td>
+                <td>
+                    <input type="text" name="RssOrder" id="RssOrder" value="@Model.RssOrder" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Ảnh đại diện</label></td>
+                <td>
+                    <input type="text" name="RssImage" id="RssImage" value="@Model.RssImage" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Mô tả</label></td>
+                <td>
+                    <textarea rows="5" id="RssDescription" name="RssDescription" spellcheck="false">@Model.RssDescription</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Hiển thị</label></td>
+                <td>
+                    <input type="checkbox" name="RssActive" id="RssActive" value="True" @((Model.RssActive) ? " checked" : string.Empty) />
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <button id="submit" type="submit" class="primaryAction">@ViewBag.ActionText</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

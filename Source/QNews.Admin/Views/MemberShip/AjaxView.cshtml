@@ -1,0 +1,53 @@
+﻿@model QNews.Base.AspNetUser
+
+@{
+    ViewBag.Title = "Xem chi tiết";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+
+<fieldset class="forms">
+    <table class="tableforms tabledetails" cellspacing="1" width="100%">
+        <tr>
+            <td style="width:140px;" class="label"><label>Tài khoản</label></td>
+            <td>
+                @Html.DisplayFor(model => model.UserName)
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="label"><label>Họ tên</label></td>
+            <td>
+                @Html.DisplayFor(model => model.UserFullName)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Email</label></td>
+            <td>
+                @Html.DisplayFor(model => model.Email)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Điện thoại</label></td>
+            <td>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </td>
+        </tr>
+
+
+        <tr>
+            <td class="label"><label>Vai trò trên hệ thống</label></td>
+            <td>
+                @string.Join(", ", @Model.AspNetRoles.Select(o => o.Name))
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Tài khoản liên kết</label></td>
+            <td>
+                @string.Join(", ", @Model.AspNetUserLogins.Select(o => o.LoginProvider))
+            </td>
+        </tr>
+    </table>
+</fieldset>

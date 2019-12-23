@@ -1,0 +1,267 @@
+﻿@model QNews.Base.Content
+
+@{
+    ViewBag.Title = "Xem chi tiết";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+    int idx = 0;
+    int totalVersion = Model.Versions.Count + 1;
+    bool hasAdd = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Add");
+    bool hasEdit = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Edit");
+    bool hasDelete = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Delete");
+    bool hasApprove = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Approve");
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#idTabs").idTabs();
+    });
+</script>
+<div class="box-tabs" id="idTabs">
+    <div class="header">
+        <ul class="idTabs">
+            <li><a href="#Version_0">Phiên bản hiện tại @(totalVersion).0</a></li>
+            @for (int vs = totalVersion; vs > 1; vs--)
+            {
+                <li><a href="#Version_@(vs-1)">v @(vs - 1).0</a></li>
+            }
+        </ul>
+    </div>
+    <div id="Version_0">
+        <fieldset class="forms">
+            <table class="tableforms tabledetails" cellspacing="1" width="100%">
+                <tr>
+                    <td style="width:160px;" class="label"><label>Tên bài viết</label></td>
+                    <td>
+                        @Html.DisplayFor(model => model.Title)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Url bài viết</label></td>
+                    <td>@Model.Urls.Select(o => o.UrlID).FirstOrDefault()</td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Mô tả</label></td>
+                    <td>
+                        @Html.Raw(Model.Description)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Ảnh đại diện</label></td>
+                    <td>
+                        <img src="@(string.IsNullOrEmpty(Model.Image) ? "/Content/Admin/images/no_image.gif?width=120" : Model.Image)" style="width:120px" />
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="label"><label>Ngày xuất bản</label></td>
+                    <td>@((Model.PublishDate.HasValue) ? Model.PublishDate.Value.ToString("dd/MM/yyyy") : "")</td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Danh mục</label></td>
+                    <td>
+                        <ul style="list-style: inside none disc;">
+                            <li>@Html.Raw(string.Join("</li><li>", Model.Categories.Select(o => o.Name)))</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Sự kiện liên quan</label></td>
+                    <td>
+                        <ul style="list-style: inside none disc;">
+                            <li>@Html.Raw(string.Join("</li><li>", Model.Events.Select(o => o.Title)))</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Nội dung chi tiết</label></td>
+                    <td>
+                        @Html.Raw(Model.Details)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Là tin nổi bật</label></td>
+                    <td>
+                        @Grid.DisplayShow(Model.Title, Model.IsHot)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Cho phép gửi bình luận</label></td>
+                    <td>
+                        @Grid.DisplayShow(Model.Title, Model.AllowComment)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Lượt xem</label></td>
+                    <td>
+                        @Model.Viewed
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Người tạo</label></td>
+                    <td>@Model.AspNetUser_CreateBy.UserName</td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Ngày tạo</label></td>
+                    <td>@Model.CreateDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Người sửa cuối</label></td>
+                    <td>@Model.AspNetUser_ModifyBy.UserName</td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Ngày sửa</label></td>
+                    <td>@Model.ModifyDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Người viết bài</label></td>
+                    <td>@(Model.AuthorID.HasValue ? Model.Contributor_AuthorID.Title : "...")</td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Người chụp ảnh</label></td>
+                    <td>@(Model.PhotoID.HasValue ? Model.Contributor_PhotoID.Title : "...")</td>
+                </tr>
+
+                <tr>
+                    <td class="label"><label>Người biên tập</label></td>
+                    <td>@(Model.EditorID.HasValue ? Model.Contributor_EditorID.Title : "...")</td>
+                </tr>
+
+            </table>
+        </fieldset>
+    </div>
+
+    @foreach (var item in Model.Versions.OrderBy(o => o.ModifyDate))
+    {
+        idx++;
+        <div id="Version_@idx">
+            <fieldset class="forms">
+                @if (hasEdit)
+                {
+                    <div style="float:right; padding:5px;">
+                        <button type="button" class="primaryAction" onclick="getVersion(@item.ID);">Lấy lại phiên bản này</button>
+                    </div>
+                }
+
+                <table class="tableforms tabledetails" cellspacing="1" width="100%">
+                    <tr>
+                        <td style="width:160px;" class="label"><label>Tên bài viết</label></td>
+                        <td>
+                            @item.Title
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="width:160px;" class="label"><label>Url bài viết</label></td>
+                        <td>@item.Url</td>
+                    </tr>
+
+                    <tr>
+                        <td class="label"><label>Mô tả</label></td>
+                        <td>
+                            @Html.Raw(item.Description)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label"><label>Ảnh đại diện</label></td>
+                        <td>
+                            <img src="@(string.IsNullOrEmpty(item.Image) ? "/Content/Admin/images/no_image.gif?width=120" : item.Image)" style="width:120px" />
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td class="label"><label>Ngày xuất bản</label></td>
+                        <td>@((item.PublishDate.HasValue) ? item.PublishDate.Value.ToString("dd/MM/yyyy") : "")</td>
+                    </tr>
+
+
+                    <tr>
+                        <td class="label"><label>Danh mục</label></td>
+                        <td>
+                            <ul style="list-style: inside none disc;">
+                                <li>@Html.Raw(string.Join("</li><li>", item.Categories.Select(o => o.Name)))</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label"><label>Sự kiện liên quan</label></td>
+                        <td>
+                            <ul style="list-style: inside none disc;">
+                                <li>@Html.Raw(string.Join("</li><li>", item.Events.Select(o => o.Title)))</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label"><label>Nội dung chi tiết</label></td>
+                        <td>
+                            @Html.Raw(item.Details)
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td class="label"><label>Là tin nổi bật</label></td>
+                        <td>
+                            @Grid.DisplayShow(item.Title, item.IsHot)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label"><label>Cho phép gửi bình luận</label></td>
+                        <td>
+                            @Grid.DisplayShow(item.Title, item.AllowComment)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label"><label>Lượt xem</label></td>
+                        <td>
+                            @item.Viewed
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label"><label>Người tạo</label></td>
+                        <td>@Model.AspNetUser_CreateBy.UserName</td>
+                    </tr>
+
+                    <tr>
+                        <td class="label"><label>Ngày tạo</label></td>
+                        <td>@Model.CreateDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                    </tr>
+
+                    <tr>
+                        <td class="label"><label>Người sửa cuối</label></td>
+                        <td>@item.AspNetUser.UserName</td>
+                    </tr>
+
+                    <tr>
+                        <td class="label"><label>Ngày sửa</label></td>
+                        <td>@item.ModifyDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                    </tr>
+                </table>
+            </fieldset>
+
+        </div>
+    }
+
+</div>
+

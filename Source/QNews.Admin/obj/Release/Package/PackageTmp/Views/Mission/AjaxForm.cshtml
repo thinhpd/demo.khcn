@@ -1,0 +1,154 @@
+﻿@model QNews.Base.Mission
+@{
+    ViewBag.MaNhiemVu = ViewBag.ActionText + " nhiệm vụ";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+        LoadCKEDITOR('Details', true);
+        $.datepicker.setDefaults($.datepicker.regional['vi']);
+
+        $("#BatDau, #KetThuc").datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true
+        });
+
+
+
+        $("#MissionForm").validate({
+            rules: {
+                BatDau:
+                {
+                    //date: true
+                },
+                KetThuc:
+                {
+                    //date: true
+                },
+                MaNhiemVu:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                TenNhiemVu:
+                {
+                    minlength: 15,
+                    maxlength: 1000
+                }
+            },
+            submitHandler: function () { //onSubmit
+                updateEditor();
+
+                $.post(urlPostAction, $("#MissionForm").mySerialize(), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+
+        $("select.fullwidthForm").select2({ width: '100%' });
+    });
+</script>
+
+<form id="MissionForm">
+    @Html.AntiForgeryToken()<input type="hidden" name="do" id="do" value="@ViewBag.Action" />
+    <input type="hidden" name="ItemID" id="ItemID" value="@Model.ID" />
+    <input type="hidden" id="listValueFileAttach" name="listValueFileAttach" />
+    <input type="hidden" id="listValueFileAttachRemove" name="listValueFileAttachRemove" />
+    <input type="hidden" name="TagValues" id="TagValues" />
+    <fieldset class="forms">
+        <legend>Thông tin về nhiệm vụ</legend>
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:160px;"><label>Mã nhiệm vụ</label></td>
+                <td>
+                    <input type="text" name="MaNhiemVu" id="MaNhiemVu" value="@Model.MaNhiemVu" />
+                </td>
+            </tr>
+       
+
+            <tr>
+                <td><label>Tên nhiệm vụ</label></td>
+                <td>
+                    <input type="text" id="TenNhiemVu" name="TenNhiemVu" value="@Model.MaNhiemVu" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Ngày bắt đầu</label></td>
+                <td>
+                    <input type="text" name="BatDau" id="BatDau" value="@((Model.BatDau.HasValue) ? Model.BatDau.Value.ToString("dd/MM/yyyy") : "")" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Ngày kết thúc</label></td>
+                <td>
+                    <input type="text" name="KetThuc" id="KetThuc" value="@((Model.KetThuc.HasValue) ? Model.KetThuc.Value.ToString("dd/MM/yyyy") : "")" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Tổ chức chủ trì</label></td>
+                <td>
+                    <input type="text" name="ToChucChuTri" id="ToChucChuTri" value="@Model.ToChucChuTri" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Chủ nhiệm nhiệm vụ</label></td>
+                <td>
+                    <input type="text" name="ChuNhiemNhiemVu" id="ChuNhiemNhiemVu" value="@Model.ChuNhiemNhiemVu" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Chương trình</label></td>
+                <td>
+                    @{
+                        var AllEventID = Model.DocumentScopes.Select(o => o.ID).ToList();
+                    }
+                    <select name="EventID" id="EventID" class="fullwidthForm" multiple="multiple">
+                        @foreach (var item in ViewBag.AllEvent)
+                        {
+                            <option value="@item.ID" @(AllEventID.Contains(item.ID) ? " selected" : "")>@item.Title</option>
+                        }
+                    </select>
+
+                </td>
+            </tr>
+          
+
+            <tr>
+                <td><label>Nội dung chi tiết</label></td>
+                <td>
+                    <textarea rows="5" id="Details" name="Details" spellcheck="false">@Model.Details</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td class="submit" colspan="2">
+                    <button id="submit" type="submit" class="primaryAction">@ViewBag.ActionText</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

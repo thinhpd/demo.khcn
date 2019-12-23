@@ -1,0 +1,347 @@
+﻿@model QNews.Models.CategoryViewModel
+@{
+    Layout = "~/Views/Shared/_Layout_Detail.cshtml";
+    ViewBag.Title = Model.Name;
+    string modulePath = "/chuong-trinh-khcn";
+    Session["chuongtrinh"] = Model.ID;
+    var allChuongTrinh = new QNews.Data.Admin.DocumentScopeDA().getAllListSimple();
+    string urlvbql = "/van-ban?scopeID=" + Model.ID;
+}
+
+<!--Big Banner-->
+<div class="box-container">
+    <div class="video_tuuyendung big_banner">
+        <div class="video_tt">
+            <img src="~/Content/img/logo/logo_ab.png" alt="">
+            <h2>CHƯƠNG TRÌNH</h2>
+            <h1>@Model.Name</h1>
+            <a id="lk_frm_dknt" href="#frm_dknt">Đăng ký nhận tin</a>
+        </div>
+        <div class="bg_video">
+            <video autoplay="" loop="" muted="" style="">
+                <source src="~/Content/video/video-7.mp4" type="video/mp4">
+                <source src="~/Content/video/video-7.ogv" type="video/ogg">
+            </video>
+        </div>
+
+    </div>
+</div>
+<div class="container">
+    <!-- top, breaking news -->
+    <div class="top-content">
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+            <li>/</li>
+            <li>
+                <h3><a href="/chuong-trinh-khcn">Chương trình KHCN</a></h3>
+            </li>
+        </ol>
+
+        <div class="date">
+            <i class="fa fa-calendar-o"></i> 08:16 | 26/07/2016 (GMT+7)
+        </div>
+    </div>
+    <!-- top, breaking news -->
+
+    <div class="layouts">
+        <div class="left-2-3">
+            @foreach (var boxGioiThieu in Model.ChildCategory.Where(o => o.ID != 2))
+            {
+                string urlBox = modulePath;
+
+                if (boxGioiThieu.ID == 1)
+                {
+                    urlBox = "/chuong-trinh-khcn/thong-tin-chung-" + Model.ID;
+                }
+                else if (boxGioiThieu.ID == 2)
+                {
+                    urlBox = "/chuong-trinh-khcn/nhiem-vu-da-trien-khai-" + Model.ID;
+                }
+                else
+                {
+                    urlBox = "/chuong-trinh-khcn/quy-trinh-tham-gia-" + Model.ID;
+                }
+                var firstGioiThieu = boxGioiThieu.LtsContent.FirstOrDefault();
+
+                if (boxGioiThieu.ID == 1)
+                {
+                    <div class="box-container">
+                        <div class="news-home">
+                            <div class="head AutoCenter">
+                                <h2><a href="javascript:;">@boxGioiThieu.Name</a></h2>
+                            </div>
+                            <div class="content">
+                                <div class="table" style="padding:10px 0;">
+                                    @if (firstGioiThieu != null)
+                                    {
+                                        @*<div class="first">
+                                                @if (!string.IsNullOrEmpty(firstGioiThieu.Image))
+                                                {
+                                                <div class="img">
+                                                    <a href="/@firstGioiThieu.Url"><img src="@firstGioiThieu.Image" /></a>
+                                                </div>
+                                                }
+                                                <h2><a href="/@firstGioiThieu.Url">@firstGioiThieu.Title</a></h2>
+                                                <div class="des">
+                                                    @Html.Raw(firstGioiThieu.Description)
+                                                </div>
+                                            </div>*@
+                                        <div class="details">
+                                            @Html.Raw(firstGioiThieu.Details)
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (boxGioiThieu.ID == 2)
+                {
+                    <div class="box-container">
+                        <div class="news-home news-home-lr">
+                            <div class="head ">
+                                <h2><a href="@urlBox">@boxGioiThieu.Name</a></h2>
+                            </div>
+                            <div class="content">
+                                <div class="left">
+                                    <div class="first">
+                                        @if (firstGioiThieu != null)
+                                        {
+                                            if (!string.IsNullOrEmpty(firstGioiThieu.Image))
+                                            {
+                                                <div class="img">
+                                                    <a href="/@firstGioiThieu.Url"><img src="@firstGioiThieu.Image" /></a>
+                                                </div>
+                                            }
+                                            <h2><a href="/@firstGioiThieu.Url">@firstGioiThieu.Title</a></h2>
+                                            <div class="des">
+                                                @Html.Raw(firstGioiThieu.Description)
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <ul>
+                                        @foreach (var item in boxGioiThieu.LtsContent.Skip(1))
+                                        {
+                                            <li><a href="@item.Url">@item.Title</a></li>
+                                        }
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- box news home -->
+                }
+                else
+                {
+
+                    <div class="box-container">
+                        <div class="AutoCenter">
+                            <div class="dktg_bg"><a href="@urlBox">@boxGioiThieu.Name</a>></div>
+                        </div>
+                    </div>
+                    <!-- box news home -->
+                }
+            }
+
+            @{
+                int idx = 0;
+                string classIdx = string.Empty;
+            }
+
+            <!-- box nhiệm vụ -->
+            @{
+                idx = 0;
+                string urlNhiemVu = "/chuong-trinh-khcn/nhiem-vu-da-trien-khai-" + Model.ID;
+            }
+            <div class="box-container">
+                <div class="news-home doc-home">
+                    <div class="head AutoCenter">
+                        <h2><a href="@urlNhiemVu">Các nhiệm vụ đã triển khai</a></h2>
+                    </div>
+                    <div class="content">
+                        <div class="table">
+                            <table class="table-vb">
+                                <tr>
+                                    <th style="width:40px;">STT</th>
+                                    <th>Mã nhiệm vụ</th>
+                                    <th>Tên nhiệm vụ</th>
+                                    @*<th>Tổ chức chủ trì</th>*@
+                                    <th>Chủ nhiệm nhiệm vụ</th>
+                                    <th>Thời gian thực hiện</th>
+                                </tr>
+
+                                @foreach (var item in Model.LtsMission)
+                                {
+                                    idx++;
+                                    classIdx = idx % 2 == 0 ? "odd" : string.Empty;
+                                    <tr class="@classIdx">
+                                        <td>@idx</td>
+                                        <td><a href="@(urlNhiemVu).@(item.ID)">@item.MaNhiemVu</a></td>
+                                        <td><a href="@(urlNhiemVu).@(item.ID)">@item.TenNhiemVu</a></td>
+                                        @*<td>@item.ToChucChuTri</td>*@
+                                        <td>@item.ChuNhiemNhiemVu</td>
+                                        <td>@(item.BatDau.HasValue ? item.BatDau.Value.ToString("yyyy") : "...") - @(item.KetThuc.HasValue ? item.KetThuc.Value.ToString("yyyy") : "...")</td>
+                                    </tr>
+                                }
+                            </table>
+                            <a class="ct_ctkhcn" href="@urlNhiemVu">Xem thêm >></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-container">
+                <div class="AutoCenter">
+                    <div class="dktg_bg"><a href="@urlvbql">Văn bản quản lý</a>></div>
+                </div>
+            </div>
+        </div>
+        <div class="right-1-3">
+            <div class="box-container" style="margin-top:10px">
+                <div class="box-bg">
+                    <div class="head">
+                        <a href="#"><i class="fa fa-list"></i> Hướng dẫn tham gia</a>
+                    </div>
+                    <div class="content blue">
+                        <ul class="list-border">
+                            <li>
+                                <a href="/doi-tuong-tham-gia">
+                                    <i class="fa fa-angle-double-right"></i><span>
+                                        Đối tượng tham
+                                        gia
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/dieu-kien-tham-gia">
+                                    <i class="fa fa-angle-double-right"></i><span>
+                                        Điều kiện tham
+                                        gia
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/cac-noi-dung-duoc-ho-tro-tu-ngan-sach-nha-nuoc">
+                                    <i class="fa fa-angle-double-right"></i><span>
+                                        Các nội dung được
+                                        hỗ trợ từ ngân sách Nhà nước
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/quy-trinh-xem-xet-phe-duyet">
+                                    <i class="fa fa-angle-double-right"></i><span>
+                                        Quy trình xem xét,
+                                        phê duyệt
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-container" style="margin-top:33px">
+                <div class="box-bg">
+                    <div class="head">
+                        <a href="#"><i class="fa fa-list"></i> Các Chương trình KH&CN quốc gia	</a>
+                    </div>
+                    <div class="content blue">
+                        <ul class="list-border">
+                            @foreach (var chitem in Model.ChuongTrinhIndexNew)
+                            {
+                                var ctkhcnpath = "chuong-trinh-khcn-" + chitem.ID;
+                                <li>
+
+
+                                    <a href="@ctkhcnpath">
+
+
+                                        <i class="fa fa-angle-double-right"></i><span>
+                                            @chitem.Title
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--BG Video-->
+@if (Model.quickLink != null)
+{
+    <div class="box-container">
+
+        <div class="video_tuuyendung">
+
+            <div class="video_tt">
+                <h3>@(new HtmlString(Model.quickLink.Title))</h3>
+
+                <a class="xt_td" href="@Model.quickLink.Link">Xem thêm ></a>
+            </div>
+
+            <div class="bg_video">
+                <video autoplay="" loop="" muted="" style="">
+                    <source src="Content/video/video-3.mp4" type="video/mp4">
+                    <source src="Content/video/video_bg.ogv" type="video/ogg">
+                </video>
+            </div>
+
+        </div>
+    </div>
+}
+<!--Đăng ký nhận tin-->
+<div class="box-container">
+    <div class="khcn-head">
+        <h1>Đăng ký nhận tin mới nhất</h1>
+        <div class="underline"></div>
+        <p>@Model.jmessage</p>
+    </div>
+    <div id="frm_dknt" class="form_kynt">
+        @using (Html.BeginForm())
+        {
+            <table>
+                <tr>
+                    <td>Họ Tên*</td>
+                    <td>@Html.TextBoxFor(model => model.dkName)</td>
+                </tr>
+                <tr>
+                    <td>Email*</td>
+                    <td>@Html.TextBoxFor(model => model.dkEMail)</td>
+                </tr>
+                <tr>
+                    <td>Số điện thoại*</td>
+                    <td>@Html.TextBoxFor(model => model.dkphone)</td>
+                </tr>
+                <tr>
+                    <td>Quan tâm đến*</td>
+                    <td>
+                        @Html.DropDownListFor(model => model.ct_id, new List<SelectListItem>
+                   { new SelectListItem{Text="Chương trình hợp tác nghiên cứu song phương và đa phương về khoa học và công nghệ đến năm 2020	", Value="1"},
+                     new SelectListItem{Text="Chương trình tìm kiếm và chuyển giao công nghệ nước ngoài đến năm 2020", Value="2"}}, "Please select")
+
+                    </td>
+                </tr>
+            </table>
+            <div class="bt_submiti"><button type="submit">Đăng ký</button></div>
+        }
+    </div>
+</div>
+
+
+<!-- box nhiệm vụ -->
+<!-- box văn bản -->
+<!-- box văn bản -->
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("nav ul li a[href$='chuong-trinh-khcn']").addClass("actived");
+
+        });
+    </script>
+}

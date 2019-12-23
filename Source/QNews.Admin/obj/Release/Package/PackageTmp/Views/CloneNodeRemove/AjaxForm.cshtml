@@ -1,0 +1,107 @@
+﻿@model QNews.Base.Clone_Remove
+@{
+    ViewBag.Title = ViewBag.ActionText + " dữ liệu xóa bỏ";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#CloneNodeRemoveForm").validate({
+            rules: {
+                Title:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                DomainID:
+                {
+                    required: true
+                },
+                XpathRemoveIn:
+                {
+                    required: true
+                },
+                XpathValue:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                }
+            },
+            submitHandler: function () { //onSubmit
+                $.post(urlPostAction, $("#CloneNodeRemoveForm").serialize({ checkboxesAsBools: true }), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+    });
+</script>
+
+
+<form id="CloneNodeRemoveForm">
+    @Html.AntiForgeryToken()<input type="hidden" name="do" id="do" value="@ViewBag.Action" />
+    <input type="hidden" name="ItemID" id="ItemID" value="@Model.ID" />
+    <fieldset class="forms">
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:120px;"><label>Tên node xóa bỏ</label></td>
+                <td>
+                    <input type="text" name="Title" id="Title" value="@Model.Title" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Xóa theo tên miền</label></td>
+                <td>
+                    <select name="DomainID" id="DomainID">
+                        <option value="">...</option>
+                        @foreach (var item in ViewBag.AllDomain)
+                        {
+                            <option value="@item.ID" @((item.ID == Model.DomainID) ? " selected" : "")>@item.Title</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Xóa theo trong vùng</label></td>
+                <td>
+                    <select name="XpathRemoveIn" id="XpathRemoveIn">
+                        <option value="">...</option>
+                        @foreach (var item in ViewBag.AllType)
+                        {
+                            <option value="@item.ID" @((item.ID == Model.XpathRemoveIn) ? " selected" : "")>@item.Title</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Mã Xpath</label></td>
+                <td>
+                    <input type="text" name="XpathValue" id="XpathValue" value="@Model.XpathValue" />
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <button id="submit" type="submit" class="primaryAction">@ViewBag.ActionText</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

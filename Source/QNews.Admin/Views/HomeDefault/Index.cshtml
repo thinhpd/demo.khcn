@@ -1,0 +1,38 @@
+﻿@model QNews.Base.QuickLink
+@{
+    ViewBag.Title = "Quản lý QuickLink";
+    bool hasPermis = HttpContext.Current.User.IsInRole("Admin");
+}
+
+<div class="zone zone-content">
+    <h1>Cập nhật thông tin QuickLink</h1>
+    @using (Html.BeginForm())
+    {
+    <fieldset>
+        <td><label style="font-weight:bold">Tiêu đề</label></td>
+        <td>
+            @Html.TextBoxFor(model => model.ID, new { style = "display: none;" })
+        </td>
+        <td>
+            @Html.TextAreaFor(model => model.Title, new { id = "Details" })
+
+        </td>
+        <td><label style="font-weight:bold">Tiêu đề</label></td>
+        <td class="link_text">
+            @Html.TextBoxFor(model => model.Link, new { id = "link_text" })
+        </td>
+
+        <div class="row" style="text-align:center">
+            <div class="submit">
+                <button name="submit.save" type="submit">Lưu</button>
+                <button name="submit.reset" type="reset">Nhập lại</button>
+            </div>
+        </div>
+    </fieldset>
+    }
+
+
+</div>
+<script>
+    LoadCKEDITOR('Details', true);
+</script>

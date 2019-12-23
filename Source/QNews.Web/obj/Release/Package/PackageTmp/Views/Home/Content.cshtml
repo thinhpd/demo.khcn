@@ -1,0 +1,79 @@
+﻿@model QNews.Models.ContentViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+    <li>/</li>
+    @for (int i = Model.LtsMap.Count - 1; i >= 0; i--)
+    {
+        if (i == 0)
+        {
+            <li class="active"><h2 title="@Model.LtsMap[i].Name"><a href="@Model.LtsMap[i].Url">@Model.LtsMap[i].Name</a></h2></li>
+        }
+        else
+        {
+            <li><h3 title="@Model.LtsMap[i].Name"><a href="@Model.LtsMap[i].Url">@Model.LtsMap[i].Name</a></h3></li>
+            <li>/</li>
+        }
+    }
+</ol>
+
+<div class="new-content">
+    <h1>@Model.Title</h1>
+    @if(Model.ShowDate)
+    { 
+        <p class="date">@Model.PublishDate.Value.ToString("dd/MM/yyyy")</p>
+    }
+    <div class="des">
+        @Html.Raw(Model.Description)
+    </div>
+
+    <div>
+        @Html.Raw(Model.Details)
+    </div>
+</div>
+
+@if (Model.LtsOtherContent.Count() > 0 && Model.ShowOther)
+{ 
+    <div class="other-news">
+        <div class="title">Các tin khác</div>
+        <ul>
+            @foreach (var item in Model.LtsOtherContent)
+            {
+                <li>
+                    <a href="@item.Url">@item.Title</a>
+                    @if (Model.ShowDate)
+                    {
+                        <span>(@item.PublishDate.Value.ToString("dd/MM/yyyy"))</span>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+@section scripts{
+    @{
+        var selector = string.Join(", ", Model.LtsMap.Select(o => string.Format("nav ul li a[href$='{0}'], nav ul li a[data-id='{1}'], nav ul li[data-id='{1}'], a[href='{2}']", o.Url, o.ID, Request.Path.ToLower())));
+    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("@Html.Raw(selector)").addClass("actived");
+
+            //Fix image width
+
+            var maxWidth = $(".new-content").width();
+            $(".new-content img").each(function (idx) {
+                var cWidth = $(this).width();
+                if (cWidth > maxWidth)
+                {
+                    $(this).css("width", maxWidth + "px").css("margin-left", "10px");
+                }
+            });
+        });
+    </script>
+}

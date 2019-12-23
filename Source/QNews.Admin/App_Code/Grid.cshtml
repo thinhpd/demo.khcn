@@ -1,0 +1,170 @@
+﻿@helper ActionApprove(int ID, string Title)
+{
+    <a href="#@ID" class="workflow" title="Kiểm duyệt: @Title"><img src="/Content/Admin/images/gridview/workflow.gif" border="0" /></a>
+}
+
+
+@helper ActionSort(int ID, string Title)
+{
+<a href="#@ID" class="sort" title="Sắp xếp: @Title" ><img src="/Content/Admin/images/gridview/sort.gif" border="0"/></a>
+}
+
+@helper ActionDownload(string FileUrl, string Title)
+{
+<a href="@FileUrl" class="download" title="Tài file : @Title" ><img src="/Content/Admin/images/gridview/download.gif" border="0"/></a>
+}
+
+@helper ActionView(string ID, string Title)
+{
+    <a href="#@ID" class="view_guid" title="Xem chi tiết: @Title"><img src="/Content/Admin/images/gridview/view.gif" border="0" /></a>
+}
+
+@helper ActionResetPass(string ID, string Title)
+{
+    <a href="#@ID" class="reset_guid" title="Reset mật khẩu: @Title"><img src="/Content/Admin/images/gridview/forgotPasswordIcon.png" border="0" /></a>
+}
+@helper ActionPermission(string ID, string Title)
+{
+    <a href="#@ID" class="permission_guid" title="Phân quyền: @Title"><img src="/Content/Admin/images/gridview/permission.png" border="0" /></a>
+}
+
+@helper ActionEdit(string ID, string Title)
+{
+    <a href="#@ID" class="edit_guid" title="Chỉnh sửa: @Title"><img src="/Content/Admin/images/gridview/edit.gif" border="0" /></a>
+}
+
+@helper ActionDelete(string ID, string Title)
+{
+    <a href="#@ID" class="delete_guid" title="Xóa: @Title"><img src="/Content/Admin/images/gridview/delete.gif" border="0" /></a>
+}
+@helper ActionView(int ID, string Title)
+{
+<a href="#@ID" class="view" title="Xem chi tiết: @Title" ><img src="/Content/Admin/images/gridview/view.gif" border="0"/></a>
+}
+
+@helper ActionEdit(int ID, string Title)
+{
+<a href="#@ID" class="edit" title="Chỉnh sửa: @Title"><img src="/Content/Admin/images/gridview/edit.gif" border="0" /></a>
+}
+
+@helper ActionDelete(int ID, string Title)
+{
+<a href="#@ID" class="delete" title="Xóa: @Title"><img src="/Content/Admin/images/gridview/delete.gif" border="0" /></a>
+}
+
+@helper ActionHide(int ID, string Title)
+{
+<a href="#@ID" class="hide" title="Ẩn: @Title"><img src="/Content/Admin/images/gridview/hide.gif" border="0" /></a>
+}
+
+@helper ActionHide(int ID, string Title, bool disabled)
+{
+if (disabled)
+{
+<a href="javascript:createMessage('Thông báo', '@Title đang được ẩn rồi.!');" title="@Title đang được ẩn"><img src="/Content/Admin/images/gridview/hide.gif" border="0" /></a>
+}
+else
+{ 
+<a href="#@ID" class="hide" title="Ẩn: @Title"><img src="/Content/Admin/images/gridview/hide.gif" border="0" /></a>
+}
+}
+
+@helper ActionShow(int ID, string Title)
+{
+<a href="#@ID" class="show" title="Hiển thị: @Title"><img src="/Content/Admin/images/gridview/show.gif" border="0" /></a>
+}
+
+@helper ActionShow(int ID, string Title, bool disabled)
+{
+if (disabled)
+{
+<a href="javascript:createMessage('Thông báo', '@Title đang được hiển thị rồi.!');" title="@Title đang được hiển thị"><img src="/Content/Admin/images/gridview/show.gif" border="0" /></a>
+}
+else
+{ 
+<a href="#@ID" class="show" title="Hiển thị: @Title"><img src="/Content/Admin/images/gridview/show.gif" border="0" /></a>
+}
+}
+
+@helper DisplayShow(string Title, bool Status)
+{
+if (Status)
+{ 
+<img src="/Content/Admin/images/gridview/approved.gif" border="0" title="@Title đang hiển thị" />
+}
+else
+{ 
+<img src="/Content/Admin/images/gridview/pending.gif" border="0" title="@Title đang ẩn" />
+}
+}
+
+@helper ActionSortGroup(int ID, string Title)
+{
+<a href="#@ID" class="sort_group" title="Sắp xếp nhóm: @Title" ><img src="/Content/Admin/images/gridview/sort.gif" border="0"/></a>
+}
+
+@helper ActionViewGroup(int ID, string Title)
+{
+<a href="#@ID" class="view_group" title="Xem chi tiết nhóm: @Title" ><img src="/Content/Admin/images/gridview/view.gif" border="0"/></a>
+}
+
+@helper ActionEditGroup(int ID, string Title)
+{
+<a href="#@ID" class="edit_group" title="Chỉnh sửa nhóm: @Title"><img src="/Content/Admin/images/gridview/edit.gif" border="0" /></a>
+}
+
+@helper ActionDeleteGroup(int ID, string Title)
+{
+<a href="#@ID" class="delete_group" title="Xóa nhóm: @Title"><img src="/Content/Admin/images/gridview/delete.gif" border="0" /></a>
+}
+
+@helper ActionHideGroup(int ID, string Title)
+{
+<a href="#@ID" class="hide_group" title="Ẩn nhóm: @Title"><img src="/Content/Admin/images/gridview/hide.gif" border="0" /></a>
+}
+
+@helper ActionHideGroup(int ID, string Title, bool disabled)
+{
+if (disabled)
+{
+<a href="javascript:createMessage('Thông báo', '@Title đang được ẩn rồi.!');" title="@Title đang được ẩn"><img src="/Content/Admin/images/gridview/hide.gif" border="0" /></a>
+}
+else
+{ 
+<a href="#@ID" class="hide_group" title="Ẩn nhóm: @Title"><img src="/Content/Admin/images/gridview/hide.gif" border="0" /></a>
+}
+}
+
+@helper ActionShowGroup(int ID, string Title)
+{
+<a href="#@ID" class="show_group" title="Hiển thị nhóm: @Title"><img src="/Content/Admin/images/gridview/show.gif" border="0" /></a>
+}
+
+@helper ActionShowGroup(int ID, string Title, bool disabled)
+{
+if (disabled)
+{
+<a href="javascript:createMessage('Thông báo', '@Title đang được hiển thị rồi.!');" title="@Title đang được hiển thị"><img src="/Content/Admin/images/gridview/show.gif" border="0" /></a>
+}
+else
+{ 
+<a href="#@ID" class="show_group" title="Hiển thị nhóm: @Title"><img src="/Content/Admin/images/gridview/show.gif" border="0" /></a>
+}
+}
+
+@helper ActionAddGroup(int ID, string Title)
+{
+<a href="#@ID" class="add_group" title="Thêm mới cho nhóm: @Title"><img src="/Content/Admin/images/gridview/add.gif" border="0" /></a>
+}
+
+@helper DisplayShowStrike(string Title, bool IsShow)
+{
+if(IsShow)
+{
+@Title
+}    
+else
+{
+<strike>@Title</strike>
+}
+}

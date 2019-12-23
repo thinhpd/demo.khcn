@@ -1,0 +1,100 @@
+﻿@model QNews.Base.DocumentIssue
+@{
+    ViewBag.Title = ViewBag.ActionText + " cơ quan ban hành văn bản";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+       
+        $("#DocumentIssueForm").validate({
+            rules: {
+       
+                Title:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                Description:
+                {
+                    minlength: 15,
+                    maxlength: 2000
+                },
+                Order:
+                {
+                    number: true
+                }
+            },
+            submitHandler: function () { //onSubmit
+
+                $.post(urlPostAction, $("#DocumentIssueForm").serialize({ checkboxesAsBools: true }), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+    });
+</script>
+
+<form id="DocumentIssueForm">
+    @Html.AntiForgeryToken()<input type="hidden" name="do" id="do" value="@ViewBag.Action" />
+    <input type="hidden" name="ItemID" id="ItemID" value="@Model.ID" />
+    <input type="hidden" id="listValueFileAttach" name="listValueFileAttach" />
+    <input type="hidden" id="listValueFileAttachRemove" name="listValueFileAttachRemove" />
+    <input type="hidden" name="TagValues" id="TagValues" />
+    <fieldset class="forms">
+        <legend>Thông tin về cơ quan ban hành văn bản</legend>
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:160px;"><label>Tên cơ quan ban hành văn bản</label></td>
+                <td>
+                    <input type="text" name="Title" id="Title" value="@Model.Title" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Mô tả</label></td>
+                <td>
+                    <textarea rows="5" id="Description" name="Description" spellcheck="false">@Model.Description</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Hiển thị</label></td>
+                <td>
+                    <input type="checkbox" name="Show" id="Show" value="True" @((Model.Show) ? " checked" : string.Empty) />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Thứ tự hiển thị</label></td>
+                <td>
+                    <input type="text" value="@Model.Order" name="Order" id="Order" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td class="submit" colspan="2">
+                    <button id="submit" type="submit" class="primaryAction">@ViewBag.ActionText</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

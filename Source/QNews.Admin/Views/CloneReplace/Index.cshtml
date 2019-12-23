@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Quản lý dữ liệu thay thế";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasAdd = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Add");
+    bool hasEdit = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Edit");
+    bool hasDelete = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Delete");
+    bool hasApprove = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Approve");
+}
+<script type="text/javascript">
+
+    urlLists = '@Url.Action("ListItems", "CloneReplace")';
+    urlForm = '@Url.Action("AjaxForm", "CloneReplace")';
+    urlPostAction = '@Url.Action("Actions", "CloneReplace")';
+    urlView = '@Url.Action("AjaxView", "CloneReplace")';
+    formWidth = 800;
+    formHeight = 'auto';
+    viewWidth = 800;
+    viewHeight = 'auto';
+
+    $(document).ready(function () {
+        initAjaxLoad(urlLists, "#noderemoveGriditems");
+
+        $("#gridSearch").submit(function () {
+            var form = $("#gridSearch");
+            window.location.href = '#' + getValueFormMutilSelect(form);
+            return false;
+        });
+
+        $("#btn_add").click(function () {
+            $("#dialog-form").dialog(
+				{
+				    title: "Thêm mới dữ liệu thay thế",
+				    width: formWidth,
+				    height: formHeight
+				}
+			).load(encodeURI(urlForm + "?do=Add")).dialog("open");
+            return false;
+        });
+    });
+</script>
+
+<div class="zone zone-content">
+    <h1>Quản lý dữ liệu thay thế</h1>
+    <div class="headear">
+        <div class="searchbox">
+            <form id="gridSearch">
+            <fieldset class="bulk-actions">
+                <label for="Keyword">Tên miền:</label>
+                <input type="text" name="Keyword" id="Keyword" value="Từ khóa tìm kiếm" onfocus="if (this.value == 'Từ khóa tìm kiếm') this.value = '';" onblur="    if (this.value == '') this.value = 'Từ khóa tìm kiếm';" />
+                <label for="SearchIn">Tìm trong:</label>
+                <select name="SearchIn" id="SearchIn" class="mutil">
+                    <option value="DomainName">Thay thế trong tên miền</option>
+                    <option value="StringSource">Từ cần tìm</option> 
+                </select>
+                <button name="submit.Search" type="submit"">Tìm kiếm</button>
+            </fieldset>
+            </form>
+        </div>
+        
+        <div class="manage">
+            @if (hasAdd)
+            {
+                @Html.ActionLink("Thêm mới dữ liệu xóa bỏ", "Create", new { }, new { @class = "add button primaryAction", @id = "btn_add" })
+            }
+        </div>
+    </div>
+    <div id="noderemoveGriditems">
+    
+    </div>
+</div>

@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Liên hệ";
+}
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+    <li>/</li>
+    <li class="active"><h2><a href="/lien-he">@ViewBag.Title</a></h2></li>
+</ol>
+
+
+<div class="new-content">
+    <h1>Thông tin liên hệ</h1>
+    <p><strong>VĂN PHÒNG CÁC CHƯƠNG TRÌNH KHOA HỌC VÀ CÔNG NGHỆ QUỐC GIA</strong></p>
+    <p>Điện thoại: (84.4) 3.5551.726</p>
+    <p>FAX: (84.4)3.5551.725</p>
+    <p>Email: vpctqg@most.gov.vn</p>
+    <p>Website: <a href="http://www.vpctqg.gov.vn">http://www.vpctqg.gov.vn</a></p>
+    <p>Địa chỉ: Số 113 Trần Duy Hưng, P. Trung Hòa, Q. Cầu Giấy, Hà Nội</p>
+
+    <img src="~/Content/img/vp_map.png" style="width:80%; margin:20px 10%;" />
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("nav ul li a[href$='lien-he']").addClass("actived");
+        });
+    </script>
+}

@@ -1,0 +1,61 @@
+﻿@model QNews.Models.CategoryViewModel
+@{
+    ViewBag.Title = Model.Name;
+    string modulePath = "/chuong-trinh-khcn";
+    QNews.Models.MissionViewModal nhiemvu = (QNews.Models.MissionViewModal)ViewBag.NhiemVu;
+}
+
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+    <li>/</li>
+    <li><h3><a href="@modulePath">Chương trình KHCN</a></h3></li>
+    <li>/</li>
+    <li class="active"><h2 title="@Model.Name"><a href="@(modulePath)-@Model.ID">@Model.Name</a></h2></li>
+</ol>
+
+<!-- box nhiệm vụ -->
+<div class="box-container">
+    <div class="news-home doc-home">
+        <div class="head">
+            <h2><a href="javascript:;">@nhiemvu.TenNhiemVu</a></h2>
+        </div>
+        <div class="content">
+            <div class="table">
+                <table class="table-vb">
+                    <tr class="odd">
+                        <th width="25%">Mã nhiệm vụ</th>
+                        <td>@nhiemvu.MaNhiemVu</td>
+                    </tr>
+                    <tr>
+                        <th>Tổ chức chủ trì</th>
+                        <td>@nhiemvu.ToChucChuTri</td>
+                    </tr>
+                    <tr class="odd">
+                        <th>Chủ nhiệm nhiệm vụ</th>
+                        <td>@nhiemvu.ChuNhiemNhiemVu</td>
+                    </tr>
+                    <tr>
+                        <th>Thời gian thực hiện</th>
+                        <td>
+                            @(nhiemvu.BatDau.HasValue ? nhiemvu.BatDau.Value.ToString("dd/MM/yyyy") : "...") - @(nhiemvu.KetThuc.HasValue ? nhiemvu.KetThuc.Value.ToString("dd/MM/yyyy") : "...")
+                        </td>
+                    </tr>
+                </table>
+                <div class="new-content">
+                    <hr />
+                    @Html.Raw(nhiemvu.Details)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- box văn bản -->
+<!-- box văn bản -->
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("nav ul li a[href$='chuong-trinh-khcn']").addClass("actived");
+
+        });
+    </script>
+}

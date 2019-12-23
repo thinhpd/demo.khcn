@@ -1,0 +1,71 @@
+﻿@model QNews.Models.ListDocumentViewModel
+@{
+    ViewBag.Title = "Văn bản quản lý";
+}
+
+
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+    <li>/</li>
+    <li class="active"><h2><a href="/van-ban">Văn bản quản lý</a></h2></li>
+    @if (Model.DocumentTypeID > 0)
+    {
+        <li>/</li>
+        <li class="active"><h2><a href="/van-ban?type=@Model.DocumentTypeID">@Model.Title</a></h2></li>
+    }
+</ol>
+
+<div class="box-content">
+    @Html.Partial("_SearchDocumentPartial")
+</div>
+
+
+
+<div class="box-content">
+    <div class="content">
+        <div class="doc-items">
+            <table width="100%" class="table-vb">
+                <tr>
+                    <th>Số Hiệu</th>
+                    <th>Ngày ban hành</th>
+                    <th>Cơ quan ban hành</th>
+                    <th>Chương trình</th>
+                    <th>Trích yếu</th>
+                    <th style="width:50px;">File</th>
+                </tr>
+                @{
+                    int idx = 0;
+                    string classIdx = string.Empty;
+                }
+                @foreach (var item in Model.LtsItem)
+                {
+                    idx++;
+                    classIdx = idx % 2 == 0 ? "odd" : string.Empty;
+                    <tr class="@classIdx">
+                        <td><a href="/van-ban/@item.Url">@item.SoKyHieu</a></td>
+                        <td>@(item.NgayBanHanh.HasValue ? item.NgayBanHanh.Value.ToString("dd/MM/yyyy") : "...")</td>
+                        <td>@string.Join(", ", item.CoQuanBanHanh)</td>
+                        <td>@string.Join(", ", item.LinhVuc)</td>
+                        <td><a href="/van-ban/@item.Url">@item.TrichYeu</a></td>
+                        <td>
+                            @foreach (var file in QNews.Utils.StaticClass.ConvertFileAttach(item.FileAttach))
+                            {
+                                <a target="_blank" href="@file.FileUrl"><img src="~/Content/img/@(file.FileIcon).png" title="@file.FileName" /></a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <div class="page">
+        @Html.Raw(Model.PageHtml)
+    </div>
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("nav ul li a[href$='van-ban']").addClass("actived");
+        });
+    </script>
+}

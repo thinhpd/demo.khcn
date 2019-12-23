@@ -1,0 +1,112 @@
+﻿@model QNews.Base.Audio
+
+@{
+    ViewBag.Title = "Xem chi tiết";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#idTabs").idTabs();
+    });
+</script>
+<fieldset class="forms">
+    <table class="tableforms tabledetails" cellspacing="1" width="100%">
+        <tr>
+            <td style="width:160px;" class="label"><label>Tên audio ảnh</label></td>
+            <td>
+                @Html.DisplayFor(model => model.Title)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Url audio ảnh</label></td>
+            <td>@Model.Urls.Select(o => o.UrlID).FirstOrDefault()</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Mô tả</label></td>
+            <td>
+                @Html.Raw(Model.Description)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Ảnh đại diện</label></td>
+            <td>
+                <img src="@(string.IsNullOrEmpty(Model.Image) ? "/Audio/Admin/images/no_image.gif?width=120" : Model.Image)" style="width:120px" />
+            </td>
+        </tr>
+        <tr>
+            <td class="label"><label>Audio</label></td>
+            <td>
+                <audio src="@(string.IsNullOrEmpty(Model.FileAttach) ? "/Audio/Admin/images/no_image.gif?width=120" : Model.FileAttach)" width="520px" controls>
+
+                </audio>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Ngày xuất bản</label></td>
+            <td>@((Model.PublishDate.HasValue) ? Model.PublishDate.Value.ToString("dd/MM/yyyy") : "")</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Danh mục</label></td>
+            <td>
+                @if (Model.TopicID.HasValue)
+                {
+                    @Model.AudioTopic.Title
+                }
+            </td>
+
+        </tr>
+
+        <tr>
+            <td class="label"><label>Nội dung chi tiết</label></td>
+            <td>
+                @Html.Raw(Model.Details)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Là audio nổi bật</label></td>
+            <td>
+                @Grid.DisplayShow(Model.Title, Model.IsHot)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Cho phép gửi bình luận</label></td>
+            <td>
+                @Grid.DisplayShow(Model.Title, Model.AllowComment)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Lượt xem</label></td>
+            <td>
+                @Model.Viewed
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Người tạo</label></td>
+            <td>@Model.AspNetUser_CreateBy.UserName</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Ngày tạo</label></td>
+            <td>@Model.CreateDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Người sửa cuối</label></td>
+            <td>@Model.AspNetUser_ModifyBy.UserName</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Ngày sửa</label></td>
+            <td>@Model.ModifyDate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+        </tr>
+    </table>
+</fieldset>

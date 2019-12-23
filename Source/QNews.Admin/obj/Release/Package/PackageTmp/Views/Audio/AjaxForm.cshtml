@@ -1,0 +1,233 @@
+﻿@model QNews.Base.Audio
+@{
+    ViewBag.Title = ViewBag.ActionText + " audio ảnh";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+        var addUrl = @((ViewBag.Action == QNews.Admin.Controllers.ActionType.Add).ToString().ToLower());
+
+        if(addUrl)
+        {
+            $("#AudioForm #Title").keyup(function(){
+                $("#AudioForm #Url").val(UnicodeToAscii($(this).val()));
+            });
+
+            $("#AudioForm #Title, #AudioForm #Url").blur(function(){ //Sau khi thoát kiểm tra url
+                $.post("/Audio/CheckUrl", { "url" : ""+$("#AudioForm #Url").val()+""}, function(data){
+                    if(data){
+                        createMessage('Đã có lỗi xảy ra.', 'Url <strong>'+$("#AudioForm #Url").val()+'</strong> đã tồn tại trong hệ thống. Vui lòng nhập url khác.');
+                        //$("#AudioForm #Url").focus();
+                    }
+                });
+            });
+        }
+
+        createCKFider('Image', 120);
+        createCKFiderFile('FileAttach');
+        LoadCKEDITOR('Details', true);
+        $.datepicker.setDefaults($.datepicker.regional['vi']);
+
+        
+        $('#PublishDate').datetimepicker({
+            controlType: 'select',
+            oneLine: true,
+            timeFormat: 'HH:mm:ss',
+            dateFormat: 'dd/mm/yy'
+        })
+
+
+        $("#AudioForm").validate({
+            rules: {
+                PublishDate:
+                {
+                    //date: true
+                },
+                Title:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                Url:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                Description:
+                {
+                    minlength: 15,
+                    maxlength: 1000
+                }
+            },
+            submitHandler: function () { //onSubmit
+                updateEditor();
+
+                $.post(urlPostAction, $("#AudioForm").mySerialize(), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+
+        $("select.fullwidthForm").select2({ width: '100%' });
+    });
+</script>
+
+<form id="AudioForm">
+    @Html.AntiForgeryToken()<input type="hidden" name="do" id="do" value="@ViewBag.Action" />
+    <input type="hidden" name="ItemID" id="ItemID" value="@Model.ID" />
+    <input type="hidden" id="listValueFileAttach" name="listValueFileAttach" />
+    <input type="hidden" id="listValueFileAttachRemove" name="listValueFileAttachRemove" />
+    <input type="hidden" name="TagValues" id="TagValues" />
+    <fieldset class="forms">
+        <legend>Thông tin về audio ảnh</legend>
+        <table class="tableforms" cellspacing="1" width="100%">
+            <tr>
+                <td style="width:160px;"><label>Tên audio ảnh</label></td>
+                <td>
+                    <input type="text" name="Title" id="Title" value="@Model.Title" />
+                </td>
+            </tr>
+            <tr>
+                <td class="label"><label>Url audio ảnh</label></td>
+                <td>
+                    @if (@ViewBag.Action == QNews.Admin.Controllers.ActionType.Add)
+                    {
+                        <input type="text" name="Url" id="Url" />
+                    }
+                    else
+                    {
+                        <input type="text" disabled name="Url" id="Url" value="@Model.Urls.Select(o => o.UrlID).FirstOrDefault()" />
+                    }
+                </td>
+
+            </tr>
+
+            <tr>
+                <td><label>Mô tả</label></td>
+                <td>
+                    <textarea rows="5" id="Description" name="Description" spellcheck="false">@Model.Description</textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Hình ảnh đại diện</label></td>
+                <td>
+                    <button id="ImageButton" type="button" class="primaryAction">Chọn hỉnh ảnh đại diện</button>
+                    <br />
+                    <i>Hoặc nhập đường link ảnh từ liên kết bên ngoài</i>
+                    <br />
+                    <input type="text" value="@((!string.IsNullOrEmpty(Model.FileAttach) && Model.Image.Contains("http")) ? Model.Image : string.Empty)" name="OtherImage" id="OtherImage" />
+
+                    <div id="ImageValues">
+                        <input type="hidden" name="Image" value="@Model.Image" />
+                        <img src="@(string.IsNullOrEmpty(Model.Image) ? "/Content/Admin/images/no_image.gif" : Model.Image)" style="border:1px solid #ccc; width:120px; margin-top:2px; float:left;" />
+                        <button id="ImageButtonDelete" onclick="clearFKFider('Image', 120);" type="button" class="primaryAction" style="margin:25px 10px;">Xóa ảnh</button>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>File audio</label></td>
+                <td>
+                    <button id="FileAttachButton" type="button" class="primaryAction">Chọn file audio</button>
+                    <br />
+                    <i>Hoặc nhập đường link file từ liên kết bên ngoài</i>
+                    <br />
+                    <input type="text" value="@((!string.IsNullOrEmpty(Model.FileAttach) && Model.Image.Contains("http")) ? Model.FileAttach : string.Empty)" name="OtherFileAttach" id="OtherFileAttach" />
+
+                    <div id="FileAttachValues">
+                        <input type="hidden" name="FileAttach" value="@Model.FileAttach" />
+                        <p><a href="@(string.IsNullOrEmpty(Model.FileAttach) ? "javascript:;" : Model.FileAttach)" target="_blank">@(string.IsNullOrEmpty(Model.FileAttach) ? "..." : Model.FileAttach)</a></p>
+                        <button id="FileAttachButtonDelete" onclick="clearFKFiderFile('FileAttach');" type="button" class="primaryAction">Xóa file</button>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Ngày xuất bản</label></td>
+                <td>
+                    <input type="text" name="PublishDate" id="PublishDate" value="@((Model.PublishDate.HasValue) ? Model.PublishDate.Value.ToString("dd/MM/yyyy") : "")" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Chủ đề</label></td>
+                <td>
+                    
+                    <select name="TopicID" id="TopicID" class="fullwidthForm">
+                        <option value=""></option>
+                        @foreach (var item in ViewBag.AllCategory)
+                        {
+                            <option value="@item.ID" @(Model.TopicID == item.ID ? " selected" : "")>@item.Title</option>
+                        }
+                    </select>
+
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><label>Nội dung chi tiết</label></td>
+                <td>
+                    <textarea rows="5" id="Details" name="Details" spellcheck="false">@Model.Details</textarea>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><label>Là audio nổi bật</label></td>
+                <td>
+                    <input type="checkbox" name="IsHot" id="IsHot" value="True" @((Model.IsHot) ? " checked" : string.Empty) />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Cho phép gửi bình luận</label></td>
+                <td>
+                    <input type="checkbox" name="AllowComment" id="AllowComment" value="True" @((Model.AllowComment) ? " checked" : string.Empty) />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td><label>Lượt xem</label></td>
+                <td>
+                    <input type="text" value="@Model.Viewed" name="Viewed" id="Viewed" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label>Nguồn nội dung</label></td>
+                <td>
+                    <input type="text" value="@Model.Source" name="Source" id="Source" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td class="submit" colspan="2">
+                    <button id="submit" type="submit" class="primaryAction">@ViewBag.ActionText</button>
+                    <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                    <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

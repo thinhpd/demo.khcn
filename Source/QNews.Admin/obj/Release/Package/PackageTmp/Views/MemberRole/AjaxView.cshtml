@@ -1,0 +1,73 @@
+﻿@model QNews.Base.Guide_Guide
+
+@{
+    ViewBag.Title = "Xem chi tiết";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+
+<fieldset class="forms">
+    <table class="tableforms tabledetails" cellspacing="1" width="100%">
+        <tr>
+            <td style="width:140px;" class="label"><label>Tên hướng dẫn</label></td>
+            <td>
+                @Html.DisplayFor(model => model.GuideName)
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="label"><label>Mô tả</label></td>
+            <td>
+                @Html.Raw(Model.GuideDescription)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Hình ảnh đại diện</label></td>
+            <td>
+                <img src="@((!Model.GuidePictureID.HasValue) ? "/Content/Admin/images/no_image.gif" : "/Uploads/Thumbs/" + Model.Gallery_Picture.PictureUrl)" style="border:1px solid #ccc; width:190px; margin-top:2px;" />
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Chuyên mục hướng dẫ</label></td>
+            <td>
+                @string.Join(", ", Model.Guide_Category.Select(c => c.CategoryName))
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Hiển thị</label></td>
+            <td>
+                    @Grid.DisplayShow(Model.GuideName, Model.GuideShow)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Từ khóa</label></td>
+            <td>@string.Join(", ", Model.System_Tag.Select(tag => tag.TagName))</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Sản phẩm liên quan</label></td>
+            <td>@string.Join(", ", Model.Shop_Product.Select(p => p.ProductName))</td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>File đính kèm</label></td>
+            <td>
+                <ul id="listFileAttach">
+                    @foreach (var file in Model.System_File) {
+                    <li>@Html.ActionLink(file.FileName, "FileDownload", "SystemFile", new { @id = file.FileID }, new { })</li>
+                    }
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="label"><label>Nội dung chi tiết</label></td>
+            <td>
+                @Html.Raw(Model.GuideContent)
+            </td>
+        </tr>
+    </table>
+</fieldset>

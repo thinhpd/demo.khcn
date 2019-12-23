@@ -1,0 +1,213 @@
+﻿@model QNews.Base.Category
+@{
+    ViewBag.Title = ViewBag.ActionText + " chuyên mục sản phẩm";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var addUrl = @((ViewBag.Action == QNews.Admin.Controllers.ActionType.Add).ToString().ToLower());
+
+        if(addUrl)
+        {
+            $("#CategoryForm #Name").keyup(function(){
+                $("#CategoryForm #Url").val(UnicodeToAscii($(this).val()));
+            });
+
+            $("#CategoryForm #Name, #CategoryForm #Url").blur(function(){ //Sau khi thoát kiểm tra url
+                $.post("/Category/CheckUrl", { "url" : ""+$("#CategoryForm #Url").val()+""}, function(data){
+                    if(data){
+                        createMessage('Đã có lỗi xảy ra.', 'Url <strong>'+$("#CategoryForm #Url").val()+'</strong> đã tồn tại trong hệ thống. Vui lòng nhập url khác.');
+                        //$("#CategoryForm #Url").focus();
+                    }
+                });
+            });
+        }
+
+
+        $("#CategoryForm").validate({
+            rules: {
+                Name:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 100
+                },
+                Url:
+                {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 255
+                },
+                Description:
+                {
+                    minlength: 2,
+                    maxlength: 500
+                }
+            },
+            submitHandler: function () { //onSubmit
+                updateEditor();
+                $.post(urlPostAction, $("#CategoryForm").serialize({ checkboxesAsBools: true }), function (data) {
+                    if (data.Erros)
+                        createMessage("Đã có lỗi xảy ra", data.Message); // Tạo thông báo lỗi
+                    else {
+                        $("#dialog-form").dialog('close'); //Đóng form thêm mới - sửa
+                        createCloseMessage("Thông báo", data.Message, '#Page=1&itemId=' + data.ID + '&message=' + data.Message + '&temp=' + Math.floor(Math.random() * 11) + ''); // Tạo thông báo khi click đóng thì chuyển đến url đích
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#dialog-form").html("").dialog('close');
+        });
+    });
+</script>
+
+<div id="Order">
+    <form id="CategoryForm">
+        @Html.AntiForgeryToken()<input type="hidden" name="do" id="do" value="@ViewBag.Action" />
+        <input type="hidden" name="ItemID" id="ItemID" value="@Model.ID" />
+        <fieldset class="forms">
+            <table class="tableforms" cellspacing="1" width="100%">
+                <tr>
+                    <th colspan="2">Thông tin chính</th>
+                </tr>
+                <tr>
+                    <td style="width:150px;"><label>Tên chuyên mục <span class="star">*</span></label></td>
+                    <td>
+                        <input type="text" name="Name" id="Name" value="@Model.Name" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width:160px;" class="label"><label>Url chuyên mục</label></td>
+                    <td>
+                        @if (@ViewBag.Action == QNews.Admin.Controllers.ActionType.Add)
+                        {
+                            <input type="text" name="Url" id="Url" />
+                        }
+                        else
+                        {
+                            <input type="text" disabled name="Url" id="Url" value="@Model.Urls.Select(o => o.UrlID).FirstOrDefault()" />
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label>Tên viết tắt</label></td>
+                    <td>
+                        <input type="text" name="NameSort" id="NameSort" value="@Model.NameSort" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label>Liên kết</label></td>
+                    <td>
+                        <input type="text" name="CurrentUrl" id="CurrentUrl" value="@Model.CurrentUrl" />
+                        <br /><i>Dùng liên kết đến module hoặc trang ngoài</i>
+                    </td>
+                </tr>
+
+                @if (Model.ID > 0 || ViewBag.Action.ToString().ToLower() == "add")
+                {
+                    <tr>
+                        <td><label>Chuyên mục cha</label></td>
+                        <td>
+                            <select name="ParentID" id="ParentID">
+                                @foreach (var item in ViewBag.CategoryParentID)
+                                {
+                                    <option value="@item.ID" @((item.ID == Model.ParentID) ? " selected" : string.Empty)>@item.Name</option>
+                                }
+                            </select>
+                        </td>
+                    </tr>
+                }
+
+                <tr>
+                    <td><label>Hiển thị</label></td>
+                    <td>
+                        <input type="checkbox" name="Show" id="Show" value="True" @((Model.Show) ? " checked" : string.Empty) />
+                    </td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">Thông tin mở rộng</th>
+                </tr>
+                <tr>
+                    <td><label>Thứ tự hiển thị</label></td>
+                    <td>
+                        <input type="text" name="Order" id="Order" value="@Model.Order" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label>Thứ tự hiển thị ( Breadcrumb )</label></td>
+                    <td>
+                        <input type="text" name="MapOrder" id="MapOrder" value="@Model.MapOrder" />
+                        <i>Ưu tiên hiển thị trong đường dẫn trang ngoài: Trang chủ > Tin tức > Tài chính</i>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label>Mô tả</label></td>
+                    <td>
+                        <textarea rows="5" id="Description" name="Description" spellcheck="false">@Model.Description</textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label>Hiển thị trên Menu chính</label></td>
+                    <td>
+                        <input type="checkbox" name="ShowInTopMenu" id="ShowInTopMenu" value="True" @((Model.ShowInTopMenu) ? " checked" : string.Empty) />
+                        <i>Nếu chọn chuyên mục này sẽ hiển thị trên menu chính</i>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">Tùy chọn tin hiển thị trang chủ</th>
+                </tr>
+                <tr>
+                    <td><label>Hiển thị trang chủ</label></td>
+                    <td>
+                        <input type="checkbox" name="ShowInTab" id="ShowInho" value="True" @((Model.ShowInTab) ? " checked" : string.Empty) />
+                        <i>Nếu chọn bài viết từ chuyên mục này sẽ hiển thị ở trang chủ</i>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label>Kiểu hiển thị</label></td>
+                    <td>
+                        <select name="TypeOfDisplay" id="TypeOfDisplay">
+                            @foreach (var item in ViewBag.TypeOfCategory)
+                            {
+                                <option value="@item.ID" @((item.ID == Model.TypeOfDisplay) ? " selected" : string.Empty)>@item.Name</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label>Số tin hiển thị trang chủ</label></td>
+                    <td>
+                        <input type="text" name="ShowInHome" id="ShowInHome" value="@Model.ShowInHome" />
+                        <br /><i>Số lượng bài viết sẽ hiển thị ở trang chủ khi được chọn hiển thị trang chủ</i>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"><hr /></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <button id="submit" type="submit" class="primaryAction">@ViewBag.ActionText</button>
+                        <button id="reset" type="reset" class="primaryAction">Nhập lại</button>
+                        <button id="close" type="button" class="primaryAction">Đóng lại</button>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>

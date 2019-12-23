@@ -1,0 +1,27 @@
+﻿<div class="box-container">
+    <div class="box-vmenu">
+        <div class="title">
+            Loại văn bản
+        </div>
+        <div class="content">
+            <ul>
+                @{
+                    int type = 0;
+                    if (!string.IsNullOrEmpty(Request["type"])) { 
+                        type = Convert.ToInt32(Request["type"]);
+                    }
+                        
+                    var ltsItems = new List<QNews.Base.DocumentType>();
+                    using (QNews.Base.QNewsDBContext db = new QNews.Base.QNewsDBContext())
+                    {
+                        ltsItems = db.DocumentTypes.Where(o => !o.IsRemoved).OrderBy(o => o.Order).ToList();
+                    }
+                }
+                @foreach (var item in ltsItems)
+                {
+                    <li><a class="@((type == item.ID) ? "actived" : "")" href="/van-ban-dieu-hanh?type=@item.ID"><span>@item.Title</span></a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

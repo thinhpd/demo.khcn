@@ -1,0 +1,123 @@
+﻿@model QNews.Models.CategoryViewModel
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+    <li>/</li>
+    @for (int i = Model.LtsMap.Count - 1; i >= 0; i--)
+    {
+        if (i == 0)
+        {
+            <li class="active"><h2 title="@Model.LtsMap[i].Name"><a href="@Model.LtsMap[i].Url">@Model.LtsMap[i].Name</a></h2></li>
+        }
+        else
+        {
+            <li><h3 title="@Model.LtsMap[i].Name"><a href="@Model.LtsMap[i].Url">@Model.LtsMap[i].Name</a></h3></li>
+            <li>/</li>
+        }
+    }
+</ol>
+
+@if (Model.ChildCategory.Count > 0) //Nếu có chuyên mục con thì show dạng trang chủ
+{
+    foreach (var boxGioiThieu in Model.ChildCategory)
+    {
+        var firstGioiThieu = boxGioiThieu.LtsContent.FirstOrDefault();
+        <div class="box-container">
+            <div class="news-home news-home-lr">
+                <div class="head">
+                    <h2><a href="@boxGioiThieu.Url">@boxGioiThieu.Name</a></h2>
+                </div>
+                <div class="content">
+                    <div class="left">
+                        <div class="first">
+                            @if (firstGioiThieu != null)
+                            {
+                                if (!string.IsNullOrEmpty(firstGioiThieu.Image))
+                                {
+                                    <div class="img">
+                                        <a href="/@firstGioiThieu.Url"><img src="@firstGioiThieu.Image" /></a>
+                                    </div>
+                                }
+                                <h2><a href="/@firstGioiThieu.Url">@firstGioiThieu.Title</a></h2>
+                                <div class="des">
+                                    @Html.Raw(firstGioiThieu.Description)
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="right">
+                        <ul>
+                            @foreach (var item in boxGioiThieu.LtsContent.Skip(1))
+                            {
+                                <li><a href="@item.Url">@item.Title</a></li>
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- box news home -->
+    }
+}
+else
+{
+    <div class="box-content">
+        <div class="content">
+            @foreach (var item in Model.LtsContent.Take(10))
+            {
+                <div class="news-items">
+                    @if (!string.IsNullOrEmpty(item.Image))
+                    {
+                        <a class="img" href="/@item.Url"><img src="@(item.Image)?width=160&height=120&crop=auto" /></a>
+                    }
+                    <p class="title">
+                        <a href="/@item.Url">@item.Title</a>
+                    </p>
+                    @if (item.ShowDate)
+                    {
+                        <p class="date">(@item.PublishDate.Value.ToString("dd/MM/yyyy")</p>
+                    }
+
+                    <div class="des">
+                        @Html.Raw(item.Description)
+                    </div>
+                    <p class="more"><a href="/@item.Url">Xem thêm <i class="fa fa-angle-double-right"></i></a></p>
+                </div>
+            }
+        </div>
+        <div class="page">
+            @Html.Raw(Model.PageHtml)
+        </div>
+        @if (Model.LtsContent.Skip(10).Take(5).Count() > 0)
+        {
+            <div class="other-news">
+                <div class="title">Các tin khác</div>
+                <ul>
+                    @foreach (var item in Model.LtsContent.Skip(10).Take(5))
+                    {
+                        <li><a href="/@item.Url">@item.Title</a> <span>(@item.PublishDate.Value.ToString("dd/MM/yyyy"))</span></li>
+                    }
+                </ul>
+            </div>
+
+        }
+    </div>
+}
+
+@section scripts{
+    @{
+        //var selector = string.Join(", ", Model.LtsMap.Select(o => string.Format("nav ul li a[href$='{0}'], nav ul li a[data-id='{1}']", o.Url, o.ID)));
+        var selector = string.Join(", ", Model.LtsMap.Select(o => string.Format("nav ul li a[href$='{0}'], nav ul li a[data-id='{1}'], nav ul li[data-id='{1}'], a[href='{2}']", o.Url, o.ID, Request.Path.ToLower())));
+    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("@Html.Raw(selector)").addClass("actived");
+        });
+    </script>
+}

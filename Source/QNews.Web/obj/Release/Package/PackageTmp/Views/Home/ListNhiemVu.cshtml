@@ -1,0 +1,65 @@
+﻿@model QNews.Models.CategoryViewModel
+@{
+    ViewBag.Title = Model.Name;
+    string modulePath = "/chuong-trinh-khcn";
+
+}
+
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-home"></i> Trang chủ</a></li>
+    <li>/</li>
+    <li><h3><a href="@modulePath">Chương trình KHCN</a></h3></li>
+    <li>/</li>
+    <li class="active"><h2 title="@Model.Name"><a href="@(modulePath)-@Model.ID">@Model.Name</a></h2></li>
+</ol>
+
+<!-- box nhiệm vụ -->
+<div class="box-container">
+    <div class="news-home doc-home">
+        <div class="head">
+            <h2><a href="/van-ban">Các nhiệm vụ đã triển khai</a></h2>
+        </div>
+        <div class="content">
+            <div class="table">
+                <table class="table-vb">
+                    <tr>
+                        <th style="width:40px;">STT</th>
+                        <th>Mã nhiệm vụ</th>
+                        <th>Tên nhiệm vụ</th>
+                        <th>Tổ chức chủ trì</th>
+                        <th>Chủ nhiệm nhiệm vụ</th>
+                        <th>Thời gian thực hiện</th>
+                    </tr>
+                    @{
+                        int idx = 0;
+                        string classIdx = string.Empty;
+                        string urlNhiemVu = "/chuong-trinh-khcn/nhiem-vu-da-trien-khai-" + Model.ID;
+                    }
+                    @foreach (var item in Model.LtsMission)
+                    {
+                        idx++;
+                        classIdx = idx % 2 == 0 ? "odd" : string.Empty;
+                        <tr class="@classIdx">
+                            <td>@idx</td>
+                            <td><a href="@(urlNhiemVu).@(item.ID)">@item.MaNhiemVu</a></td>
+                            <td><a href="@(urlNhiemVu).@(item.ID)">@item.TenNhiemVu</a></td>
+                            <td>@item.ToChucChuTri</td>
+                            <td>@item.ChuNhiemNhiemVu</td>
+                            <td>@(item.BatDau.HasValue ? item.BatDau.Value.ToString("dd/MM/yyyy") : "...") - @(item.KetThuc.HasValue ? item.KetThuc.Value.ToString("dd/MM/yyyy") : "...")</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- box văn bản -->
+<!-- box văn bản -->
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("nav ul li a[href$='chuong-trinh-khcn']").addClass("actived");
+
+        });
+    </script>
+}

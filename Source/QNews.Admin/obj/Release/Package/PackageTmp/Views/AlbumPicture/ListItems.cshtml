@@ -1,0 +1,78 @@
+﻿
+@model IEnumerable<QNews.Models.AlbumPictureItem>
+
+@{
+    ViewBag.Title = "Danh sách albumPicture ảnh";
+    Layout = "~/Views/Shared/_Ajax.cshtml";
+    bool hasAdd = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Add");
+    bool hasEdit = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Edit");
+    bool hasDelete = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Delete");
+    bool hasApprove = HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("Approve");
+}
+@Html.AntiForgeryToken()
+<script type="text/javascript">
+    $(document).ready(function () {
+        registerGridView('#gridItems');
+    });
+</script>
+
+<div class="grid-container" id="gridItems">
+    <table class="gridView" cellspacing="1">
+        <tr>
+            <th><a href="#Field=ID">ID<span /></a></th>
+            <th><a href="#Field=Image">Hình ảnh<span /></a></th>
+            <th><a href="#Field=Title">Tên ảnh<span /></a></th>
+            <th><a href="#Field=ModifyBy">Sửa cuối<span /></a></th>
+            <th><a href="#Field=ModifyDate">Thời gian sửa<span /></a></th>
+            <th><a href="#Field=StatusID">Trạng thái<span /></a></th>
+            <th class="act_view"></th>
+            @if (hasEdit)
+            {
+                <th class="act_edit"></th>
+            }
+            @if (hasApprove)
+            {
+                <th class="act_edit"></th>
+            }
+            @if (hasDelete)
+            {
+                <th class="act_delete">
+                    <a href="#deleteAll" class="deleteAll" title="Xóa danh sách đã chọn">
+                        <img src="/Content/Admin/images/gridview/delete.gif" style="border: none" alt="Xóa danh sách đã chọn" />
+                    </a>
+                </th>
+                <th class="act_roles">
+                    <input value="" type="checkbox" class="checkAll" />
+                </th>
+            }
+        </tr>
+    @foreach (var item in Model)
+    {
+        <tr title="@item.Title">
+            <td>@item.ID</td>
+            <td><img src="@(string.IsNullOrEmpty(item.Image) ? "/Content/Admin/images/no_image.gif?width=120" : item.Image)" style="width:120px" /></td>
+            <td>@item.Title</td>
+            <td>@item.ModifyBy</td>
+            <td>@Html.Raw(item.ModifyDate.ToString("hh:mm:ss tt <br/> dd/MM/yyyy"))</td>
+            <td>@item.Status</td>
+            <td class="act_view">@Grid.ActionView(item.ID, item.Title)</td>
+            @if (hasEdit)
+            {
+                <td class="act_edit">
+                    @Grid.ActionEdit(item.ID, item.Title)
+                </td>
+            }
+            @if (hasApprove)
+            {
+                <td class="act_edit">@Grid.ActionApprove(item.ID, item.Title)</td>
+            }
+            @if (hasDelete)
+            {
+                <td class="act_delete">@Grid.ActionDelete(item.ID, item.Title)</td>
+                <td class="act_roles"><input type="checkbox" value="@item.ID" class="check" /></td>
+            }
+        </tr>
+    }
+    </table>
+    @Html.Raw(ViewBag.PageHtml)
+</div>
