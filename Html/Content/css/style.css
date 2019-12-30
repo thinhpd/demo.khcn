@@ -181,7 +181,7 @@ p.more {margin-top:10px; text-align:right;}
 .hot-news .right .other ul li {padding:6px 0 6px 16px; text-align:justify; line-height:1.4; }
 .hot-news .right .other ul li a,
 .hot-news .right .other ul li a:link,
-.hot-news .right .other ul li a:visited {color:#333333d9;font-size: 13px;font-family: Helvetica;font-weight: bold;}
+.hot-news .right .other ul li a:visited {color:#000;font-size: 13px;font-family: Helvetica;font-weight: bold;}
 .hot-news .right .other ul li a:hover {color:#0066B3;}
 
 .hot-news .right .other ul li.active {color:#0066B3; font-weight:bold;}
@@ -608,16 +608,22 @@ p.more {margin-top:10px; text-align:right;}
 .sliderdvcttb{margin-top: 30px;display: flex;flex-wrap: wrap;}
 .sliderdvtg .item{width: 33%;border: 1px solid #eee;box-sizing: border-box;background: #fff;}
 .ct_ctkhcn{float: right;margin-top: 5px;}
-.gtc_container{width: 70%;margin: 0 auto;text-align: center;margin-top: 50px;}
+.gtc_bgcon{position: relative;width: 100%;display: inline-block;clear: both;height: 650px;
+    overflow: hidden;}
+.gtc_container{width: 100%;margin: 0 auto;text-align: center;margin-top: 200px;z-index: 100;;background-color: transparent;position: absolute;}
 .gtc_container p{width: 50%;text-align: justify;margin: 0 auto;line-height: 150%;margin-bottom: 5px;
-}
+color: #fff;}
+.bg_gtc{background: #444444;position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;}
+.bg_gtc_img{position: absolute;background-image: url(../img/anh_carousel.jpg);top: 0;left: 0;z-index: 1;width: 100%;height: 760px;background-repeat: no-repeat;
+    background-position: bottom;
+	background-size: cover;opacity: 0.16;top: 0px;left: 0px;right: 0px;bottom: 0px;}
 .gtc_under{border: 1px solid #bbb;background: #bbb;width: 50px;margin: 0 auto;margin-bottom: 50px;margin-top: 5px;}
 .gtc_ld{width: 70%;margin: 0 auto;    text-align: center;margin-top: 50px;margin-bottom: 50px;}
-.gtc_ld h3{font-weight: bold;}
+.gtc_ld h3{font-weight: bold;font-family: 'Helvetica';}
 .gtc_ld_ct{width: 33%;}
 .gtc_ld_it{width: 70%;margin: 0 auto;}
 .gtc_ld_it img{width: 100px;height: 100px;border-radius: 50%;}
-.ld_ten{display: block;   font-weight: bold;margin: 10px;}
+.ld_ten{display: block;   font-weight: bold;margin: 10px;font-family: 'Helvetica'}
 .ld_cv{display: block;color: #958e8e;}
 .bg_dvtb_video{height: 620px;}
 .cctc_container{width: 50%;margin: 0 auto;margin-top: 10px;margin-bottom: 30px;}
@@ -639,3 +645,39 @@ p.more {margin-top:10px; text-align:right;}
 .home_gt{margin-top:100px; margin-bottom: 100px;}
 .tctb_container .owl-nav button span{font-size: 35px!important;} 
 .tctb_container .owl-nav button {margin: 0px;;}
+.page_gt .video_tuuyendung{margin-top: 0px;}
+.tskhcn i{font-size: 50px;color: #0085f8;}
+
+.dh_container{display: flex;width: 100%;margin-top: 50px;}
+.dh_item{width: 25%;background: #fff;border-radius: 20px;    margin: 10px;
+	padding: 25px 10px;}
+.dh_item_lg{    background: #0085f8;
+    border-radius: 50%;
+    width: 90px;
+    margin: 0 auto;
+    padding: 22px 15px;
+    border: 5px solid #ddd;
+    box-sizing: border-box;}
+.dh_item_lg i{color: #fff;font-size: 40px;}
+.dh_item p{line-height: 200%;margin: 50px 10px;
+	text-align: justify;}
+.dttg_item{width: 33%;background: #fff;margin: 20px;padding: 20px;
+    min-height: 180px;border-bottom: 2px solid #00a0ff;}
+.dttg_container{display: flex;width: 70%;margin: 0 auto;}
+.dttg_item i{font-size: 20px;color: #00a0ff;}
+.dttg_item_lg{}
+.dttg_item h4{font-family: 'Helvetica';font-weight: bold;
+    margin: 5px 0;
+	font-size: 15px;}
+.dttg_ud{border-bottom: 2px solid #00a0ff;width: 50px;margin-bottom: 50px;}
+.box-hotro{width: 70%;margin: 0 auto;margin-top: 250px;display: flex;flex-wrap: nowrap;}
+.box-hotro-left{float: left;width: 30%;}
+.box-hotro-right{float: right;width: 70%;display: flex;}
+.box-hotro-left h2{font-family: 'Helvetica';font-weight: bold;font-size: 17px;    font-size: 24px;
+    color: #0066b3;
+    line-height: 150%;padding-top: 25px;}
+.ht_item{width: 33%;padding: 0 20px;}
+.box-hotro p{margin-top:20px;line-height: 150%;}
+.ht_item h5{font-family: 'Helvetica';font-weight: bold;font-size: 17px;}
+.box-ht-container{margin-bottom: 100px;;}
+.ht_item p{text-align: justify;}
