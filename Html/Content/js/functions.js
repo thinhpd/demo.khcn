@@ -23,6 +23,16 @@ function initPage(){
 			pauseOnHover: 1
 		});
 	});
+	$(window).scroll(function (event) {
+		var scroll = $(window).scrollTop();
+		console.log(scroll);
+		if(scroll>150){
+			$('#menutop').addClass('menutopfix');
+		}else{
+			$('#menutop').removeClass('menutopfix');
+		}
+		// Do something
+	});
 	console.log('page loaded');
 
 };
