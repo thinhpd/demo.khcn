@@ -59,15 +59,14 @@
                 <div class="right">
                 	<div class="search">
                     	<div class="input">
-                        	<input type="text" placeholder="Tìm kiếm" />
-                            <a href="javascript:;"><i class="fa fa-search"></i></a>
+                        	<input id="ipsearch" type="text" placeholder="Tìm kiếm" />
+                            <a id="ipsearchbt" href="javascript:gotosearch();"><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="links">
                     	<ul>
-                            <li><span><a href="#"><i class="fa fa-envelope-o"></i> Email</a></span></li>
-                            <li><a href="#"><img src="Content/img/icon_vietnam.png" /></a></li>
-                            <li><a href="#"><img src="Content/img/icon_english.png" /></a></li>
+                            <li><a href="javascript:void(0)"><img src="Content/img/icon_vietnam.png" /></a></li>
+                            <li><a href="javascript:void(0)"><img src="Content/img/icon_english.png" /></a></li>
                         </ul>
                     </div>
                 </div>
@@ -77,7 +76,16 @@
                     <ul>
                         <li class="first actived"><a href="/demo/trangchu_new.html"><i class="fa fa-home"></i></a></li>
                         <li><a href="/demo/gioi-thieu.html">Giới thiệu</a></li>
-                        <li><a href="/demo/tintuc.html">Tin tức – sự kiện</a></li>
+                        <li class="actived"><a href="/demo/tintuc.html">Tin tức – sự kiện</a>
+                            <div class="sub">
+                                <ul>
+                                    <li><a href="/demo/tintuc.html">Tin nổi bật</a></li>
+                                    <li><a href="/demo/tintuc-hdvp.html">Hoạt động văn phòng</a></li>
+                                    <li><a href="/demo/tintuc-khcn.html">Tin khoa học công nghệ</a></li>
+                                    <li><a href="/demo/tintuc-hdvp.html">Đấu thầu mua sắm công</a></li>
+                                </ul>
+                            </div>
+                        </li>
                         <li><a href="/demo/cac-chuong-trinh-quoc-gia-tongquat.html">Các Chương trình KH&CN Quốc gia</a>
                         <div class="sub">
                             <ul>
@@ -92,12 +100,14 @@
                             </ul>
                         </div>
                         </li>
-                        <li><a href="#">Quy trình tham gia</a></li>
-                        <li><a href="#">Văn bản quản lý</a></li>
-                        <li class="last"><a href="#">Liên hệ</a></li>
+                        <li><a href="/demo/hdtg.html">Hướng dẫn tham gia</a></li>
+                        <li><a href="/demo/qlvb.html">Văn bản quản lý</a>
+                        </li>
+                        <li><a href="/demo/video_list.html">Thư viện</a></li>
+                        <li class="last"><a href="/demo/lienhe.html">Liên hệ</a></li>
                     </ul>
                 </div>
-            </nav>  
+            </nav>    
         </div>
         
 	</header>
@@ -109,24 +119,57 @@
 		<div class="box-container">
             <div class="bigbanner_container">
                 <div class="bigbanner_title"><h1>TIN TỨC - SỰ KIỆN</h1></div>
-                <div class="bigbanner_lstitem">
-                    <div class="lst_items">
-                        <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                    <div class="bigbanner_lstitem">
+                        <div class="lst_items">
+                            <a href="/demo/tintuc-detail.html">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                        </div>
+                        <div class="lst_items">
+                            <a href="/demo/tintuc-detail.html">Ngày Khoa học Đức 2019 tại Hà Nội</a>
+                        </div>
+                        <div class="lst_items">
+                            <a href="/demo/tintuc-detail.html">Khối Thi đua Văn phòng – Viện tập huấn nghiệp vụ công tác thi đua khen thưởng và nghe chuyên đề về tình hình biển Đông</a>
+                        </div>
                     </div>
-                    <div class="lst_items">
-                        <a href="#">Ngày Khoa học Đức 2019 tại Hà Nội</a>
-                    </div>
-                    <div class="lst_items">
-                        <a href="#">Khối Thi đua Văn phòng – Viện tập huấn nghiệp vụ công tác thi đua khen thưởng và nghe chuyên đề về tình hình biển Đông</a>
-                    </div>
-                </div>
-                <div class="bigbanner_overlay">
+               
 
-                </div>
-                <div class="bigbanner_bg">
-                    <img src="Content/img/new1.jpg" alt="Banner">
+                <div class="carousel-bigbanner  owl-carousel owl-theme bigbanner_bg">
+                    <div class="bigbanner_item">
+                        <div class="bb_overvlay"></div>
+                        <div class="bb_title"><h3>Đại hội công đoàn Văn phòng các Chương trình khoa học và công nghệ quốc gia, nhiệm kỳ 2020 - 2025</h3>
+                            <div class="bb_des"><p>Trong chuỗi sự kiện khai mạc Techfest 2019, mới đây, tại Quảng Ninh, Diễn đàn “Cơ hội và thách thức cho khởi nghiệp sáng tạo trong bối cảnh chuyển đổi số” đã được tổ chức bởi Bộ Khoa học và Công nghệ (KH&CN), Hội truyền thông số Việt Nam và Cục Phát triển  </p></div>
+                        </div>
+                        <div class="bb_imgs"><img src="Content/img/new1.jpg" alt="Banner"></div>
+                    </div>
+                    <div class="bigbanner_item">
+                        <div class="bb_overvlay"></div>
+                        <div class="bb_title"><h3>Techfest Vietnam 2019 thành công rực rỡ</h3>
+                            <div class="bb_des"><p>Trong chuỗi sự kiện khai mạc Techfest 2019, mới đây, tại Quảng Ninh, Diễn đàn “Cơ hội và thách thức cho khởi nghiệp sáng tạo trong bối cảnh chuyển đổi số” đã được tổ chức bởi Bộ Khoa học và Công nghệ (KH&CN), Hội truyền thông số Việt Nam và Cục Phát triển thị trường và doanh nghiệp KH&CN.</p></div>
+                        </div>
+                        
+                        <div class="bb_imgs"><img src="Content/img/new2.png" alt="Banner"></div>
+                    </div>
+                    <div class="bigbanner_item">
+                        <div class="bb_overvlay"></div>
+                        <div class="bb_title"><h3>Làm việc với các Doanh nghiệp tại Cà Mau quan tâm đến các Chương trình KH&CN quốc gia</h3>
+                            <div class="bb_des"><p>Trong chuỗi sự kiện khai mạc Techfest 2019, mới đây, tại Quảng Ninh, Diễn đàn “Cơ hội và thách thức cho khởi nghiệp sáng tạo trong bối cảnh chuyển đổi số” đã được tổ chức bởi Bộ Khoa học và Công nghệ (KH&CN), Hội truyền thông số Việt Nam và Cục Phát triển thị trường và doanh nghiệp KH&CN.</p></div>
+                        </div>
+                        
+                        <div class="bb_imgs"><img src="Content/img/new3.jpg" alt="Banner"></div>
+                    </div>
+                    
                 </div>
             </div>
+            <script type="text/javascript">
+            $(document).ready(function(){
+                $('.carousel-bigbanner').owlCarousel({
+                    items:1,
+                    nav:false,
+                    dots:true,
+                    autoplay:false,
+                    autoplayTimeout:5000
+                });
+            });
+            </script>
         </div>
         <!--Bigbanner tin tuc-->
         <!--Box hot news-->
@@ -136,11 +179,11 @@
                     <div class="news_hotest">
                         <div class="news_hotest_item">
                             <div class="nhi_img">
-                                <a href="#"><img src="Content/img/news4.jpg" alt=""></a>
+                                <a href="javascript:void(0)"><img src="Content/img/news4.jpg" alt=""></a>
                             </div>
                             <span class="hot_tag">Tin nổi bật</span>
                             <div class="nhi_title">
-                                <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                <a href="/demo/tintuc-detail.html">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                             </div>
                             <div class="nhi_caption">
                                 <p>Thủ tướng Nguyễn Xuân Phúc vừa ký Quyết định bổ nhiệm ông Lê Xuân Định, Vụ trưởng Vụ Kế hoạch - Tài chính, Bộ Khoa học và Công nghệ giữ chức vụ Thứ trưởng Bộ Khoa học và Công nghệ.</p>
@@ -150,20 +193,20 @@
                     <div class="new_hotest_lst">
                         <div class="news_hotest_lsti">
                             <div class="nhi_img">
-                                <a href="#"><img src="Content/img/news3.jpg" alt=""></a>
+                                <a href="/demo/tintuc-detail.html"><img src="Content/img/anh2.png" alt=""></a>
                             </div>
                             <span class="hot_tag">Tin nổi bật</span>
                             <div class="nhi_title">
-                                <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                <a href="/demo/tintuc-detail.html">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                             </div>
                         </div>
                         <div class="news_hotest_lsti">
                             <div class="nhi_img">
-                                <a href="#"><img src="Content/img/news2.jpg" alt=""></a>
+                                <a href="/demo/tintuc-detail.html"><img src="Content/img/news2.jpg" alt=""></a>
                             </div>
                             <span class="hot_tag">Tin nổi bật</span>
                             <div class="nhi_title">
-                                <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                <a href="/demo/tintuc-detail.html">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                             </div>
                         </div>
                     </div>
@@ -173,29 +216,29 @@
                     <div class="box-newslst-container">
                         <div class="newslst-header">
                             <h3>ĐẤU THẦU - MUA SẮM</h3>
-                            <a class="newslst_td" href="#">Xem thêm ></a>
+                            <a class="newslst_td" href="/demo/tintuc-hdvp.html">Xem thêm ></a>
                             <div class="newslst-under"></div>
                         </div>
                         <div class="newslst-items">
                             <div class="newslst-it">
                                 <img src="Content/img/news1.jpg" alt="">
-                                <a href="#">Thông báo kết quả lựa chọn nhà thầu gói thầu "Truyền thông cho các Chương trình khoa học và công nghệ quốc gia năm 2019"</a>
+                                <a href="/demo/tintuc-detail.html">Thông báo kết quả lựa chọn nhà thầu gói thầu "Truyền thông cho các Chương trình khoa học và công nghệ quốc gia năm 2019"</a>
                             </div>
                             <div class="newslst-it">
                                 <img src="Content/img/news2.jpg" alt="">
-                                <a href="#">Thông báo kết quả lựa chọn nhà thầu gói thầu "Truyền thông cho các Chương trình khoa học và công nghệ quốc gia năm 2019"</a>
+                                <a href="/demo/tintuc-detail.html">Thông báo kết quả lựa chọn nhà thầu gói thầu "Truyền thông cho các Chương trình khoa học và công nghệ quốc gia năm 2019"</a>
                             </div>
                             <div class="newslst-it">
-                                <img src="Content/img/news3.jpg" alt="">
-                                <a href="#">Thông báo kết quả lựa chọn nhà thầu gói thầu "Truyền thông cho các Chương trình khoa học và công nghệ quốc gia năm 2019"</a>
+                                <img src="Content/img/anh2.png" alt="">
+                                <a href="/demo/tintuc-detail.html">Thông báo kết quả lựa chọn nhà thầu gói thầu "Truyền thông cho các Chương trình khoa học và công nghệ quốc gia năm 2019"</a>
                             </div>
                             <div class="newslst-it">
                                 <img src="Content/img/news4.jpg" alt="">
-                                <a href="#">Thông báo kết quả lựa chọn nhà thầu gói thầu "Truyền thông cho các Chương trình khoa học và công nghệ quốc gia năm 2019"</a>
+                                <a href="/demo/tintuc-detail.html">Thông báo kết quả lựa chọn nhà thầu gói thầu "Truyền thông cho các Chương trình khoa học và công nghệ quốc gia năm 2019"</a>
                             </div>
                             <div class="newslst-it">
                                 <img src="Content/img/news1.jpg" alt="">
-                                <a href="#">Thông báo kết quả lựa chọn nhà thầu gói thầu "Truyền thông cho các Chương trình khoa học và công nghệ quốc gia năm 2019"</a>
+                                <a href="/demo/tintuc-detail.html">Thông báo kết quả lựa chọn nhà thầu gói thầu "Truyền thông cho các Chương trình khoa học và công nghệ quốc gia năm 2019"</a>
                             </div>
                         </div>
                     </div>
@@ -209,18 +252,18 @@
             <div class="news_container">
                 <div class="box-newslst-khcn">
                     <div class="newslst-header">
-                        <h3>KHOA HỌC CÔNG NGHỆ</h3>
-                        <a class="newslst_td" href="#">Xem thêm ></a>
+                        <a href="/demo/tintuc-khcn.html"><h3>TIN KHOA HỌC CÔNG NGHỆ</h3></a>
+                        <a class="newslst_td" href="/demo/tintuc-khcn.html">Xem thêm ></a>
                         <div class="newslst-under"></div>
                     </div>
                     <div class="newslst-khcn-items">
                         <div class="news_hotest_khcn">
                             <div class="nhi_img">
-                                <a href="#"><img src="Content/img/news3.jpg" alt=""></a>
+                                <a href="/demo/tintuc-detail.html"><img src="Content/img/anh2.png" alt=""></a>
                             </div>
-                            <span class="hot_tag">Tin nổi bật</span>
+                            
                             <div class="nhi_title">
-                                <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                <a href="/demo/tintuc-detail.html">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                             </div>
                             <div class="nhi_caption">
                                 <p>Thủ tướng Nguyễn Xuân Phúc vừa ký Quyết định bổ nhiệm ông Lê Xuân Định, Vụ trưởng Vụ Kế hoạch - Tài chính, Bộ Khoa học và Công nghệ giữ chức vụ Thứ trưởng Bộ Khoa học và Công nghệ.</p>
@@ -228,11 +271,11 @@
                         </div>
                         <div class="news_hotest_khcn">
                             <div class="nhi_img">
-                                <a href="#"><img src="Content/img/news2.jpg" alt=""></a>
+                                <a href="/demo/tintuc-detail.html"><img src="Content/img/news2.jpg" alt=""></a>
                             </div>
-                            <span class="hot_tag">Tin nổi bật</span>
+                            
                             <div class="nhi_title">
-                                <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                <a href="/demo/tintuc-detail.html">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                             </div>
                             <div class="nhi_caption">
                                 <p>Thủ tướng Nguyễn Xuân Phúc vừa ký Quyết định bổ nhiệm ông Lê Xuân Định, Vụ trưởng Vụ Kế hoạch - Tài chính, Bộ Khoa học và Công nghệ giữ chức vụ Thứ trưởng Bộ Khoa học và Công nghệ.</p>
@@ -240,11 +283,11 @@
                         </div>
                         <div class="news_hotest_khcn">
                             <div class="nhi_img">
-                                <a href="#"><img src="Content/img/news3.jpg" alt=""></a>
+                                <a href="/demo/tintuc-detail.html"><img src="Content/img/anh2.png" alt=""></a>
                             </div>
-                            <span class="hot_tag">Tin nổi bật</span>
+                            
                             <div class="nhi_title">
-                                <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                <a href="/demo/tintuc-detail.html">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                             </div>
                             <div class="nhi_caption">
                                 <p>Thủ tướng Nguyễn Xuân Phúc vừa ký Quyết định bổ nhiệm ông Lê Xuân Định, Vụ trưởng Vụ Kế hoạch - Tài chính, Bộ Khoa học và Công nghệ giữ chức vụ Thứ trưởng Bộ Khoa học và Công nghệ.</p>
@@ -252,11 +295,11 @@
                         </div>
                         <div class="news_hotest_khcn">
                             <div class="nhi_img">
-                                <a href="#"><img src="Content/img/news2.jpg" alt=""></a>
+                                <a href="/demo/tintuc-detail.html"><img src="Content/img/news2.jpg" alt=""></a>
                             </div>
-                            <span class="hot_tag">Tin nổi bật</span>
+                            
                             <div class="nhi_title">
-                                <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                <a href="/demo/tintuc-detail.html">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                             </div>
                             <div class="nhi_caption">
                                 <p>Thủ tướng Nguyễn Xuân Phúc vừa ký Quyết định bổ nhiệm ông Lê Xuân Định, Vụ trưởng Vụ Kế hoạch - Tài chính, Bộ Khoa học và Công nghệ giữ chức vụ Thứ trưởng Bộ Khoa học và Công nghệ.</p>
@@ -272,20 +315,20 @@
             <div class="news_container">
                 <div class="box-newslst-hdvp">
                     <div class="newslst-header">
-                        <h3>HOẠT ĐỘNG VĂN PHÒNG</h3>
+                        <a href="/demo/tintuc-hdvp.html"><h3>HOẠT ĐỘNG VĂN PHÒNG</h3></a>
                         <div class="newslst-under"></div>
                     </div>
                     <div class="newslst-hdvp-items">
                         <div class="news_hotest_hdvp">
                             <div class="hdvp_left">
                                 <div class="nhi_img">
-                                    <a href="#"><img src="Content/img/news2.jpg" alt=""></a>
+                                    <a href=""><img src="Content/img/news2.jpg" alt=""></a>
                                 </div>
-                                <span class="hot_tag">Tin nổi bật</span>
+                                
                             </div>
                             <div class="hdvp_right">
                                 <div class="nhi_title">
-                                    <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                    <a href="javascript:void(0)">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                                 </div>
                                 <div class="nhi_caption">
                                     <p>Thủ tướng Nguyễn Xuân Phúc vừa ký Quyết định bổ nhiệm ông Lê Xuân Định, Vụ trưởng Vụ Kế hoạch - Tài chính, Bộ Khoa học và Công nghệ giữ chức vụ Thứ trưởng Bộ Khoa học và Công nghệ.</p>
@@ -295,13 +338,13 @@
                         <div class="news_hotest_hdvp">
                             <div class="hdvp_left">
                                 <div class="nhi_img">
-                                    <a href="#"><img src="Content/img/news4.jpg" alt=""></a>
+                                    <a href="/demo/tintuc-detail.html"><img src="Content/img/news4.jpg" alt=""></a>
                                 </div>
-                                <span class="hot_tag">Tin nổi bật</span>
+                                
                             </div>
                             <div class="hdvp_right">
                                 <div class="nhi_title">
-                                    <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                    <a href="/demo/tintuc-detail.html">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                                 </div>
                                 <div class="nhi_caption">
                                     <p>Thủ tướng Nguyễn Xuân Phúc vừa ký Quyết định bổ nhiệm ông Lê Xuân Định, Vụ trưởng Vụ Kế hoạch - Tài chính, Bộ Khoa học và Công nghệ giữ chức vụ Thứ trưởng Bộ Khoa học và Công nghệ.</p>
@@ -311,13 +354,13 @@
                         <div class="news_hotest_hdvp">
                             <div class="hdvp_left">
                                 <div class="nhi_img">
-                                    <a href="#"><img src="Content/img/news1.jpg" alt=""></a>
+                                    <a href="javascript:void(0)"><img src="Content/img/news1.jpg" alt=""></a>
                                 </div>
-                                <span class="hot_tag">Tin nổi bật</span>
+                                
                             </div>
                             <div class="hdvp_right">
                                 <div class="nhi_title">
-                                    <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                    <a href="javascript:void(0)">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                                 </div>
                                 <div class="nhi_caption">
                                     <p>Thủ tướng Nguyễn Xuân Phúc vừa ký Quyết định bổ nhiệm ông Lê Xuân Định, Vụ trưởng Vụ Kế hoạch - Tài chính, Bộ Khoa học và Công nghệ giữ chức vụ Thứ trưởng Bộ Khoa học và Công nghệ.</p>
@@ -327,13 +370,13 @@
                         <div class="news_hotest_hdvp">
                             <div class="hdvp_left">
                                 <div class="nhi_img">
-                                    <a href="#"><img src="Content/img/news3.jpg" alt=""></a>
+                                    <a href="javascript:void(0)"><img src="Content/img/anh2.png" alt=""></a>
                                 </div>
-                                <span class="hot_tag">Tin nổi bật</span>
+                                
                             </div>
                             <div class="hdvp_right">
                                 <div class="nhi_title">
-                                    <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                    <a href="javascript:void(0)">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                                 </div>
                                 <div class="nhi_caption">
                                     <p>Thủ tướng Nguyễn Xuân Phúc vừa ký Quyết định bổ nhiệm ông Lê Xuân Định, Vụ trưởng Vụ Kế hoạch - Tài chính, Bộ Khoa học và Công nghệ giữ chức vụ Thứ trưởng Bộ Khoa học và Công nghệ.</p>
@@ -343,13 +386,13 @@
                         <div class="news_hotest_hdvp">
                             <div class="hdvp_left">
                                 <div class="nhi_img">
-                                    <a href="#"><img src="Content/img/news2.jpg" alt=""></a>
+                                    <a href="javascript:void(0)"><img src="Content/img/news2.jpg" alt=""></a>
                                 </div>
-                                <span class="hot_tag">Tin nổi bật</span>
+                                
                             </div>
                             <div class="hdvp_right">
                                 <div class="nhi_title">
-                                    <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                    <a href="javascript:void(0)">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                                 </div>
                                 <div class="nhi_caption">
                                     <p>Thủ tướng Nguyễn Xuân Phúc vừa ký Quyết định bổ nhiệm ông Lê Xuân Định, Vụ trưởng Vụ Kế hoạch - Tài chính, Bộ Khoa học và Công nghệ giữ chức vụ Thứ trưởng Bộ Khoa học và Công nghệ.</p>
@@ -359,13 +402,13 @@
                         <div class="news_hotest_hdvp">
                             <div class="hdvp_left">
                                 <div class="nhi_img">
-                                    <a href="#"><img src="Content/img/news4.jpg" alt=""></a>
+                                    <a href="javascript:void(0)"><img src="Content/img/news4.jpg" alt=""></a>
                                 </div>
-                                <span class="hot_tag">Tin nổi bật</span>
+                                
                             </div>
                             <div class="hdvp_right">
                                 <div class="nhi_title">
-                                    <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                    <a href="javascript:void(0)">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                                 </div>
                                 <div class="nhi_caption">
                                     <p>Thủ tướng Nguyễn Xuân Phúc vừa ký Quyết định bổ nhiệm ông Lê Xuân Định, Vụ trưởng Vụ Kế hoạch - Tài chính, Bộ Khoa học và Công nghệ giữ chức vụ Thứ trưởng Bộ Khoa học và Công nghệ.</p>
@@ -375,20 +418,20 @@
                         <div class="news_hotest_hdvp">
                             <div class="hdvp_left">
                                 <div class="nhi_img">
-                                    <a href="#"><img src="Content/img/news1.jpg" alt=""></a>
+                                    <a href="javascript:void(0)"><img src="Content/img/news1.jpg" alt=""></a>
                                 </div>
-                                <span class="hot_tag">Tin nổi bật</span>
+                                
                             </div>
                             <div class="hdvp_right">
                                 <div class="nhi_title">
-                                    <a href="#">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
+                                    <a href="javascript:void(0)">Thủ tướng bổ nhiệm Thứ trưởng Bộ Khoa học và Công nghệ</a>
                                 </div>
                                 <div class="nhi_caption">
                                     <p>Thủ tướng Nguyễn Xuân Phúc vừa ký Quyết định bổ nhiệm ông Lê Xuân Định, Vụ trưởng Vụ Kế hoạch - Tài chính, Bộ Khoa học và Công nghệ giữ chức vụ Thứ trưởng Bộ Khoa học và Công nghệ.</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="hdtg_more"><a href="#">Xem thêm</a></div>
+                        <div class="hdtg_more"><a href="javascript:void(0)">Xem thêm</a></div>
                     </div>
                 </div>
                 
@@ -404,7 +447,7 @@
                     <div class="video_tt">
                         <h3>THÔNG BÁO TUYỂN CHỌN <br /> tổ chức chủ trì <br /> chương trình phát triển sản phẩm quốc gia</h3>
 
-                        <a class="xt_td" href="#">Xem thêm ></a>
+                        <a class="xt_td" href="javascript:void(0)">Đăng ký tham gia ></a>
                     </div>
 
                 <div class="bg_video">
@@ -418,55 +461,7 @@
         </div>
         <!--BG Video-->
          <!--Đăng ký nhận tin-->
-         <div class="box-container">
-            <div class="khcn-head">
-                <h1>Đăng ký nhận tin mới nhất</h1>
-                <div class="underline"></div>
-            </div>
-            <div id="frm_dknt" class="form_kynt">
-                <form action="#">
-                    <table>
-                        <tr>
-                            <td>Họ Tên*</td>
-                            <td><input type="text" required="required"></td>
-                        </tr>
-                        <tr>
-                                <td>Email*</td>
-                                <td><input type="text" required="required"></td>
-                            </tr>
-                            <tr>
-                                    <td>Số điện thoại*</td>
-                                    <td><input type="text" required="required"></td>
-                                </tr>
-                                <tr>
-                                        <td>Quan tâm đến*</td>
-                                        <td><select name="" id="" required="required">
-                                            <option value="">Các nhiệm vụ KH&CN theo Nghị định thư
-                                            </option>
-                                            <option value="">Chương trình đổi mới công nghệ quốc gia đến năm 2020
-                                            </option>
-                                            <option value="">Chương trình hỗ trợ phát triển doanh nghiệp KH&CN và tổ chức KH&CN công lập thực hiện cơ chế tự chủ, tự chịu trách nhiệm
-                                            </option>
-                                            <option value="">Chương trình hợp tác nghiên cứu song phương và đa phương về khoa học và công nghệ đến năm 2020
-                                            </option>
-                                            
-                                           
-                                            <option value="">Chương trình phát triển sản phẩm quốc gia đến năm 2020
-
-                                            </option>
-                                            <option value="">Chương trình quốc gia phát triển công nghệ cao đến năm 2020
-                                            </option>
-                                            <option value="">Chương trình tìm kiếm và chuyển giao công nghệ nước ngoài đến năm 2020
-                                            </option>
-                                            <option value="">Đề án "Hỗ trợ hệ sinh thái khởi nghiệp đổi mới sáng tạo quốc gia đến năm 2025"
-                                            </option>
-                                        </select></td>
-                                    </tr>
-                    </table>
-                    <div class="bt_submiti"><button type="submit">Đăng ký</button></div>
-                </form>
-            </div>
-        </div>
+         
         <!--Đăng ký nhận tin-->
     </div>
 	 
@@ -475,24 +470,21 @@
             <div class="container">
                 <div class="left">
                     <ul class="social">
-                        <li><a href="#"><span><i class="fa fa-facebook"></i></span></a></li>
-                        <li><a href="#"><span><i class="fa fa-twitter"></i></span></a></li>
-                        <li><a href="#"><span><i class="fa fa-google-plus"></i></span></a></li>
-                        <li><a href="#"><span><i class="fa fa-youtube"></i></span></a></li>
-                        <li><a href="#"><span><i class="fa fa-instagram"></i></span></a></li>
-                        <li><a href="#"><span><i class="fa fa-linkedin"></i></span></a></li>
+                        <li><a href="javascript:void(0)"><span><i class="fa fa-facebook"></i></span></a></li>
+                        <li><a href="javascript:void(0)"><span><i class="fa fa-youtube"></i></span></a></li>
+                        <li><a href="javascript:void(0)"><span><i class="fa fa-linkedin"></i></span></a></li>
                     </ul>
                 </div>
                 
                 <div class="right">
                     <ul class="links">
-                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="javascript:void(0)">Trang chủ</a></li>
                         <li><span>|</span></li>
-                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="javascript:void(0)">Liên hệ</a></li>
                         <li><span>|</span></li>
-                        <li><a href="#">Sơ đồ site</a></li>
+                        <li><a href="javascript:void(0)">Sơ đồ site</a></li>
                         <li><span>|</span></li>
-                        <li><a href="#">RSS</a></li>
+                        <li><a href="javascript:void(0)">RSS</a></li>
                     </ul>
                 </div>
             </div>
@@ -502,17 +494,63 @@
             <div class="container">
                 <div class="left">
                     <img src="Content/img/logo_footer.png" />
-                    <p><strong>CƠ QUAN CHỦ QUẢN: BỘ KHOA HỌC VÀ CÔNG NGHỆ (MOST)</strong></p>
-                    <p>Địa chỉ : 113 Trần Duy Hưng, Phường Trung Hòa, Quận Cầu Giấy, Hà Nội</p> 
-                    <p>Bộ phận văn thư: (84.4) 39437056; Phòng Tổng hợp: (84.4) 39438970</p>
-                    <p>Lễ tân: (84.4) 35560696. Fax: (84.4) 39439733</p> 
+                    <p><strong>VĂN PHÒNG CÁC CHƯƠNG TRÌNH KHOA HỌC VÀ CÔNG NGHỆ QUỐC GIA</strong></p>
+                    <p>Điện thoại: (84.4) 3.5551.726 - Fax: (84.4)3.5551.725</p>
+                    <p>Email: vpctqg@most.gov.vn</p>
+                    <p>Địa chỉ: 113 Trần Duy Hưng, Phường Trung Hòa, Quận Cầu Giấy, Hà Nội</p> 
+
                 </div>
                 
                 <div class="right">
-                    <p><strong>Bản quyền thuộc:</strong></p>
-                    <p><strong>TRUNG TÂM TIN HỌC - BỘ KHOA HỌC VÀ CÔNG NGHỆ</strong></p>
-                    <p>Email : bbt@most.gov.vn</p>
-                    <p>Ghi rõ nguồn từ “MOST” khi phát hành lại thông tin từ Cổng thông tin điện tử này.</p>
+                    <!--Đăng ký nhận tin-->
+                <div class="box-container">
+                    <div class="khcn-head-footer">
+                        <h1>Đăng ký nhận tin mới nhất</h1>
+                    </div>
+                    <div id="frm_dknt" class="form_kynt">
+                        <form action="#">
+                            <table>
+                                <tr>
+                                    <td>Họ Tên*</td>
+                                    <td><input type="text" required="required"></td>
+                                </tr>
+                                <tr>
+                                        <td>Email*</td>
+                                        <td><input type="text" required="required"></td>
+                                    </tr>
+                                    <tr>
+                                            <td>Số điện thoại*</td>
+                                            <td><input type="text" required="required"></td>
+                                        </tr>
+                                        <tr>
+                                                <td>Quan tâm đến*</td>
+                                                <td><select name="" id="" required="required">
+                                                    <option value="">Các nhiệm vụ KH&CN theo Nghị định thư
+                                                    </option>
+                                                    <option value="">Chương trình đổi mới công nghệ quốc gia đến năm 2020
+                                                    </option>
+                                                    <option value="">Chương trình hỗ trợ phát triển doanh nghiệp KH&CN và tổ chức KH&CN công lập thực hiện cơ chế tự chủ, tự chịu trách nhiệm
+                                                    </option>
+                                                    <option value="">Chương trình hợp tác nghiên cứu song phương và đa phương về khoa học và công nghệ đến năm 2020
+                                                    </option>
+                                                    
+                                                   
+                                                    <option value="">Chương trình phát triển sản phẩm quốc gia đến năm 2020
+
+                                                    </option>
+                                                    <option value="">Chương trình quốc gia phát triển công nghệ cao đến năm 2020
+                                                    </option>
+                                                    <option value="">Chương trình tìm kiếm và chuyển giao công nghệ nước ngoài đến năm 2020
+                                                    </option>
+                                                    <option value="">Đề án "Hỗ trợ hệ sinh thái khởi nghiệp đổi mới sáng tạo quốc gia đến năm 2025"
+                                                    </option>
+                                                </select></td>
+                                            </tr>
+                            </table>
+                            <div class="bt_submiti"><button type="submit">Đăng ký</button></div>
+                        </form>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -571,7 +609,7 @@
            nav:true,
            dots:false,
            autoplay:true,
-           autoplayTimeout:5
+           autoplayTimeout:5000
        });
       })
 </script>

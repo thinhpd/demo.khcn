@@ -34,5 +34,16 @@ function initPage(){
 		// Do something
 	});
 	console.log('page loaded');
+	$('#ipsearch').keypress(function(event){
+	
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+		if(keycode == '13'){
+			window.location.href = "/demo/search.html";
+		}
+	
+	});
+	$('#ipsearchbt').click(function(){
+		window.location.href = "/demo/search.html";
+	});
 
 };

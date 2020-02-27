@@ -58,16 +58,14 @@
                 <div class="right">
                 	<div class="search">
                     	<div class="input">
-                        	<input type="text" placeholder="Tìm kiếm" />
-                            <a href="javascript:;"><i class="fa fa-search"></i></a>
+                        	<input id="ipsearch" type="text" placeholder="Tìm kiếm" />
+                            <a id="ipsearchbt" href="javascript:gotosearch();"><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="links">
                     	<ul>
-                        	<li><span><a href="#"><i class="fa fa-users"></i> Ý kiến</a></span></li>
-                            <li><span><a href="#"><i class="fa fa-envelope-o"></i> Email</a></span></li>
-                            <li><a href="#"><img src="Content/img/icon_vietnam.png" /></a></li>
-                            <li><a href="#"><img src="Content/img/icon_english.png" /></a></li>
+                            <li><a href="javascript:void(0)"><img src="Content/img/icon_vietnam.png" /></a></li>
+                            <li><a href="javascript:void(0)"><img src="Content/img/icon_english.png" /></a></li>
                         </ul>
                     </div>
                 </div>
@@ -77,8 +75,17 @@
                     <ul>
                         <li class="first actived"><a href="/demo/trangchu_new.html"><i class="fa fa-home"></i></a></li>
                         <li><a href="/demo/gioi-thieu.html">Giới thiệu</a></li>
-                        <li><a href="/demo/tintuc.html">Tin tức – sự kiện</a></li>
-                        <li><a href="/demo/cac-chuong-trinh-quoc-gia-tongquat.html">Các Chương trình KH&CN Quốc gia</a>
+                        <li><a href="/demo/tintuc.html">Tin tức – sự kiện</a>
+                            <div class="sub">
+                                <ul>
+                                    <li><a href="/demo/tintuc.html">Tin nổi bật</a></li>
+                                    <li><a href="/demo/tintuc-hdvp.html">Hoạt động văn phòng</a></li>
+                                    <li><a href="/demo/tintuc-khcn.html">Tin khoa học công nghệ</a></li>
+                                    <li><a href="/demo/tintuc-hdvp.html">Đấu thầu mua sắm công</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="actived"><a href="/demo/cac-chuong-trinh-quoc-gia-tongquat.html">Các Chương trình KH&CN Quốc gia</a>
                         <div class="sub">
                             <ul>
                                 <li><a href="/demo/cac-chuong-trinh-quoc-gia.html">Các nhiệm vụ KH&CN theo Nghị định thư</a></li>
@@ -92,12 +99,14 @@
                             </ul>
                         </div>
                         </li>
-                        <li><a href="#">Quy trình tham gia</a></li>
-                        <li><a href="#">Văn bản quản lý</a></li>
-                        <li class="last"><a href="#">Liên hệ</a></li>
+                        <li><a href="/demo/hdtg.html">Hướng dẫn tham gia</a></li>
+                        <li><a href="/demo/qlvb.html">Văn bản quản lý</a>
+                        </li>
+                        <li><a href="/demo/video_list.html">Thư viện</a></li>
+                        <li class="last"><a href="/demo/lienhe.html">Liên hệ</a></li>
                     </ul>
                 </div>
-            </nav>  
+            </nav>
         </div>
         
 	</header>
@@ -107,105 +116,9 @@
 	<div class="body">
 		
             
-            <!--Big Banner-->
-            <div class="box-container">
-                <div class="video_tuuyendung big_banner">
-                        <div class="video_tt">
-                            <img src="Content/img/logo/logo_ab.png" alt="">
-                                 
-                            <h1>CÁC CHƯƠNG TRÌNH</h1><h1> KHOA HỌC VÀ CÔNG NGHỆ QUỐC GIA</h1>
-                            <a id="lk_frm_dknt" href="#frm_dknt">Đăng ký nhận tin</a>
-                        </div>
-                        <div class="bg_video">
-                                <video autoplay="" loop="" muted="" style="">
-                                    <source src="Content/video/video-7.mp4" type="video/mp4">
-                                    <source src="Content/video/video-7.ogv" type="video/ogg">
-                                </video>
-                        </div>
-                    
-                </div>
-            </div>
-
-
-            <!-- top, breaking news -->
-            <div class="container">
-                <div class="top-content">
-                    <div class="content">
-                        <strong class="head">Tin mới</strong>
-                        <div class="lastest-news">
-                            <ul class="newsticker">
-                                <li><a href="#">Câu hỏi liên quan đến triển khai thực hiện Nghị định số 115/2005/NĐ-CP và Nghị định số 96/2010/NĐ-CP</a></li>
-                                <li><a href="#">Về thẩm quyền thành lập Trung tâm Kỹ thuật Tiêu chuẩn Đo lường Chất lượng</a></li>
-                                <li><a href="#">Về việc áp dụng thuế suất thuế giá trị gia tăng là 5% đối với các dịch vụ khoa học và công nghệ</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="date">
-                        <i class="fa fa-calendar-o"></i> 08:16 | 26/07/2016 (GMT+7)
-                    </div>
-                </div>
-            </div>
-            <!-- top, breaking news -->
-             <!--Tai sao công trình khcn-->
-             <div class="box-container tskhcn">
-                <div class="khcn-head ">
-                    <h1>TẠI SAO <br/> CÁC CHƯƠNG TRÌNH KHOA HỌC CÔNG NGHỆ QUỐC GIA? </h1>
-                    <div class="underline"></div>
-                </div>
-                <div class="row">
-                   
-                        
-                                 <div class="khcn-item">
-                                     
-                                    <i class="fa fa-desktop" aria-hidden="true"></i>
-                                         <p>Phát triển KH&CN là động lực then chốt để phát triển đất nước nhanh và bền vững</p>
-                                 </div>
-                   
-                         <div class="khcn-item">
-                                 
-                            <i class="fa fa-laptop" aria-hidden="true"></i>
-                                     <p>Tăng cường tiềm lực KH&CN quốc gia</p>
-                         </div>
-                         <div class="khcn-item">
-                                 
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-
-                                     <p>Tăng mức đầu tư và ưu tiên đầu tư cho các sản phẩm KH&CN quốc gia</p>
-                         </div>
-                    
-                         <div class="khcn-item">
-                                
-                            <i class="fa fa-qrcode" aria-hidden="true"></i>
-                            <p>Phát triển thị trường KH&CN</p>
-                         </div>
-                         <div class="khcn-item">
-                                
-                            <i class="fa fa-credit-card" aria-hidden="true"></i>
-                            <p>Hội nhập quốc tế về KH&CN
-                            </p>
-                         </div>
-                    
-                         <div class="khcn-item">
-                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                            <p>Hội nhập quốc tế về KH&CN</p>
-                         </div>
-                         <div class="khcn-item">
-                                 
-                            <i class="fa fa-map-o" aria-hidden="true"></i>
-                            <p>Hội nhập quốc tế về KH&CN</p>
-                         </div>
-                         <div class="khcn-item">
-                                 
-                            <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                             <p>Hội nhập quốc tế về KH&CN</p>
-                             
-                         </div>
-                 </div>
-            </div>
-            <!--Tai Sao Các công trình khcn-->
-            <!--Các công trình khcn-->
-            <div class="box-container">
+           
+             <!--Các công trình khcn-->
+             <div class="box-container">
                 <div class="khcn-head ">
                     <h1>CÁC CHƯƠNG TRÌNH <br /> KHOA HỌC VÀ CÔNG NGHỆ QUỐC GIA</h1>
                     <div class="underline"></div>
@@ -264,6 +177,64 @@
              
             </div>
             <!--Các công trình khcn-->
+             <!--Tai sao công trình khcn-->
+             <div class="box-container tskhcn">
+                <div class="khcn-head ">
+                    <h1>TẠI SAO nên tham gia<br/>  các Chương trình khoa học và công nghệ quốc gia?</h1>
+                    <div class="underline"></div>
+                </div>
+                <div class="row">
+                   
+                        
+                                 <div class="khcn-item">
+                                     
+                                    <i class="fa fa-desktop" aria-hidden="true"></i>
+                                         <p>Phát triển KH&CN là động lực then chốt để phát triển đất nước nhanh và bền vững</p>
+                                 </div>
+                   
+                         <div class="khcn-item">
+                                 
+                            <i class="fa fa-laptop" aria-hidden="true"></i>
+                                     <p>Tăng cường tiềm lực KH&CN quốc gia</p>
+                         </div>
+                         <div class="khcn-item">
+                                 
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+
+                                     <p>Tăng mức đầu tư và ưu tiên đầu tư cho các sản phẩm KH&CN quốc gia</p>
+                         </div>
+                    
+                         <div class="khcn-item">
+                                
+                            <i class="fa fa-qrcode" aria-hidden="true"></i>
+                            <p>Phát triển thị trường KH&CN</p>
+                         </div>
+                         <div class="khcn-item">
+                                
+                            <i class="fa fa-credit-card" aria-hidden="true"></i>
+                            <p>Hội nhập quốc tế về KH&CN
+                            </p>
+                         </div>
+                    
+                         <div class="khcn-item">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                            <p>Hội nhập quốc tế về KH&CN</p>
+                         </div>
+                         <div class="khcn-item">
+                                 
+                            <i class="fa fa-map-o" aria-hidden="true"></i>
+                            <p>Hội nhập quốc tế về KH&CN</p>
+                         </div>
+                         <div class="khcn-item">
+                                 
+                            <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                             <p>Hội nhập quốc tế về KH&CN</p>
+                             
+                         </div>
+                 </div>
+            </div>
+            <!--Tai Sao Các công trình khcn-->
+           
             <!--Các đơn vị tiêu biểu-->
             <div class="box-container">
                 <div class="dvcttb-container">
@@ -271,22 +242,22 @@
                     <div class="dvtg_container">
                             <span>ĐỊNH HƯỚNG</span>
                         <div class="dh_container">
-                            <div class="dh_item">
+                            <div class="dh_item" data-aos="flip-left" data-aos-duration="350">
                                 <div class="dh_item_lg"><i class="fa fa-object-ungroup" aria-hidden="true"></i></div>
                                 <p>Chúng tôi đánh giá doanh nghiệp chính là trung tâm để đổi mới và ứng dụng
                                     công nghệ </p>
                             </div>
-                            <div class="dh_item">
+                            <div class="dh_item" data-aos="flip-left" data-aos-duration="450">
                                 <div class="dh_item_lg"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i></div>
                                 <p>Chúng tôi tập trung các nguồn lực đầu tư có trọng tâm,
                                     trọng điểm </p>
                             </div>
-                            <div class="dh_item">
+                            <div class="dh_item" data-aos="flip-left" data-aos-duration="550">
                                 <div class="dh_item_lg"><i class="fa fa-cog" aria-hidden="true"></i></div>
                                 <p>Hướng đến hình thành, phát triển các sản phẩm hàng hóa thương hiệu Việt Nam bằng công
                                     nghệ cao, công nghệ tiên tiến; </p>
                             </div>
-                            <div class="dh_item">
+                            <div class="dh_item" data-aos="flip-left" data-aos-duration="650">
                                 <div class="dh_item_lg"><i class="fa fa-crosshairs" aria-hidden="true"></i></div>
                                 <p>Nâng cao năng lực đổi mới công nghệ của doanh nghiệp và tiềm lực công nghệ quốc
                                     gia</p>
@@ -379,7 +350,7 @@
             <div class="video_tt">
                 <h3>THÔNG BÁO TUYỂN CHỌN <br /> tổ chức chủ trì <br /> chương trình phát triển sản phẩm quốc gia</h3>
 
-                <a class="xt_td" href="#">Xem thêm ></a>
+                <a class="xt_td" href="javascript:void(0)">Đăng ký tham gia ></a>
             </div>
 
         <div class="bg_video">
@@ -392,55 +363,7 @@
     </div>
 </div>
             <!--Đăng ký nhận tin-->
-            <div class="box-container">
-                <div class="khcn-head">
-                    <h1>Đăng ký nhận tin mới nhất</h1>
-                    <div class="underline"></div>
-                </div>
-                <div id="frm_dknt" class="form_kynt">
-                    <form action="#">
-                        <table>
-                            <tr>
-                                <td>Họ Tên*</td>
-                                <td><input type="text" required="required"></td>
-                            </tr>
-                            <tr>
-                                    <td>Email*</td>
-                                    <td><input type="text" required="required"></td>
-                                </tr>
-                                <tr>
-                                        <td>Số điện thoại*</td>
-                                        <td><input type="text" required="required"></td>
-                                    </tr>
-                                    <tr>
-                                            <td>Quan tâm đến*</td>
-                                            <td><select name="" id="" required="required">
-                                                <option value="">Các nhiệm vụ KH&CN theo Nghị định thư
-                                                </option>
-                                                <option value="">Chương trình đổi mới công nghệ quốc gia đến năm 2020
-                                                </option>
-                                                <option value="">Chương trình hỗ trợ phát triển doanh nghiệp KH&CN và tổ chức KH&CN công lập thực hiện cơ chế tự chủ, tự chịu trách nhiệm
-                                                </option>
-                                                <option value="">Chương trình hợp tác nghiên cứu song phương và đa phương về khoa học và công nghệ đến năm 2020
-                                                </option>
-                                                
-                                               
-                                                <option value="">Chương trình phát triển sản phẩm quốc gia đến năm 2020
-
-                                                </option>
-                                                <option value="">Chương trình quốc gia phát triển công nghệ cao đến năm 2020
-                                                </option>
-                                                <option value="">Chương trình tìm kiếm và chuyển giao công nghệ nước ngoài đến năm 2020
-                                                </option>
-                                                <option value="">Đề án "Hỗ trợ hệ sinh thái khởi nghiệp đổi mới sáng tạo quốc gia đến năm 2025"
-                                                </option>
-                                            </select></td>
-                                        </tr>
-                        </table>
-                        <div class="bt_submiti"><button type="submit">Đăng ký</button></div>
-                    </form>
-                </div>
-            </div>
+            
  <!--BG Video-->
  
                 <!--Các đơn vị tiêu biểu-->
@@ -457,24 +380,21 @@
             <div class="container">
                 <div class="left">
                     <ul class="social">
-                        <li><a href="#"><span><i class="fa fa-facebook"></i></span></a></li>
-                        <li><a href="#"><span><i class="fa fa-twitter"></i></span></a></li>
-                        <li><a href="#"><span><i class="fa fa-google-plus"></i></span></a></li>
-                        <li><a href="#"><span><i class="fa fa-youtube"></i></span></a></li>
-                        <li><a href="#"><span><i class="fa fa-instagram"></i></span></a></li>
-                        <li><a href="#"><span><i class="fa fa-linkedin"></i></span></a></li>
+                        <li><a href="javascript:void(0)"><span><i class="fa fa-facebook"></i></span></a></li>
+                        <li><a href="javascript:void(0)"><span><i class="fa fa-youtube"></i></span></a></li>
+                        <li><a href="javascript:void(0)"><span><i class="fa fa-linkedin"></i></span></a></li>
                     </ul>
                 </div>
                 
                 <div class="right">
                     <ul class="links">
-                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="javascript:void(0)">Trang chủ</a></li>
                         <li><span>|</span></li>
-                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="javascript:void(0)">Liên hệ</a></li>
                         <li><span>|</span></li>
-                        <li><a href="#">Sơ đồ site</a></li>
+                        <li><a href="javascript:void(0)">Sơ đồ site</a></li>
                         <li><span>|</span></li>
-                        <li><a href="#">RSS</a></li>
+                        <li><a href="javascript:void(0)">RSS</a></li>
                     </ul>
                 </div>
             </div>
@@ -484,17 +404,63 @@
             <div class="container">
                 <div class="left">
                     <img src="Content/img/logo_footer.png" />
-                    <p><strong>CƠ QUAN CHỦ QUẢN: BỘ KHOA HỌC VÀ CÔNG NGHỆ (MOST)</strong></p>
-                    <p>Địa chỉ : 113 Trần Duy Hưng, Phường Trung Hòa, Quận Cầu Giấy, Hà Nội</p> 
-                    <p>Bộ phận văn thư: (84.4) 39437056; Phòng Tổng hợp: (84.4) 39438970</p>
-                    <p>Lễ tân: (84.4) 35560696. Fax: (84.4) 39439733</p> 
+                    <p><strong>VĂN PHÒNG CÁC CHƯƠNG TRÌNH KHOA HỌC VÀ CÔNG NGHỆ QUỐC GIA</strong></p>
+                    <p>Điện thoại: (84.4) 3.5551.726 - Fax: (84.4)3.5551.725</p>
+                    <p>Email: vpctqg@most.gov.vn</p>
+                    <p>Địa chỉ: 113 Trần Duy Hưng, Phường Trung Hòa, Quận Cầu Giấy, Hà Nội</p> 
+
                 </div>
                 
                 <div class="right">
-                    <p><strong>Bản quyền thuộc:</strong></p>
-                    <p><strong>TRUNG TÂM TIN HỌC - BỘ KHOA HỌC VÀ CÔNG NGHỆ</strong></p>
-                    <p>Email : bbt@most.gov.vn</p>
-                    <p>Ghi rõ nguồn từ “MOST” khi phát hành lại thông tin từ Cổng thông tin điện tử này.</p>
+                    <!--Đăng ký nhận tin-->
+                <div class="box-container">
+                    <div class="khcn-head-footer">
+                        <h1>Đăng ký nhận tin mới nhất</h1>
+                    </div>
+                    <div id="frm_dknt" class="form_kynt">
+                        <form action="#">
+                            <table>
+                                <tr>
+                                    <td>Họ Tên*</td>
+                                    <td><input type="text" required="required"></td>
+                                </tr>
+                                <tr>
+                                        <td>Email*</td>
+                                        <td><input type="text" required="required"></td>
+                                    </tr>
+                                    <tr>
+                                            <td>Số điện thoại*</td>
+                                            <td><input type="text" required="required"></td>
+                                        </tr>
+                                        <tr>
+                                                <td>Quan tâm đến*</td>
+                                                <td><select name="" id="" required="required">
+                                                    <option value="">Các nhiệm vụ KH&CN theo Nghị định thư
+                                                    </option>
+                                                    <option value="">Chương trình đổi mới công nghệ quốc gia đến năm 2020
+                                                    </option>
+                                                    <option value="">Chương trình hỗ trợ phát triển doanh nghiệp KH&CN và tổ chức KH&CN công lập thực hiện cơ chế tự chủ, tự chịu trách nhiệm
+                                                    </option>
+                                                    <option value="">Chương trình hợp tác nghiên cứu song phương và đa phương về khoa học và công nghệ đến năm 2020
+                                                    </option>
+                                                    
+                                                   
+                                                    <option value="">Chương trình phát triển sản phẩm quốc gia đến năm 2020
+
+                                                    </option>
+                                                    <option value="">Chương trình quốc gia phát triển công nghệ cao đến năm 2020
+                                                    </option>
+                                                    <option value="">Chương trình tìm kiếm và chuyển giao công nghệ nước ngoài đến năm 2020
+                                                    </option>
+                                                    <option value="">Đề án "Hỗ trợ hệ sinh thái khởi nghiệp đổi mới sáng tạo quốc gia đến năm 2025"
+                                                    </option>
+                                                </select></td>
+                                            </tr>
+                            </table>
+                            <div class="bt_submiti"><button type="submit">Đăng ký</button></div>
+                        </form>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -509,6 +475,8 @@
 <script>window.jQuery || document.write("<script src='Content/js/libs/jquery-1.11.3.min.js'>\x3C/script>")</script>
 <script type="text/javascript" src="Content/js/libs/jquery.newsTicker.js"></script>
 <script src="Content/js/functions.js"></script>
+<link rel="stylesheet" href="Content/css/aos.css">
+<script src="Content/js/aos.js"></script>
 <script>$(document).ready(initPage);</script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -539,6 +507,15 @@
             }
           }
         });
+        $('.hotest').owlCarousel({
+           items:1,
+           loop:true,
+           autoplay:true,
+           autoplayTimeout:5000,
+           autoplayHoverPause:true,
+           nav:true,
+           dots:false
+       });
         $('.sliderdvtg').owlCarousel({
             items:4,
             loop:false,
@@ -550,6 +527,12 @@
        
       })
 </script>
-
+<script>
+    $(document).ready(function(){
+        AOS.init({
+            easing: 'ease-in-out-sine'
+        });
+    });
+    </script>
 </body>
 </html>
